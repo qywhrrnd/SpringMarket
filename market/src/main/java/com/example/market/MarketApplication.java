@@ -9,6 +9,7 @@ public class MarketApplication {
 @Bean
 	public static void main(String[] args) {
 		SpringApplication.run(MarketApplication.class, args);
+		System.out.println("된다 안된다");
 	}
 
 }
