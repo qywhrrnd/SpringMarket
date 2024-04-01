@@ -5,5 +5,6 @@ public class MarketJimn {
 		System.out.println("지민");
 		System.out.println("지지지민");
 		System.out.println("지지지s민");
+		System.out.println("지지지s민");
 	}
 }
