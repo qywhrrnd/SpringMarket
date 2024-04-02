@@ -1,4 +1,4 @@
-package com.example.market;
+package com.example.springmarket;
 
 import javax.sql.DataSource;
 
@@ -12,14 +12,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 
-
 @SpringBootApplication
-public class MarketApplication {
+public class SpringmarketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MarketApplication.class, args);
+		SpringApplication.run(SpringmarketApplication.class, args);
 	}
-	
+
 	@Bean
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
@@ -28,7 +27,7 @@ public class MarketApplication {
 		bean.setMapperLocations(res);
 		return bean.getObject();
 	}
-	
+
 	@Bean
 	SqlSessionTemplate sqlSession(SqlSessionFactory factory) {
 		return new SqlSessionTemplate(factory);
