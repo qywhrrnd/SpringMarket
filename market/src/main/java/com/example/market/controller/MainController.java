@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	@RequestMapping("/") // 시작 페이지
 	public String main() {
-		return "main/main";
+		return "main";
 	}
 }
