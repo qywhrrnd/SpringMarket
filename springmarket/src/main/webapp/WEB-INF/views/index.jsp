@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>eElectronics - HTML eCommerce Template</title>
+<title>가지마켓</title>
 
 <!-- Google Fonts -->
 <link
@@ -93,7 +93,7 @@
 				<div class="col-sm-6">
 					<div class="logo">
 						<h1>
-							<a href="index.html">e<span>Electronics</span></a>
+							<a href="index.html"><span>가지마켓</span></a>
 						</h1>
 					</div>
 				</div>
