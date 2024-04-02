@@ -52,7 +52,7 @@
 									Cart</a></li>
 							<li><a href="checkout.html"><i class="fa fa-user"></i>
 									Checkout</a></li>
-							<li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+							<li><a href="/member/pagelogin.do"><i class="fa fa-user"></i> Login</a></li>
 						</ul>
 					</div>
 				</div>
