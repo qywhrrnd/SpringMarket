@@ -140,7 +140,7 @@ public class AuctionController {
 	    map.put("time", time);
 	    map.put("userid", finalUserId);
 
-	    return map;
+	    return null;
 	}
 
 }
