@@ -140,7 +140,7 @@ public class AuctionController {
 	    map.put("time", time);
 	    map.put("userid", finalUserId);
 
-	    return null;
+	    return map; // 수정: 생성한 맵 반환
 	}
 
 }

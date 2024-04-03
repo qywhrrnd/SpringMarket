@@ -219,9 +219,14 @@ function delete_product(auction_code) {
 
 	</table>
 
+	<script>
+$(document).ready(function(){
+    // updatePriceAndBidder 함수 호출
+    updatePriceAndBidder("${sessionScope.userid}", "${dto.auction_code}");
+});
+</script>
 
 	<script>
-// 가격과 현재 입찰자 정보를 업데이트하는 함수
 function updatePriceAndBidder() {
     // 세션 ID 또는 사용자 ID를 서버로 전달하기 위한 변수
     var sessionUserId = "${sessionScope.userid}";
@@ -254,6 +259,7 @@ function updatePriceAndBidder() {
         },
     });
 }
+
 
 
 // 일정한 시간 간격으로 업데이트 함수 호출
