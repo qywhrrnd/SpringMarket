@@ -3,15 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/market/include/mycss/login.css" rel="stylesheet" />
+<link href="/resources/mycss/login.css" rel="stylesheet" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
 function findpwd_result() {
 	let userid = $("#userid").val();
-	
 	alert("임시 비밀번호를 메일로 전송했습니다.");
-	document.form2.action = "/market/login_servlet/findpwd.do";
+	document.form2.action = "/member/findPwd.do";
 	document.form2.submit();
 }
 </script>

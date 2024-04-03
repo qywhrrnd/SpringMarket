@@ -13,7 +13,7 @@
 </script>
 <script>
 	function findid() {
-		location.href = "../login/findid.jsp";
+		href = "/member/pagefindId.do";
 	}
 
 	function findpwd() {
@@ -177,16 +177,17 @@ a {
 		<br>
 		<div class="aaa">
 			<span style="color: gray; font-size: 13px;">만약 아이디가 기억나지 않는다면?</span>
-			<button
+			<a
 				style="font-size: 13px; color: gray; background-color: transparent; border: 0px; display: block;"
-				onclick="findid()">아이디 찾기</button>
+				href='/member/pagefindId.do'> &nbsp;아이디 찾기</a>
+				
 		</div>
 		<div class="aaa">
 			<span style="color: gray; font-size: 13px;">만약 비밀번호가 기억나지
 				않는다면?</span>
-			<button
+			<a
 				style="font-size: 13px; color: gray; background-color: transparent; border: 0px; display: block;"
-				onclick="findpwd()">비밀번호 찾기</button>
+				href='/member/pagefindPwd.do'>&nbsp; 비밀번호 찾기</a>
 		</div>
 	</div>
 

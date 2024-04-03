@@ -83,6 +83,36 @@ public class MemberController {
 		return "redirect:/member/login.do";
 	}
 	
+	@GetMapping("member/pagefindId.do")
+	public ModelAndView pagefindId() {
+		return new ModelAndView("member/findid"); 
+	}
+	
+	@PostMapping("member/findId.do")
+	public String findId(@RequestParam(name = "name") String name,
+			@RequestParam(name = "birth") String birth,
+			@RequestParam(name = "phone") String phone) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.findId(name, birth, phone);
+	}
+	
+	@GetMapping("member/pagefindPwd.do")
+	public ModelAndView pagefindPwd() {
+		return new ModelAndView("member/findpwd");  
+	}
+	
+	@PostMapping("member/findPwd.do")
+	public String findPwd(@RequestParam(name = "userid") String userid) {
+	    // TODO: 비밀번호 찾기 로직 수행
+		String pwd = memberDao.encrypt("a12345");
+		System.out.println(pwd);
+		memberDao.findPwd(userid, pwd);
+		
+		return "redirect:/member/pagelogin.do";
+		
+	}
+	
 	
 	
 }

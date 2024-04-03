@@ -119,7 +119,7 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("name", name);
 		map.put("birth", birth);
 		map.put("phone", phone);
-		return session.selectOne("login.findId", map);
+		return session.selectOne("member.findId", map);
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class MemberDAOImpl implements MemberDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("userid", userid);
 		map.put("passwd", passwd);
-		session.update("login.findPwd", map);
+		session.update("member.findPwd", map);
 	}
 
 	@Override

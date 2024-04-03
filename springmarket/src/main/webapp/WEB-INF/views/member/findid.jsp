@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/market/include/mycss/login.css" rel="stylesheet" />
+<link href="/resources/mycss/login.css" rel="stylesheet" />
 <script>
 function findid_result() {
 	let name = document.getElementById("name").value;
@@ -13,8 +13,8 @@ function findid_result() {
 	let phone = document.getElementById("phone").value;
 	
 	 $.ajax({
-	        url : "/market/login_servlet/findid.do",
-	        type : "GET",
+	        url : "/member/findId.do",
+	        type : "POST",
 	        data : {
 	            "name" : name,
 	            "birth" : birth,
@@ -24,7 +24,7 @@ function findid_result() {
 	        success : function(response) {
 	            if (response != null && response !== "") {
 	                alert("당신의 아이디는 " + response + "입니다");
-	                location.href = "../login/login.jsp"
+	                location.href = "/member/pagelogin.do"
 	            } else { 
 	                alert("해당하는 정보의 아이디가 존재하지 않습니다.");
 	            }
