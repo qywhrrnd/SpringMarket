@@ -234,7 +234,7 @@ float: right;
          <h1>가지마켓</h1>
       </a>
       <ul class="link_sign">
-         <li><a onclick="location.href='../login/login.jsp'" id="signin">로그인</a></li>
+         <li><a href='/member/pagelogin.do'" id="signin">로그인</a></li>
       <li><a href="#" id="signup">회원가입</a></li>
       </ul>
 
