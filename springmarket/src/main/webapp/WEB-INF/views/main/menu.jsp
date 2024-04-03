@@ -37,7 +37,7 @@
                      data-bs-toggle="dropdown" aria-expanded="false">경매</a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item"
-                           onclick="location.href='../at_servlet/list.do'">경매 게시판</a></li>
+                           href="/auction/list.do">경매 게시판</a></li>
                         <li><a class="dropdown-item"
                            onclick="location.href='/market/auction/auction_write.jsp'">경매
                               올리기</a></li>
@@ -130,7 +130,7 @@
                <c:otherwise>
                   <article align="center">
                      ${sessionScope.nickname}님 <a
-                        href="/market/login_servlet/logout.do"> <img
+                        href="/member/logout.do"> <img
                         src="/resources/images/power2.png" width="20px" height="20px" alt="로그아웃">
                      </a>
                   </article>

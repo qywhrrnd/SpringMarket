@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script>
 	function list(page) {
-		location.href = "/market/at_servlet/list.do?cur_page=" + page;
+		location.href = "/auction/list.do?cur_page=" + page;
 	}
 </script>
 <style>
@@ -51,13 +51,13 @@ body {
 }
 
 .page_nation .pprev {
-	background: #f8f8f8 url('../images/page_pprev.png') no-repeat center
+	background: #f8f8f8 url('/resources/images/page_pprev.png') no-repeat center
 		center;
 	margin-left: 0;
 }
 
 .page_nation .prev {
-	background: #f8f8f8 url('../images/page_prev.png') no-repeat center
+	background: #f8f8f8 url('/resources/images/page_prev.png') no-repeat center
 		center;
 	margin-right: 7px;
 }
@@ -69,7 +69,7 @@ body {
 }
 
 .page_nation .nnext {
-	background: #f8f8f8 url('../images/page_nnext.png') no-repeat center
+	background: #f8f8f8 url('/resources/images/page_nnext.png') no-repeat center
 		center;
 	margin-right: 0;
 }
@@ -135,7 +135,7 @@ body {
 							href="/market/at_servlet/detail.do?auction_code=${row.auction_code}">
 							<div class="box">
 								<img class="card-img" alt="${row.filename}"
-									src="/market/images/${row.filename}" />
+									src="/resources/images/${row.filename}" />
 							</div>
 							<div>
 								<h2 class="card-title">${row.subject}</h2>

@@ -42,7 +42,7 @@ public class MemberController {
 			url = "member/login";
 		} else { // 로그인 성공
 			message = nickname + "님 환영합니다.";
-			url = "index";
+			url = "main/main";
 			// 세션변수 등록
 			session.setAttribute("userid", userid);
 		}

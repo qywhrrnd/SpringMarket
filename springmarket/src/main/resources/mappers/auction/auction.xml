@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auction">
+
+<select id="list_auction" resultType="com.example.springmarket.model.auction.AuctionDTO">
+		select * from ( select
+		rownum as rn, A.*
+		from (
+		select *
+		from auction
+		order by auction_code desc
+		) A
+		)
+		where rn between #{start} and #{end}
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from auction
+	</select>
+
+	<insert id="insert">
+		insert into auction (auction_code,
+		userid,subject,price, contents, filename, time, biduserid)values
+		((select
+		nvl(max(auction_code)+1,1)from auction),#{userid}, #{subject},
+		#{price},#{contents}, #{filename}, 3600, #{biduserid})
+	</insert>
+
+	<select id="detail" resultType="com.example.springmarket.model.auction.AuctionDTO">
+		select * from auction
+		where
+		auction_code=#{auction_code}
+	</select>
+
+	<select id="mylist" resultType="com.example.springmarket.model.auction.AuctionDTO">
+		select * from auction
+		where
+		userid
+		= #{userid}
+	</select>
+
+
+	<select id="detail_auction" resultType="com.example.springmarket.model.auction.AuctionDTO">
+		select * from auction
+		where auction_code=#{auction_code}
+	</select>
+
+
+	<update id="bid">
+		update auction set price = #{price}, biduserid =
+		#{biduserid} where
+		auction_code = #{auction_code}
+	</update>
+
+
+	<select id="getAuctionInfo" resultType="com.example.springmarket.model.auction.AuctionDTO">
+		select * from auction
+		where auction_code=#{auction_code}
+	</select>
+
+	<delete id="delete">
+		delete from auction where
+		auction_code=#{auction_code}
+	</delete>
+
+
+</mapper>
