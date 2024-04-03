@@ -6,9 +6,9 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="UTF-8">
-<script src="../../resources/js/bootstrap.js"></script>
-<script src="../../resources/js/bootstrap.bundle.js"></script>
-<link rel="stylesheet" href="/market/include/css/bootstrap.css">
+<script src="/resources/js/bootstrap.js"></script>
+<script src="/resources/js/bootstrap.bundle.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
 <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <title>Market Main</title>
@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
    <div class="container-fluid">
       <a class="navbar-brand" href="/market/mk_servlet/pop.do"><img
-         src="../images/gaginame.png" id="image"></a>
+         src="/resources/images/gaginame.png" id="image"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
          data-bs-target="#navbarSupportedContent"
          aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -120,9 +120,9 @@
             <c:choose>
                <c:when test="${sessionScope.userid == null }">
                <article align="center">
-                  <a href="/market/login/login.jsp" style="margin-right: 10px; color: black; text-decoration: none;">
+                  <a href="/member/login.jsp" style="margin-right: 10px; color: black; text-decoration: none;">
                   로그인
-                     <img src="../images/power.png" width="20px" height="20px"
+                     <img src="/resources/images/power.png" width="20px" height="20px"
                      alt="로그인">
                   </a>
                  </article>
@@ -131,7 +131,7 @@
                   <article align="center">
                      ${sessionScope.nickname}님 <a
                         href="/market/login_servlet/logout.do"> <img
-                        src="../images/power2.png" width="20px" height="20px" alt="로그아웃">
+                        src="/resources/images/power2.png" width="20px" height="20px" alt="로그아웃">
                      </a>
                   </article>
                </c:otherwise>

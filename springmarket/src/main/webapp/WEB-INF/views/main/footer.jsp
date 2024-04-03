@@ -43,9 +43,9 @@ ul a {
        </ul>
        <br>
         <ul>
-            <li><a href="https://twitter.com/?lang=ko"><img alt="Twitter" src="../images/twitter.png" width="30px" height="30px"></a></li>
-            <li><a href="https://m.facebook.com/"><img alt="Facebook" src="../images/facebook1.png" width="30px" height="30px"></a></li>
-            <li><a href="https://www.instagram.com/"><img alt="Instagram" src="../images/instagram1.png" width="40px" height="40px"></a></li>
+            <li><a href="https://twitter.com/?lang=ko"><img alt="Twitter" src="/resources/images/twitter.png" width="30px" height="30px"></a></li>
+            <li><a href="https://m.facebook.com/"><img alt="Facebook" src="/resources/images/facebook1.png" width="30px" height="30px"></a></li>
+            <li><a href="https://www.instagram.com/"><img alt="Instagram" src="/resources/images/instagram1.png" width="40px" height="40px"></a></li>
         </ul>
     </footer>
 </body>
