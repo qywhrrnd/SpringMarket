@@ -50,25 +50,25 @@ body {
 }
 
 .page_nation .pprev {
-   background: #f8f8f8 url('../images/page_pprev.png') no-repeat center
+   background: #f8f8f8 url('/resources/images/page_pprev.png') no-repeat center
       center;
    margin-left: 0;
 }
 
 .page_nation .prev {
-   background: #f8f8f8 url('../images/page_prev.png') no-repeat center
+   background: #f8f8f8 url('/resources/images/page_prev.png') no-repeat center
       center;
    margin-right: 7px;
 }
 
 .page_nation .next {
-   background: #f8f8f8 url('../images/page_next.png') no-repeat center
+   background: #f8f8f8 url('/resources/images/page_next.png') no-repeat center
       center;
    margin-left: 7px;
 }
 
 .page_nation .nnext {
-   background: #f8f8f8 url('../images/page_nnext.png') no-repeat center
+   background: #f8f8f8 url('/resources/images/page_nnext.png') no-repeat center
       center;
    margin-right: 0;
 }
@@ -124,7 +124,7 @@ body {
       <div class="row">
          <div class="col-12">
             <div class="text-center">
-               <img src="../images/gagimain.png" class="img-fluid"
+               <img src="/resources/images/gagimain.png" class="img-fluid"
                   alt="Hero Header">
             </div>
          </div>

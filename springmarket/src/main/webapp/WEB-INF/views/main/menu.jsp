@@ -120,7 +120,7 @@
             <c:choose>
                <c:when test="${sessionScope.userid == null }">
                <article align="center">
-                  <a href="/member/login.jsp" style="margin-right: 10px; color: black; text-decoration: none;">
+                  <a href="/member/pagelogin.do" style="margin-right: 10px; color: black; text-decoration: none;">
                   로그인
                      <img src="/resources/images/power.png" width="20px" height="20px"
                      alt="로그인">

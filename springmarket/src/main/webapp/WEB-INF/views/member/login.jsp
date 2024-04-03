@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="/market/include/css/bootstrap.css">
-<script src="/market/include/js/bootstrap.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<script src="/resources/js/bootstrap.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -37,7 +37,7 @@
 		alert("로그아웃 되었습니다.");
 	</script>
 </c:if>
-<link href="/market/include/mycss/login.css" rel="stylesheet" />
+<link href="/resources/mycss/login.css" rel="stylesheet" />
 <style>
 a {
 	text-decoration: none; /* 링크의 밑줄 제거 */
