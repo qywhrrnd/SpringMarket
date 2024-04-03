@@ -112,7 +112,7 @@
         $("#contents").focus();
         return;
       }
-      form1.attr("action", "/market/at_servlet/insert_auction.do");
+      form1.attr("action", "/auction/insert_auction.do");
       form1.submit();
     }
   </script>

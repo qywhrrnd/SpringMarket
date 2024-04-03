@@ -132,7 +132,7 @@ body {
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<article class="card-link">
 						<a class="card"
-							href="/market/at_servlet/detail.do?auction_code=${row.auction_code}">
+							href="/auction/auctiondetail.do?auction_code=${row.auction_code}">
 							<div class="box">
 								<img class="card-img" alt="${row.filename}"
 									src="/resources/images/${row.filename}" />

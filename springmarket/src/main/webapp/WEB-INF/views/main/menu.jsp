@@ -39,7 +39,7 @@
                         <li><a class="dropdown-item"
                            href="/auction/list.do">경매 게시판</a></li>
                         <li><a class="dropdown-item"
-                           onclick="location.href='/market/auction/auction_write.jsp'">경매
+                           href="/auction/pageauctioninsert.do">경매
                               올리기</a></li>
                      </ul></li>
                </c:when>
