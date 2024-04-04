@@ -66,7 +66,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
 						<li class="nav-item"><a class="nav-link"
-							href="../chat_servlet/boxlist.do">채팅</a></li>
+							href="/chat/chat.do">채팅</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="#"
