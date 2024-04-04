@@ -11,6 +11,7 @@
 <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
 body {
    text-align: center;
@@ -118,7 +119,7 @@ body {
 </head>
 <body>
          <%@ include file="../main/menu.jsp"%>
-      
+        ${alertScript}
 
    <div class="container">
       <div class="row">

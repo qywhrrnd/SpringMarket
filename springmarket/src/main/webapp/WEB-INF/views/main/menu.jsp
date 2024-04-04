@@ -77,7 +77,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
 						<li class="nav-item"><a class="nav-link"
-							href="../quiz_servlet/view.do">이벤트</a></li>
+							href="/quiz/quizlist.do">이벤트</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="#"

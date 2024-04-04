@@ -70,11 +70,11 @@
         <c:choose>
             <c:when test="${result=='정답입니다.'}">
                 <h1><a href="/market/quiz_servlet/send.do">이메일 전송</a></h1>
-                <img src="/market/images/good.png" alt="Your Image">
+                <img src="/resources/images/good.png" alt="Your Image">
             </c:when>
             <c:otherwise>
                 <h1><a href="/market/mk_servlet/pop.do">메인 화면으로 이동</a></h1>
-                <img src="/market/images/bad.png" alt="Your Image">
+                <img src="/resources/images/bad.png" alt="Your Image">
             </c:otherwise>
         </c:choose>
     </div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="quiz">
+
+	<select id="view" resultType="com.example.springmarket.model.quiz.QuizDTO">
+		SELECT * FROM quiz ORDER BY
+		DBMS_RANDOM.VALUE() FETCH FIRST ${num} ROWS ONLY
+	</select>
+
+
+	<select id="view_admin" resultType="com.example.springmarket.model.quiz.QuizDTO">
+		select * from quiz order by
+		quiz_idx
+	</select>
+
+	<insert id="insert_answer">
+		insert into answer(userid,num1,num2,num3,num4)
+		values(#{userid},#{num1},#{num2},#{num3},#{num4})
+	</insert>
+
+	<select id="check" resultType="int">
+		select status
+		from quiz
+		where
+		quiz_idx=#{quiz_idx}
+	</select>
+
+	<select id="quiz_email" resultType="String">
+		select email from member
+		where userid=#{userid}
+	</select>
+
+	<select id="checkevent" resultType="int">
+		select count(*) from answer where userid=#{userid}
+	</select>
+
+
+	<insert id="quiz_insert">
+		insert into quiz values
+		((select
+		nvl(max(quiz_idx)+1,1) from
+		quiz),#{question},#{ans1},#{ans2},#{ans3},#{ans4},#{status})
+	</insert>
+
+</mapper>
