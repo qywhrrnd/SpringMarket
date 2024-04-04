@@ -9,9 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	
-</script>
-<script>
 	function findid() {
 		href = "/member/pagefindId.do";
 	}
@@ -187,7 +184,7 @@ a {
 				않는다면?</span>
 			<a
 				style="font-size: 13px; color: gray; background-color: transparent; border: 0px; display: block;"
-				href='/member/pagefindPwd.do'>&nbsp; 비밀번호 찾기</a>
+				href='/member/pagefindPwd.do'>&nbsp;비밀번호 찾기</a>
 		</div>
 	</div>
 
