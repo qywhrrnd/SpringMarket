@@ -82,7 +82,7 @@ public class MemberController {
         dto.setEmail(email);
         dto.setAddress(address);
         memberDao.join(dto); // document 저장
-        return "redirect:/member/login.do";
+        return "redirect:/member/pagelogin.do";
     }
 
     @GetMapping("member/pagefindId.do")
@@ -125,5 +125,27 @@ public class MemberController {
         map.put("message", message);
         map.put("url", url);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+    
+    @PostMapping("member/check.do")
+    public ResponseEntity<String> check(@RequestParam(name = "userid") String userid) {
+        // TODO: 비밀번호 변경 로직 수행
+        String count = memberDao.check(userid);
+        if (count == null) {
+            count = "true"; // count가 null이면 "true" 문자열로 설정
+        }
+        System.out.println(count);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+    
+    @PostMapping("member/emailcheck.do")
+    public ResponseEntity<String> emailcheck(@RequestParam(name = "email") String email) {
+        // TODO: 비밀번호 변경 로직 수행
+        String count1 = memberDao.emailcheck(email);
+        if (count1 == null) {
+            count1= "true"; // count가 null이면 "true" 문자열로 설정
+        }
+        System.out.println(count1);
+        return new ResponseEntity<>(count1, HttpStatus.OK);
     }
 }
