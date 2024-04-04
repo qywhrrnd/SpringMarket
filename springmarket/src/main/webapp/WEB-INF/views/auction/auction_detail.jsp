@@ -116,21 +116,27 @@ th, td {
 }
 </style>
 <script>
-
-$(document).ready(function(){
-    $(".chat").click(function(){
-        var toid = "${dto.userid}";
-        location.href = "/market/chat_servlet/chat.do?toid=" + toid +"&userid="+"${sessionScope.userid}";   
-    });
-});
+	$(document)
+			.ready(
+					function() {
+						$(".chat")
+								.click(
+										function() {
+											var toid = "${dto.userid}";
+											location.href = "/market/chat_servlet/chat.do?toid="
+													+ toid
+													+ "&userid="
+													+ "${sessionScope.userid}";
+										});
+					});
 </script>
 <script>
-function delete_product(auction_code) {
-   if (confirm("삭제하시겠습니까?")) {
-      location.href = "/market/at_servlet/admin_auction.do?auction_code="
-            + auction_code;
-   }
-}
+	function delete_product(auction_code) {
+		if (confirm("삭제하시겠습니까?")) {
+			location.href = "/market/at_servlet/admin_auction.do?auction_code="
+					+ auction_code;
+		}
+	}
 </script>
 
 </head>
@@ -159,11 +165,15 @@ function delete_product(auction_code) {
 					<tr>
 
 						<th width="100px" id="price" style="font-size: xx-large;"><span
-							id="formattedPrice">${dto.price}</span>원
+							id="formattedPrice">${dto.price}원</span>
 					</tr>
 					<tr>
 
-						<td id="bid2userid">판매자:&nbsp;${dto.biduserid}</td>
+						<td id="userid">판매자:&nbsp;${dto.userid}</td>
+					</tr>
+					<tr>
+
+						<td id="biduserid">입찰자:&nbsp;${dto.biduserid}</td>
 					</tr>
 					<tr>
 						<td>입찰가 : <input type="number" min="${dto.price}" id="bidnum"></td>
@@ -189,7 +199,7 @@ function delete_product(auction_code) {
 										disabled="disabled">
 								</c:if>
 								<input type="button" class="reload" value="새로고침"
-									onclick="location.href='/market/at_servlet/detail.do?auction_code=${dto.auction_code}'">
+									onclick="location.href='/auction/auctiondetail.do?auction_code='+${dto.auction_code}">
 
 								<c:if
 									test="${sessionScope.userid == 'admin' || sessionScope.userid == dto.userid}">
@@ -220,105 +230,113 @@ function delete_product(auction_code) {
 	</table>
 
 	<script>
-$(document).ready(function(){
-    // updatePriceAndBidder 함수 호출
-    updatePriceAndBidder("${sessionScope.userid}", "${dto.auction_code}");
-});
+	$(document).ready(function() {
+	    // 경매 정보를 가져오는 함수 정의
+	    function fetchAuctionInfo() {
+	        $.ajax({
+	            url: '/auction/updatePriceAndBidder.do', // 경매 정보를 가져올 엔드포인트 URL
+	            type: 'GET',
+	            data: {
+	                auction_code: "${dto.auction_code}",
+	                sessionUserId: '<%=session.getAttribute("userid")%>'
+	            }, 
+	            dataType: 'json',
+	            success: function(response) {
+	                // 성공적으로 데이터를 받아왔을 때 실행되는 코드
+	                console.log(response);
+	                var price = response.price;
+	                var bidder = response.biduserid;
+	                var time = response.time;
+	                var userId = response.userid;
+	                var seconds = response.time;
+	                var minutes = Math.floor(seconds / 60);
+	                var remainingSeconds = seconds % 60;
+	                
+	                $('#formattedPrice').text(price + "원"); // 가격 업데이트
+                    $('#biduserid').text("입찰자: " + bidder); // 판매자 업데이트
+                    if(time==0){
+                    	$('#demo').text("경매 종료");
+                        $("#btnbid").prop("disabled", true).css({"background-color": "#d3d3d3", "color": "#888"});
+                    	if ("${sessionScope.userid}" === bidder) {
+                            $("#btnchat").prop("disabled", false).css({"background-color": "#3498db", "color": "#ffffff"});
+                        }else{
+                        	 $("#btnchat").prop("disabled", true).css({"background-color": "#3498db", "color": "#ffffff"});
+                        }
+
+                    
+                    }else{
+                    	$("#demo").text(minutes + "분 " + remainingSeconds + "초");	
+                    }
+                  
+	            },
+	            error: function(xhr, status, error) {
+	                // 데이터 가져오기가 실패했을 때 실행되는 코드
+	                console.error(error);
+	            }
+	        });
+	    }
+
+	    // 페이지 로딩 시 경매 정보를 가져오도록 설정
+	    fetchAuctionInfo();
+
+	    // 일정 시간마다 경매 정보를 업데이트하도록 설정
+	    setInterval(fetchAuctionInfo, 1000); // 5초마다 경매 정보를 업데이트합니다.
+	});
+	
+	
+
+	
+	
+	const btnbid = document.getElementById("btnbid");
+
+	btnbid.addEventListener("click", function() {
+	    // 사용자가 입력한 입찰가를 가져옵니다.
+	    var bidPrice = $("#bidnum").val();
+	    var bid1Userid = $("#bid1userid").val();
+	    
+	    
+	    // AJAX를 사용하여 현재 상품의 가격을 업데이트하고, 비교를 수행합니다.
+	    $.ajax({
+	        url: '/auction/updatePriceAndBidder.do',
+	        type: "GET",
+	        data: {
+	            auction_code: "${dto.auction_code}",
+	            sessionUserId: '<%=session.getAttribute("userid")%>'
+	        },
+	        success: function(response) {
+	            // AJAX 요청에서 받은 최신 가격을 가져와 비교합니다.
+	            var currentPrice = response.price;
+	            
+	            // 사용자가 입력한 입찰가와 현재 상품의 가격을 비교합니다.
+	            if (bidPrice <= parseInt(currentPrice)) {
+	                alert("기존 가격보다 높은 가격을 입력해주세요");
+	                return;
+	            } else {
+	                // AJAX 요청의 데이터로 사용자가 입력한 입찰가를 전달합니다.
+	                $.ajax({
+	                    url: "/auction/bid.do",
+	                    type: "GET",
+	                    data: {
+	                        bidPrice: bidPrice,
+	                        auction_code: ${dto.auction_code},
+	                        biduserid: '<%=session.getAttribute("userid")%>'
+	                    },
+	                    success: function(response) {
+	                         var bidder = response.biduserid;
+	                   
+	                         $("#formattedPrice").text(bidPrice + "원");
+	                        $("#biduserid").text("입찰자:"+bidder);
+	                        $("#bidnum").val('');
+	                    },
+	                });
+	            }
+	        },
+	    });
+	});
+	
 </script>
 
-	<script>
-function updatePriceAndBidder() {
-    // 세션 ID 또는 사용자 ID를 서버로 전달하기 위한 변수
-    var sessionUserId = "${sessionScope.userid}";
 
-    $.ajax({
-        url: "/auction/updatePriceAndBidder.do",
-        type: "GET",
-        data: {
-            auction_code: "${dto.auction_code}",
-            sessionUserId: sessionUserId // 세션 ID 또는 사용자 ID를 요청에 추가
-        },
-        success: function(response) {
-            var formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(response.price);
-            $("#formattedPrice").text(formattedPrice);
-            $("#bid2userid").text(response.bidder);
-            var seconds = response.time;
-            var minutes = Math.floor(seconds / 60);
-            var remainingSeconds = seconds % 60;
-            $("#demo").text(minutes + "분 " + remainingSeconds + "초");
-            if (minutes === 0 && remainingSeconds === 0) {
-                $("#demo").text("시간초과");
-                var biduserid = response.bidder; // 변경
-                var userid = response.userid;
-                // 서버에서 응답으로 받은 값과 사용자의 세션 ID 또는 사용자 ID를 비교
-                if (sessionUserId === biduserid) {
-                    $("#btnchat").prop("disabled", false).css({"background-color": "#3498db", "color": "#ffffff"});
-                }
-                $("#btnbid").prop("disabled", true).css({"background-color": "#d3d3d3", "color": "#888"});
-            }
-        },
-    });
-}
-
-
-
-// 일정한 시간 간격으로 업데이트 함수 호출
-var updateInterval = setInterval(updatePriceAndBidder, 1000); // 5초마다 업데이트
-
-// 페이지를 닫을 때 업데이트 간격을 멈추도록 합니다.
-$(window).on('beforeunload', function(){
-    clearInterval(updateInterval);
-});
-
-
-
-
-
-const btnbid = document.getElementById("btnbid");
-
-btnbid.addEventListener("click", function() {
-    // 사용자가 입력한 입찰가를 가져옵니다.
-    var bidPrice = $("#bidnum").val();
-    var bid1Userid = $("#bid1userid").val();
-    
-    
-    // AJAX를 사용하여 현재 상품의 가격을 업데이트하고, 비교를 수행합니다.
-    $.ajax({
-        url: "/market/at_servlet/updatePriceAndBidder.do",
-        type: "GET",
-        data: {
-            auction_code: "${dto.auction_code}"
-        },
-        success: function(response) {
-            // AJAX 요청에서 받은 최신 가격을 가져와 비교합니다.
-            var currentPrice = response.price;
-            
-            // 사용자가 입력한 입찰가와 현재 상품의 가격을 비교합니다.
-            if (bidPrice <= parseInt(currentPrice)) {
-                alert("기존 가격보다 높은 가격을 입력해주세요");
-                return;
-            } else {
-                // AJAX 요청의 데이터로 사용자가 입력한 입찰가를 전달합니다.
-                $.ajax({
-                    url: "/market/at_servlet/bid.do",
-                    type: "GET",
-                    data: {
-                        bidPrice: bidPrice,
-                        auction_code: ${dto.auction_code},
-                        biduserid: bid1Userid
-                    },
-                    success: function(response) {
-                        // AJAX 요청에 대한 응답에서 새로운 입찰자 정보를 가져와 업데이트합니다.
-                         $("#formattedPrice").text(new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(bidPrice));
-                        $("#bid2userid").text(bid1Userid);
-                        $("#bidnum").val('');
-                    },
-                });
-            }
-        },
-    });
-});
-</script>
 
 
 

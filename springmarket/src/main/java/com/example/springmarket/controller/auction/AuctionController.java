@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springmarket.model.auction.AuctionDAO;
@@ -115,32 +119,36 @@ public class AuctionController {
 		return new ModelAndView("auction/auction_detail", "dto", dto);
 	}
 
+	@ResponseBody
 	@GetMapping("auction/updatePriceAndBidder.do")
-	public Map<String, Object> getAuctionInfo(HttpServletRequest request,
-	        @RequestParam(name = "auction_code") int auction_code,
-	        @RequestParam(name = "sessionUserId", required = false) String sessionUserId) {
-	    AuctionDTO dto = auctionDao.getAuctionInfo(auction_code);
-	    
-	    // 경매 정보에서 필요한 데이터 추출
-	    int price = dto.getPrice();
-	    String bidder = dto.getBiduserid();
-	    int time = dto.getTime();
+	public ResponseEntity<AuctionDTO> getAuctionInfo(@RequestParam(name = "auction_code") int auctionCode,
+			@RequestParam(name = "sessionUserId", required = false) String sessionUserId) {
+		// 경매 정보를 가져옵니다.
+		AuctionDTO dto = auctionDao.getAuctionInfo(auctionCode);
 
-	    // 사용자 세션에서 사용자 ID 가져오기
-	    HttpSession session = request.getSession();
-	    String userid = (String) session.getAttribute("userid");
+		// 가져온 정보에 세션 사용자 ID를 설정합니다.
+		dto.setUserid(sessionUserId);
 
-	    // 만약 클라이언트에서 sessionUserId 파라미터를 보냈다면, 해당 값을 사용하고 아니라면 세션에서 가져온 사용자 ID를 사용합니다.
-	    String finalUserId = sessionUserId != null ? sessionUserId : userid;
+		// ResponseEntity를 사용하여 JSON 형식으로 데이터를 반환합니다.
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 
-	    // 반환할 맵 생성 및 데이터 추가
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("price", price);
-	    map.put("bidder", bidder);
-	    map.put("time", time);
-	    map.put("userid", finalUserId);
+	@ResponseBody
+	@GetMapping("auction/bid.do")
+	public ResponseEntity<AuctionDTO> bid(@RequestParam(name = "auction_code") int auctionCode,
+			@RequestParam(name = "bidPrice") int bidPrice,
+			@RequestParam(name = "biduserid") String biduserid) {
+		// 경매 정보를 가져옵니다.
+		System.out.println(auctionCode);
+		System.out.println(bidPrice);
+		System.out.println(biduserid);
+		AuctionDTO dto = auctionDao.getAuctionInfo(auctionCode);
+		auctionDao.bid(bidPrice, biduserid, auctionCode);
+		// 가져온 정보에 세션 사용자 ID를 설정합니다.
+		dto.setBiduserid(biduserid);
 
-	    return map; // 수정: 생성한 맵 반환
+		// ResponseEntity를 사용하여 JSON 형식으로 데이터를 반환합니다.
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 
 }
