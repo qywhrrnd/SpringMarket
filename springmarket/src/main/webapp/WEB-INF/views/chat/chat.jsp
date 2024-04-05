@@ -86,7 +86,7 @@ input {
 	function wsOpen() {
 		roomNumber: $("#roomNumber").val();
 		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		ws = new WebSocket("ws://" + location.host + "/chating/"
+		ws = new WebSocket("ws://" + "192.168.0.28" + "/chating/"
 				+ $("#roomNumber").val());
 		wsEvt();
 	}
