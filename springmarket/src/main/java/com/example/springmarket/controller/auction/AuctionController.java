@@ -1,8 +1,11 @@
 package com.example.springmarket.controller.auction;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springmarket.model.auction.AuctionDAO;
@@ -25,6 +29,7 @@ import com.example.springmarket.model.member.MemberDAO;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
@@ -149,6 +154,26 @@ public class AuctionController {
 
 		// ResponseEntity를 사용하여 JSON 형식으로 데이터를 반환합니다.
 		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("auction/imageUpload.do")
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(name = "upload") MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		OutputStream out = null;
+		PrintWriter printWriter = null;
+		String fileName = upload.getOriginalFilename();
+		byte[] bytes = upload.getBytes();
+		ServletContext application = request.getSession().getServletContext();
+		String uploadPath = application.getRealPath("/resources/images/");
+		out = new FileOutputStream(new File(uploadPath + fileName));
+		out.write(bytes);
+		printWriter = response.getWriter();
+		String fileUrl = request.getContextPath() + "/resources/images/" + fileName;
+		printWriter.println("{\"filename\"  :  \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
+		printWriter.flush();
 	}
 
 }

@@ -37,6 +37,7 @@ public class MemberController {
 			@RequestParam(name = "passwd") String passwd, HttpSession session) {
 		String pass = memberDao.encrypt(passwd);
 		String nickname = memberDao.login(userid, pass);
+		System.out.println(nickname);
 		String message = "";
 		String url = "";
 		if (nickname == null) { // 로그인 실패
@@ -47,6 +48,7 @@ public class MemberController {
 			url = "main/main";
 			// 세션변수 등록
 			session.setAttribute("userid", userid);
+			session.setAttribute("nickname", nickname);
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("message", message);

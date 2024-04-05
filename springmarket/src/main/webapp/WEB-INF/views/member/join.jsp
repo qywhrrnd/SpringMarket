@@ -249,7 +249,7 @@ a {
 </head>
 <body>
 	<div class="container">
-		<a href="/market/mk_servlet/pop.do">
+		<a href="/main/pagemain.do">
 			<h1>가지마켓</h1>
 		</a>
 		<ul class="link_sign">

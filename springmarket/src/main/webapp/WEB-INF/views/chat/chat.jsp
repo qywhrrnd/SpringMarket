@@ -50,21 +50,51 @@ input {
 }
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
+		$("#chating").scrollTop($("#chating")[0].scrollHeight);
+	});
+</script>
 
+<body>
+<%@ include file="../main/menu.jsp"%>
+	<div id="container" class="container">
+		<h1>${roomName}의채팅방</h1>
+		<input type="text" id="sessionId" value="${sessionScope.userid}">
+		<input type="text" id="roomNumber" value="${roomNumber}">
+
+		<div id="chating" class="chating"></div>
+
+
+		<div id="yourMsg">
+			<table class="inputTable">
+				<tr>
+					<th>메시지</th>
+					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+					<th><button onclick="send()" id="sendBtn">보내기</button></th>
+					<th><button onclick="location.href='/chat/room.do'">
+							목록</button></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
 <script type="text/javascript">
 	wsOpen();
-
 	var ws;
 
 	function wsOpen() {
-		ws = new WebSocket("ws://" + location.host + "/chating");
+		roomNumber: $("#roomNumber").val();
+		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
+		ws = new WebSocket("ws://" + location.host + "/chating/"
+				+ $("#roomNumber").val());
 		wsEvt();
 	}
 
 	function wsEvt() {
 		sessionId: $("#sessionId").val();
 		ws.onopen = function(data) {
-			//소켓이 열리면 동작
 		}
 
 		ws.onmessage = function(data) {
@@ -73,24 +103,31 @@ input {
 
 			if (msg != null && msg.trim() != '') {
 				var d = JSON.parse(msg);
-				if (d.type == "getId") {
-					var si = d.sessionId != null ? d.sessionId : "";
-					if (si != '') {
-						$("#sessionId").val(si);
-					}
-				} else if (d.type == "message") {
+				if (d.type == "message") {
 					if (d.sessionId == $("#sessionId").val()) {
 						$("#chating").append(
 								"<p class='me'>" + d.sessionId + " :" + d.msg
 										+ "</p>");
+						$(document).ready(
+								function() {
+									// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
+									$("#chating").scrollTop(
+											$("#chating")[0].scrollHeight);
+								});
 					} else {
 						$("#chating").append(
-								"<p class='others'>" + d.userName + " :"
+								"<p class='others'>" + d.sessionId + " :"
 										+ d.msg + "</p>");
+						$(document).ready(
+								function() {
+									// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
+									$("#chating").scrollTop(
+											$("#chating")[0].scrollHeight);
+								});
 					}
 
 				} else {
-					console.warn("unknown type!")
+					console.warn("unknown type!");
 				}
 			}
 		}
@@ -105,31 +142,12 @@ input {
 	function send() {
 		var option = {
 			type : "message",
+			roomNumber : $("#roomNumber").val(),
 			sessionId : $("#sessionId").val(),
-			
 			msg : $("#chatting").val()
 		}
 		ws.send(JSON.stringify(option))
 		$('#chatting').val("");
 	}
 </script>
-<body>
-	<div id="container" class="container">
-		<h1>채팅</h1>
-		<input type="text" id="sessionId" value="${sessionScope.userid}">
-
-		<div id="chating" class="chating"></div>
-
-
-		<div id="yourMsg">
-			<table class="inputTable">
-				<tr>
-					<th>메시지</th>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-				</tr>
-			</table>
-		</div>
-	</div>
-</body>
 </html>
