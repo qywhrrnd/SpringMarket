@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-window.close();
+${alertScript}
 </body>
 </html>

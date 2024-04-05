@@ -133,13 +133,13 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String email_id(String userid) {
 		// TODO Auto-generated method stub
-		return session.selectOne("login.email_id", userid);
+		return session.selectOne("member.email_id", userid);
 	}
 
 	@Override
 	public String mypasswd(String userid) {
 		// TODO Auto-generated method stub
-		return session.selectOne("login.mypasswd", userid);
+		return session.selectOne("member.mypasswd", userid);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.example.springmarket.controller.member;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.springmarket.model.auction.AuctionDTO;
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.member.MemberDTO;
 
 import jakarta.servlet.http.HttpSession;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class MemberController {
@@ -163,4 +166,53 @@ public class MemberController {
 
 		return ResponseEntity.ok(response);
 	}
+
+	@GetMapping("member/mypage.do")
+	public ModelAndView mypage(@RequestParam(name = "userid") String userid) {
+		MemberDTO dto = memberDao.mypage(userid);
+		return new ModelAndView("member/mypage", "dto", dto);
+	}
+
+	@GetMapping("member/detail_passwd.do")
+	public ModelAndView detail_passwd() {
+		return new ModelAndView("member/change_passwd");
+	}
+
+	@GetMapping("member/pageclose.do")
+	public ModelAndView pageclose() {
+		return new ModelAndView("member/passwdclose");
+	}
+
+	@PostMapping("member/changepasswd.do")
+	public ModelAndView findPwd(@RequestParam(name = "userid") String userid,
+			@RequestParam(name = "passwd1") String passwd1, @RequestParam(name = "passwd2") String passwd2) {
+		String url = "";
+		String passwd3 = memberDao.encrypt(passwd1);
+		String passwd4 = memberDao.encrypt(passwd2);
+		String mypasswd = memberDao.mypasswd(userid);
+		if (mypasswd.equals(passwd3)) {
+			memberDao.findPwd(userid, passwd4);
+			url = "member/passwdclose";
+			String message = "변경되었습니다.";
+			// JavaScript 코드를 포함한 문자열 생성
+			String alertScript = "<script>alert('" + message + "');+window.close();</script>";
+			// ModelAndView 객체 생성 시 HTML에 전달할 데이터를 설정
+			ModelAndView modelAndView = new ModelAndView(url);
+			modelAndView.addObject("alertScript", alertScript);
+			return modelAndView;
+
+		} else {
+			url = "member/change_passwd";
+			String message = "기존 비밀번호가 틀렸습니다.";
+			// JavaScript 코드를 포함한 문자열 생성
+			String alertScript = "<script>alert('" + message + "');</script>";
+			// ModelAndView 객체 생성 시 HTML에 전달할 데이터를 설정
+			ModelAndView modelAndView = new ModelAndView(url);
+			modelAndView.addObject("alertScript", alertScript);
+			modelAndView.addObject("userid", userid);
+			return modelAndView;
+		}
+
+	}
+
 }

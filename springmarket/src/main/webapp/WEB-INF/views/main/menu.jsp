@@ -65,8 +65,7 @@
 				</c:choose>
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
-						<li class="nav-item"><a class="nav-link"
-							href="/chat/room.do">채팅</a></li>
+						<li class="nav-item"><a class="nav-link" href="/chat/room.do">채팅</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="#"
@@ -97,7 +96,7 @@
 									onclick="location.href='/product/mylist?userid=${sessionScope.userid}'">판매내역</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item"
-									onclick="location.href='/market/login_servlet/myPage.do?userid=${sessionScope.userid}'">마이페이지</a></li>
+									onclick="location.href='/member/mypage.do?userid=${sessionScope.userid}'">마이페이지</a></li>
 							</ul></li>
 					</c:when>
 					<c:otherwise>

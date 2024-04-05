@@ -42,10 +42,17 @@
 			document.form1.passwd2.focus();
 			return;
 		} else {
-			document.form1.action = "/market/login_servlet/change_passwd.do";
+			document.form1.action = "/member/changepasswd.do";
 			document.form1.submit();
 		}
 
+	}
+
+	function cancel() {
+		if (confirm("변경을 취소하시겠습니까?")) {
+			window.close();
+
+		}
 	}
 </script>
 <style>
@@ -118,6 +125,7 @@ input {
 </head>
 <body>
 	<%@ include file="../main/menu.jsp"%>
+	${alertScript}
 	<form name="form1" method="post">
 		<h2 align="center">비밀번호 변경</h2>
 		<p align="center" style="color: red;">

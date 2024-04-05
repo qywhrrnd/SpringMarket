@@ -44,12 +44,13 @@
 		if (confirm("변경을 취소하시겠습니까?")) {
 			location.href = "/market/login_servlet/myPage.do?userid="
 					+ '${sessionScope.userid}';
+					
 		}
 	}
 	
 	function change_passwd(userid){
 		var userId = "${dto.userid}";
-	    var url = "../login_servlet/detail_passwd.do?userid=" + userId;
+	    var url = "/member/detail_passwd.do?userid=" + userId;
 		
 	    // 팝업 창 크기 설정
 	    var popupWidth = 600;
