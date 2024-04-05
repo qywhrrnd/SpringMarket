@@ -7,15 +7,16 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import com.example.springmarket.handler.SocketHandler;
+
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer{
+public class WebSocketConfig implements WebSocketConfigurer {
 
 	@Autowired
 	SocketHandler socketHandler;
-	
+
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(socketHandler, "/chating");
+		registry.addHandler(socketHandler, "/chating/{roomNumber}");
 	}
 }
