@@ -58,6 +58,7 @@ input {
 </script>
 
 <body>
+<%@ include file="../main/menu.jsp"%>
 	<div id="container" class="container">
 		<h1>${roomName}의채팅방</h1>
 		<input type="text" id="sessionId" value="${sessionScope.userid}">
@@ -86,7 +87,7 @@ input {
 	function wsOpen() {
 		roomNumber: $("#roomNumber").val();
 		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		ws = new WebSocket("ws://" + "192.168.0.28" + "/chating/"
+		ws = new WebSocket("ws://" + location.host + "/chating/"
 				+ $("#roomNumber").val());
 		wsEvt();
 	}
