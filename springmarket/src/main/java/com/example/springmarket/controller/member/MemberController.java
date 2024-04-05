@@ -26,7 +26,7 @@ public class MemberController {
     public ModelAndView login() {
         return new ModelAndView("member/login");
     }
-
+    
     @GetMapping("member/pagejoin.do")
     public ModelAndView join() {
         return new ModelAndView("member/join");

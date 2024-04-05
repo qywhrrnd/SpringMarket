@@ -139,7 +139,7 @@ a {
 <body>
 	<div class="container">
 		<!-- Heading -->
-		<a href="/market/mk_servlet/pop.do">
+		<a href="/main/pagemain.do">
 			<div style="text-align: center;">
 				<h1 class="gagi">🍆가지</h1>
 				<h1 class="market">마켓🍆</h1>
