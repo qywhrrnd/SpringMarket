@@ -24,7 +24,12 @@ public class AuctionDAOImpl implements AuctionDAO {
 
 	@Override
 	public void insertAuction(AuctionDTO dto) {
-
+		String contents = dto.getContents();
+		contents = contents.replace("&lt;", "<");
+		contents = contents.replace("&gt;", ">");
+		contents = contents.replace("<br>", "\n");
+		contents = contents.replace("&nbsp;&nbsp;", "  ");
+		dto.setContents(contents);
 		session.insert("auction.insert", dto);
 
 	}
@@ -56,6 +61,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 		session.selectOne("auction.bid", map);
 	}
 
+	
 	@Override
 	public AuctionDTO getAuctionInfo(int auctionCode) {
 		// TODO Auto-generated method stub
