@@ -26,7 +26,7 @@
 			document.form1.contents.focus();
 			return;
 		}
-		document.form1.action = "/market/mk_servlet/update.do";
+		document.form1.action = "/product/update";
 		document.form1.submit();
 	}
 </script>
@@ -59,14 +59,14 @@
 				<th>상품 이미지</th>
 			</tr>
 			<tr>
-				<td><img src="/market/images/${dto.filename}" width="300px"
-					height="300px"> <br> <input type="file" name="file1">
+				<td><img src="/resources/images/${dto.filename}" width="300px"
+					height="300px"> <br> <input type="file" name="file">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="hidden"name="write_code" value="${dto.write_code}"> 
 				<input type="button" value="수정" onclick="update_product()"> 
-				<input type="button" value="목록" onclick="location.href='/market/mk_servlet/myList.do'"></td>
+				<input type="button" value="목록" onclick="location.href='/product/mylist'"></td>
 			</tr>
 
 		</table>

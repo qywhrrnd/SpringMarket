@@ -112,7 +112,7 @@
         $("#contents").focus();
         return;
       }
-      form1.attr("action", "/market/mk_servlet/insert_product.do");
+      form1.attr("action", "/product/insert");
       form1.submit();
     }
   </script>
@@ -122,8 +122,9 @@
   <div class="container">
     <h2 align="center">내물건 팔기</h2>
     <hr style="text-align: left; margin-left: 0">
-    <form id="form1" method="post" enctype="multipart/form-data">
+    <form id="form1" name="form1" method="post" enctype="multipart/form-data">
      <table>
+     	
          <tr>
             <th>제목</th>
          </tr>
@@ -140,7 +141,7 @@
             <th>상품이미지</th>
          </tr>
          <tr>
-            <td><input type="file" name="file1"></td>
+            <td><input type="file" name="file"></td>
          </tr>
          <tr>
             <th>상품설명</th>
@@ -152,7 +153,7 @@
          <tr>
             <td colspan="2" align="center">
                <input type="button" value="등록" onclick="product_write()">
-               <input type="button" value="취소" onclick="location.href='/market/mt_servlet/list.do'">
+               <input type="button" value="취소" onclick="location.href='/product/list'">
             </td>
          </tr>
       </table>

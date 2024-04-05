@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>중고상품 목록</title>
 <style>
@@ -113,15 +114,15 @@ body {
 }
 </style>
 
-<script>
+<!-- <script>
    function list(page) {
       location.href = "/market/mk_servlet/search.do?cur_page=" + page
             + "&keyword=${keyword}";
    }
-</script>
+</script> -->
 </head>
 <body>
-   <c:if test="${sessionScope.userid == 'admin'}">
+<%--   <c:if test="${sessionScope.userid == 'admin'}">
       <%@ include file="../admin/admin_menu.jsp"%>
    </c:if>
    <c:if test="${sessionScope.userid != 'admin'}">
@@ -132,18 +133,19 @@ body {
    </c:if>
    <c:if test="${keyword != null}">
       <h1 align="center">${keyword}의 검색결과</h1>
-   </c:if>
+   </c:if> --%>
+ <%@ include file="../main/menu.jsp"%>
 
    <div class="container">
-      <div class="row" >
+      <div class="row">
          <c:forEach var="row" items="${list}" varStatus="status">
             <div class="col-lg-4 col-md-6 col-sm-12">
                <article class="card-link" >
                   <a class="card" style="margin: 10px; text-decoration: none;"
-                     href="/market/mk_servlet/detail.do?write_code=${row.write_code}">
+                     href="/product/detail/${row.write_code}">
                      <div class="box">
                         <img class="card-img" alt="${row.filename}"
-                           src="/market/images/${row.filename}" />
+                           src="/resources/images/${row.filename}" />
                      </div>
                      <div>
                         <h2 class="card-title" style="text-align: center; font-size: 20px; font-weight: bold;">${row.subject}</h2>

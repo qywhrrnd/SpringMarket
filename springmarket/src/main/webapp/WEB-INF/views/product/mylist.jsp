@@ -11,13 +11,13 @@
 <script>
    function delete_product(write_code) {
       if (confirm("삭제하시겠습니까?")) {
-         location.href = "/market/mk_servlet/delete.do?write_code="
-               + write_code;
+    	  location.href = "/product/mylist_delete?write_code="
+     			+ write_code;
       }
    }
    function updateStatus(write_code,status_code) {
       if (confirm("판매 상태를 변경하시겠습니까?")){
-         location.href = "/market/mk_servlet/updateStatus.do?write_code=" + write_code + "&status_code=" + status_code;
+         location.href = "/product/updateStatus?write_code=" + write_code + "&status_code=" + status_code;
          
       }
    }
@@ -122,11 +122,11 @@ select {
                   <c:forEach var="row" items="${list}">
                      <c:if test="${row.userid eq sessionScope.userid}">
                         <tr>
-                           <td align="center"><a
-                              href="/market/mk_servlet/detail.do?write_code=${row.write_code}">
+                           <td align="center">
+                           <a href="/product/detail/${row.write_code}">
                                  ${row.subject}</a></td>
                            <td align="center"><img
-                              src="/market/images/${row.filename}" width="100px"
+                              src="/resources/images/${row.filename}" width="100px"
                               height="100px"></td>
 
                            <td align="center"><fmt:formatNumber value="${row.price}"
@@ -134,12 +134,12 @@ select {
                                  test="${sessionScope.userid != null}">
 
                                  <td align="center"><a
-                                    href="/market/mk_servlet/edit.do?write_code=${row.write_code}">[편집]</a>
+                                    href="/product/edit/${row.write_code}">[편집]</a>
                                     &nbsp;<input type="button"
                                     onclick="delete_product('${row.write_code}')" value="삭제"></td>
                                  <td align="center">
-                                    <%-- <c:if test="${sessionScope.userid != null}"> --%> <select
-                                    id="statusSelect"
+                                    <%-- <c:if test="${sessionScope.userid != null}"> --%> 
+                                    <select id="statusSelect"
                                     onchange="updateStatus('${row.write_code}', this.value)">
                                        <option value="선택">선택</option>
                                        <option value="0"

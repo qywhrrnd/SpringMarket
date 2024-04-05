@@ -26,7 +26,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="../mk_servlet/list.do">중고거래</a></li>
+					href="/product/list">중고거래</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="../board_servlet/list.do">자유게시판</a></li>
 
@@ -50,7 +50,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
 						<li class="nav-item"><a class="nav-link"
-							href="/market/product/write.jsp">물품등록</a></li>
+							href="/product/write">물품등록</a></li>
 					</c:when>
 					<c:otherwise>
 						<script>
@@ -94,7 +94,7 @@
 								<li><a class="dropdown-item"
 									onclick="location.href='/market/love_servlet/love_List.do?userid=${sessionScope.userid}'">관심목록</a></li>
 								<li><a class="dropdown-item"
-									onclick="location.href='/market/mk_servlet/myList.do?userid=${sessionScope.userid}'">판매내역</a></li>
+									onclick="location.href='/product/mylist?userid=${sessionScope.userid}'">판매내역</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item"
 									onclick="location.href='/market/login_servlet/myPage.do?userid=${sessionScope.userid}'">마이페이지</a></li>

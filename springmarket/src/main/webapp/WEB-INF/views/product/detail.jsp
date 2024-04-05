@@ -147,8 +147,8 @@ function openReport() {
 
 function delete_product(write_code) {
    if (confirm("삭제하시겠습니까?")) {
-      location.href = "/market/mk_servlet/admin_del.do?write_code="
-            + write_code;
+      location.href = "/product/delete?write_code="
+       			+ write_code;
    }
 }
 </script>
@@ -175,12 +175,16 @@ function address() {
 </script>
 </head>
 <body>
-   <c:if test="${sessionScope.userid == 'admin'}">
+   <%-- <c:if test="${sessionScope.userid == 'admin'}">
       <%@ include file="../admin/admin_menu.jsp"%>
    </c:if>
+   
    <c:if test="${sessionScope.userid != 'admin'}">
       <%@ include file="../main/menu.jsp"%>
-   </c:if>
+   </c:if> --%>
+   
+   <%@ include file="../main/menu.jsp"%>
+ <!----------------------------------------------------------------------------------->  
    <h2>상품정보</h2>
    <c:if
       test="${sessionScope.userid == 'admin' || sessionScope.userid == dto.userid}">
@@ -192,7 +196,7 @@ function address() {
    <table>
       <tr>
          <td align="right" width="642px"><img id="img"
-            src="/market/images/${dto.filename}" alt="Product Image"></td>
+            src="/resources/images/${dto.filename}" alt="Product Image"></td>
          <td>
             <form name="form1" method="post">
                <table>
