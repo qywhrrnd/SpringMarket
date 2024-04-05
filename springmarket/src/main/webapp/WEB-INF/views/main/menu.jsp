@@ -15,7 +15,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/market/mk_servlet/pop.do"><img
+		<a class="navbar-brand" href="/main/pagemain.do"><img
 			src="/resources/images/gaginame.png" id="image"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarSupportedContent"

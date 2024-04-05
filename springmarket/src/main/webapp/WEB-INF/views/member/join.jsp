@@ -134,11 +134,18 @@
 			dataType : "json",
 			success : function(response) {
 				console.log(response);
-				if (response == userid) {
+				if(response.count === "false"){
+					$("#loginButton").prop("disabled", true);
+					alert("아이디를 입력해주세요");
+				}
+				else if(userid.length<4 || userid.length>12){
+					alert("아이디는 4자에서 12자 사이여야 합니다");
+				}
+				else if (response.count === userid) {
 					// 중복된 아이디가 있으면 로그인 버튼 비활성화
 					$("#loginButton").prop("disabled", true);
 					alert("이미 사용 중인 아이디입니다.");
-				} else if(response == true){
+				} else if(response.count === "true"){
 					// 사용 가능한 아이디일 때
 					$("#loginButton").prop("disabled", false);
 					alert("사용 가능한 아이디입니다.");
@@ -162,11 +169,15 @@
 				console.log(response);
 				//$("#emailresult").html(txt);
 
-				if (response == email) {
+				if(response.count1 === "false"){
+					$("#loginButton").prop("disabled", true);
+					alert("이메일을 입력해주세요");
+				}
+				else if (response.count1 === email) {
 					// 중복된 아이디가 있으면 로그인 버튼 비활성화
 					$("#loginButton").prop("disabled", true);
 					alert("이미 사용 중인 이메일입니다.");
-				} else if(response != email){
+				} else if(response.count1 === "true"){
 					// 사용 가능한 아이디일 때
 					$("#loginButton").prop("disabled", false);
 					alert("사용 가능한 이메일입니다.");
