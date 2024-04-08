@@ -119,13 +119,13 @@
 			return;
 		}
 		if (confirm("변경하시겠습니까?")) {
-			document.form1.action = "/market/login_servlet/update.do";
+			document.form1.action = "/member/mypage_update.do";
 			document.form1.submit();
 			alert("변경이 완료되었습니다.")
-		} else {
-			location.href = "/market/login_servlet/myPage.do?userid="
-					+ '${sessionScope.userid}';
-		}
+		}  else {
+			location.href = "/member/mypage.do"
+					
+		}  
 	}
 	function check() {
 		let nickname = document.getElementById("nickname").value;

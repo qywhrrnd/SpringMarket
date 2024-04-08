@@ -203,7 +203,7 @@ function address() {
                   <table>
                      <tr>
                         <td width="300px" style="font-size: xx-large;">${dto.subject}</td>
-                        <td><button class="like-button" id="likeButton" style="margin-left: 10px;">
+                        <td><button type="button" class="like-button" id="likeButton" style="margin-left: 10px;">
             <svg class="like-icon" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
@@ -296,45 +296,50 @@ function address() {
            var toid = "${dto.userid}";
            location.href = "/market/chat_servlet/chat.do?toid=" + toid +"&userid="+"${sessionScope.userid}";   
        });
+       const likeButton = document.getElementById("likeButton");
+       /* let write_code = '${dto.write_code}'; */
+       
+       likeButton.addEventListener("click", function() {
+     	  console.log("click");
+           if (likeButton.classList.contains("like-selected")) {
+                       $.ajax({
+                           url: "/love/love_clear",
+                           type: "POST",
+                           data: {
+                               write_code: ${dto.write_code},
+                               userid: "${sessionScope.userid}"
+                           },
+                           success: function (txt) {
+                         	  console.log(txt);
+                         	  if (txt == "success")
+                               likeButton.classList.remove("like-selected");
+                           },
+                       });
+                  
+           }else {
+                    $.ajax({
+                        url: "/love/love_apply",
+                        type: "POST",
+                        data: {
+                            write_code: ${dto.write_code},
+                            userid: "${sessionScope.userid}"
+                        },
+                        success: function (txt) {
+                     	   if (txt == "success")
+                            likeButton.classList.add("like-selected");
+                        },
+                      });
+                  }
+              });
+       
+       
+       if ("${sessionScope.check}" == 1) {
+          likeButton.classList.add("like-selected");
+       }       
    });
    
 
-      const likeButton = document.getElementById("likeButton");
       
-      
-      likeButton.addEventListener("click", function() {
-          if (likeButton.classList.contains("like-selected")) {
-                      $.ajax({
-                          url: "/market/love_servlet/love_clear.do",
-                          type: "GET",
-                          data: {
-                              write_code: ${dto.write_code},
-                              userid: "${sessionScope.userid}"
-                          },
-                          success: function () {
-                              likeButton.classList.remove("like-selected");
-                          },
-                      });
-                 
-          }else {
-                   $.ajax({
-                       url: "/market/love_servlet/love_apply.do",
-                       type: "GET",
-                       data: {
-                           write_code: ${dto.write_code},
-                           userid: "${sessionScope.userid}"
-                       },
-                       success: function () {
-                           likeButton.classList.add("like-selected");
-                       },
-                     });
-                 }
-             });
-      
-      
-      if (${sessionScope.check} == 1) {
-         likeButton.classList.add("like-selected");
-      }
    </script>
    <%@ include file="../main/footer.jsp"%>
 </body>

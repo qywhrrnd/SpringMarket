@@ -93,7 +93,10 @@ public class ProductController {
 
 	// 상품 클릭시 디테일
 	@GetMapping("detail/{write_code}")
-	public ModelAndView detail(@PathVariable(name = "write_code") int write_code, ModelAndView mav) {
+	public ModelAndView detail(@PathVariable(name = "write_code") int write_code, ModelAndView mav,HttpSession session) {
+		String userid =(String)session.getAttribute("userid");
+		int check = productDao.loveCheck(userid, write_code);
+		session.setAttribute("check", check);
 		mav.setViewName("product/detail");
 		mav.addObject("dto", productDao.detail(write_code));
 		return mav;

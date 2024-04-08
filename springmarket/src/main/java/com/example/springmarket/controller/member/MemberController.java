@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import com.example.springmarket.model.auction.AuctionDTO;
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.member.MemberDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -172,6 +174,29 @@ public class MemberController {
 		MemberDTO dto = memberDao.mypage(userid);
 		return new ModelAndView("member/mypage", "dto", dto);
 	}
+	
+	@PostMapping("member/mypage_update.do")
+	public ModelAndView mypage_update(HttpSession session,
+			@RequestParam(name="name") String name,
+			@RequestParam(name="nickname") String nickname,
+			@RequestParam(name="birth") int birth,
+			@RequestParam(name="phone") String phone,
+			@RequestParam(name="email") String email,
+			@RequestParam(name="address1") String address1,
+			@RequestParam(name="address2") String address2) {
+		String userid =(String)session.getAttribute("userid");
+		MemberDTO dto = new MemberDTO();
+		dto.setUserid(userid);
+        dto.setName(name);
+        dto.setNickname(nickname);
+        dto.setBirth(birth);
+        dto.setPhone(phone);
+        dto.setEmail(email);
+        dto.setAddress(address1+address2);
+		memberDao.updateMypage(dto);
+		return new ModelAndView("member/mypage","dto",dto);
+	}
+	
 
 	@GetMapping("member/detail_passwd.do")
 	public ModelAndView detail_passwd() {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="love">
+
+	<insert id="love_apply">
+		insert into love (userid, write_code, idx) values
+		(#{userid}, #{write_code}, (select
+		nvl(max(idx)+1,1)from love))
+	</insert>
+
+	<delete id="love_clear">
+		delete from love where userid=#{userid} and
+		write_code=#{write_code}
+	</delete>
+
+	<select id="love_count" parameterType="map" resultType="int">
+		select
+		count(*) from love where write_code=#{write_code}
+	</select>
+	
+	<select id="love_list" parameterType="String"
+		resultType="com.example.springmarket.model.love.LoveDTO">
+		select p.userid, p.subject,
+		p.price,p.contents,p.filename,l.write_code,p.status_code
+		from product p,love l
+		where p.write_code = l.write_code and l.userid=#{userid} and status_code = 0
+		order by l.write_code
+
+	</select>
+
+	<delete id="love_delete">
+		delete from love where write_code = #{write_code}
+	</delete>
+
+
+</mapper>

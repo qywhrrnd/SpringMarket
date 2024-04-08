@@ -91,7 +91,7 @@
 							data-bs-toggle="dropdown" aria-expanded="false">내정보</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item"
-									onclick="location.href='/market/love_servlet/love_List.do?userid=${sessionScope.userid}'">관심목록</a></li>
+									onclick="location.href='/love/love_list?userid=${sessionScope.userid}'">관심목록</a></li>
 								<li><a class="dropdown-item"
 									onclick="location.href='/product/mylist?userid=${sessionScope.userid}'">판매내역</a></li>
 								<li><hr class="dropdown-divider"></li>
