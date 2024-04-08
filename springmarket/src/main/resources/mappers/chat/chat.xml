@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+
+	<select id="chatbox"
+		resultType="com.example.springmarket.model.chat.Room">
+		select * from chatbox where (user1 = #{userid}) or (user2 =
+		#{userid})
+	</select>
+
+	<insert id="createchatbox">
+		insert into chatbox (roomnumber, user1, user2)
+		values
+		(
+		(select nvl(max(roomnumber) + 1, 1) from chatbox),
+		#{userid},
+		#{otherid}
+		)
+	</insert>
+
+
+	<insert id="savechat">
+		insert into chatting (idx, roomnumber, userid,
+		message) values((select
+		nvl(max(idx) + 1, 1) from chatting),
+		#{roomnumber}, #{userid},
+		#{message})
+	</insert>
+
+	<select id="loadchat"
+		resultType="com.example.springmarket.model.chat.Chat">
+		select * from chatting where roomnumber=#{roomnumber} order
+		by idx
+	</select>
+
+</mapper>

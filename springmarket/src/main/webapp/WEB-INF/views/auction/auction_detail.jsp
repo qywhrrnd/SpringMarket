@@ -122,18 +122,16 @@ th, td {
 						$(".chat")
 								.click(
 										function() {
-											var toid = "${dto.userid}";
-											location.href = "/market/chat_servlet/chat.do?toid="
-													+ toid
-													+ "&userid="
-													+ "${sessionScope.userid}";
+											var otherid = "${dto.userid}";
+											location.href = "/chat/createchatbox.do?userid="+"${sessionScope.userid}"+"&otherid="+ otherid;
+									
 										});
 					});
 </script>
 <script>
 	function delete_product(auction_code) {
 		if (confirm("삭제하시겠습니까?")) {
-			location.href = "/market/at_servlet/admin_auction.do?auction_code="
+			location.href = "/auction/delete_auction.do?auction_code="
 					+ auction_code;
 		}
 	}

@@ -6,7 +6,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>Chating</title>
+<title>채팅</title>
 <style>
 * {
 	margin: 0;
@@ -16,7 +16,7 @@
 .container {
 	width: 500px;
 	margin: 0 auto;
-	padding: 25px
+	padding: 25px;
 }
 
 .container h1 {
@@ -50,104 +50,130 @@ input {
 }
 </style>
 </head>
-<script>
-	$(document).ready(function() {
-		// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
-		$("#chating").scrollTop($("#chating")[0].scrollHeight);
-	});
-</script>
-
 <body>
-<%@ include file="../main/menu.jsp"%>
-	<div id="container" class="container">
-		<h1>${roomName}의채팅방</h1>
-		<input type="text" id="sessionId" value="${sessionScope.userid}">
-		<input type="text" id="roomNumber" value="${roomNumber}">
+	<%@ include file="../main/menu.jsp"%>
+	<div class="container">
+		<h1>채팅방</h1>
+		<input type="hidden" id="userid" value="${sessionScope.userid}">
+		<input type="hidden" id="roomnumber" value="${roomNumber}">
 
 		<div id="chating" class="chating"></div>
-
 
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
 					<th>메시지</th>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+					<th><input id="message" name="message"
+						placeholder="보내실 메시지를 입력하세요."></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-					<th><button onclick="location.href='/chat/room.do'">
-							목록</button></th>
+					<th><button onclick="location.href='/chat/room.do'">목록</button></th>
 				</tr>
 			</table>
 		</div>
 	</div>
-</body>
-<script type="text/javascript">
-	wsOpen();
-	var ws;
 
-	function wsOpen() {
-		roomNumber: $("#roomNumber").val();
-		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-		ws = new WebSocket("ws://" + location.host + "/chating/"
-				+ $("#roomNumber").val());
-		wsEvt();
-	}
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-	function wsEvt() {
-		sessionId: $("#sessionId").val();
-		ws.onopen = function(data) {
+			loadchat();
+			wsOpen();
+
+			$("#chating").scrollTop($("#chating")[0].scrollHeight);
+
+		});
+
+		var ws;
+
+		function wsOpen() {
+			var roomnumber = $("#roomnumber").val();
+			ws = new WebSocket("ws://" + location.host + "/chating/"
+					+ roomnumber);
+			wsEvt();
 		}
 
-		ws.onmessage = function(data) {
-			//메시지를 받으면 동작
-			var msg = data.data;
+		function wsEvt() {
+			ws.onopen = function(data) {
+				console.log("aaaa");
+			}
 
-			if (msg != null && msg.trim() != '') {
-				var d = JSON.parse(msg);
-				if (d.type == "message") {
-					if (d.sessionId == $("#sessionId").val()) {
-						$("#chating").append(
-								"<p class='me'>" + d.sessionId + " :" + d.msg
-										+ "</p>");
-						$(document).ready(
-								function() {
-									// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
-									$("#chating").scrollTop(
-											$("#chating")[0].scrollHeight);
-								});
-					} else {
-						$("#chating").append(
-								"<p class='others'>" + d.sessionId + " :"
-										+ d.msg + "</p>");
-						$(document).ready(
-								function() {
-									// 페이지가 로드될 때 스크롤을 가장 아래로 이동합니다.
-									$("#chating").scrollTop(
-											$("#chating")[0].scrollHeight);
-								});
+			ws.onmessage = function(data) {
+				var msg = data.data;
+				if (msg != null && msg.trim() != '') {
+					var d = JSON.parse(msg);
+					if (d.type == "message") {
+						var sessionId = $("#userid").val();
+						if (d.userid == sessionId) {
+							$("#chating").append(
+									"<p class='me'>" + d.userid + " :"
+											+ d.message + "</p>");
+						} else {
+							$("#chating").append(
+									"<p class='others'>" + d.userid + " :"
+											+ d.message + "</p>");
+						}
+						$("#chating").scrollTop($("#chating")[0].scrollHeight);
 					}
-
-				} else {
-					console.warn("unknown type!");
 				}
 			}
-		}
 
-		document.addEventListener("keypress", function(e) {
-			if (e.keyCode == 13) { //enter press
-				send();
+			document.addEventListener("keypress", function(e) {
+				if (e.keyCode == 13) { // enter press
+					send();
+				}
+			});
+		}
+		
+		function send() {
+			var option = {
+				type : "message",
+				roomnumber : $("#roomnumber").val(),
+				userid : $("#userid").val(),
+				message : $("#message").val()
 			}
-		});
-	}
-
-	function send() {
-		var option = {
-			type : "message",
-			roomNumber : $("#roomNumber").val(),
-			sessionId : $("#sessionId").val(),
-			msg : $("#chatting").val()
+			ws.send(JSON.stringify(option));
+			$('#message').val("");
+			$.ajax({
+				url : "/chat/savechat.do",
+				type : "GET",
+				data : {
+					roomnumber : option.roomnumber,
+					userid : option.userid,
+					message : option.message
+				},
+				success : function() {
+					loadchat();
+				}
+			});
 		}
-		ws.send(JSON.stringify(option))
-		$('#chatting').val("");
-	}
-</script>
+		
+		function loadchat() {
+			var roomnumber = $("#roomnumber").val();
+			var sessionId = $("#userid").val();
+			if ($("#chating").is(':empty')) {
+				$.ajax({
+					url : "/chat/loadchat.do",
+					type : "GET",
+					data : {
+						roomnumber : roomnumber
+					},
+					success : function(response) {
+						console.log(response);
+						$.each(response, function(index, row) {
+							if (sessionId == row.userid) {
+								$("#chating").append(
+										"<p class='me'>" + row.userid + " :"
+												+ row.message + "</p>");
+							} else {
+								$("#chating").append(
+										"<p class='others'>" + row.userid
+												+ " :" + row.message + "</p>");
+							}
+						});
+						$("#chating").scrollTop($("#chating")[0].scrollHeight);
+					}
+				});
+			}
+		}
+	</script>
+</body>
 </html>

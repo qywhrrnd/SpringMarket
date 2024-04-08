@@ -11,9 +11,9 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room {
-	int roomNumber;
-	String user1;
-	String user2;
-		
+public class Chat {
+	private int idx;
+	private int roomnumber;
+	private String userid;
+	private String message;
 }

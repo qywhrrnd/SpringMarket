@@ -71,7 +71,7 @@ public class AuctionDAOImpl implements AuctionDAO {
 	@Override
 	public void deleteAuction(int auctionCode) {
 		session.delete("auction.delete", auctionCode);
-
+		
 	}
 
 }

@@ -141,12 +141,9 @@ public class AuctionController {
 	@ResponseBody
 	@GetMapping("auction/bid.do")
 	public ResponseEntity<AuctionDTO> bid(@RequestParam(name = "auction_code") int auctionCode,
-			@RequestParam(name = "bidPrice") int bidPrice,
-			@RequestParam(name = "biduserid") String biduserid) {
+			@RequestParam(name = "bidPrice") int bidPrice, @RequestParam(name = "biduserid") String biduserid) {
 		// 경매 정보를 가져옵니다.
-		System.out.println(auctionCode);
-		System.out.println(bidPrice);
-		System.out.println(biduserid);
+
 		AuctionDTO dto = auctionDao.getAuctionInfo(auctionCode);
 		auctionDao.bid(bidPrice, biduserid, auctionCode);
 		// 가져온 정보에 세션 사용자 ID를 설정합니다.
@@ -155,8 +152,7 @@ public class AuctionController {
 		// ResponseEntity를 사용하여 JSON 형식으로 데이터를 반환합니다.
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("auction/imageUpload.do")
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(name = "upload") MultipartFile upload) throws Exception {
@@ -174,6 +170,13 @@ public class AuctionController {
 		String fileUrl = request.getContextPath() + "/resources/images/" + fileName;
 		printWriter.println("{\"filename\"  :  \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
 		printWriter.flush();
+	}
+
+	@GetMapping("auction/delete_auction.do")
+	public String deleteAuction(@RequestParam(name = "auction_code") int auctionCode) {
+		auctionDao.deleteAuction(auctionCode);
+		return "redirect:/auction/list.do";
+
 	}
 
 }
