@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report">
+
+	<insert id="insert_Report">
+		insert into report (reporter, report_subject,
+		report_userid, report_contents, link, idx) values
+		(#{reporter},#{report_subject},#{report_userid},#{report_contents},#{link},(select
+		nvl(max(idx)+1,1)from report))
+	</insert>
+
+	<select id="report_list"
+		resultType="com.example.springmarket.model.report.ReportDTO">
+		select * from report
+	</select>
+
+	<delete id="report_delete">
+		delete from report where idx = #{idx}
+	</delete>
+
+</mapper>
