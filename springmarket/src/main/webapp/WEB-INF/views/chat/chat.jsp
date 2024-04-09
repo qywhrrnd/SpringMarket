@@ -34,19 +34,62 @@
 	overflow: auto;
 }
 
-.chating .me {
+.bubble {
+	max-width: 70%;
+	padding: 10px;
+	margin: 5px;
+	border-radius: 10px;
+	word-wrap: break-word;
+}
+
+.me {
 	color: #F6F6F6;
 	text-align: right;
+	background-color: #007bff; /* Your bubble color for 'me' */
+	align-self: flex-end;
+	margin-left: 350px; /* Added to push the bubble to the right */
 }
 
-.chating .others {
+.others {
 	color: #FFE400;
 	text-align: left;
+	background-color: #28a745; /* Your bubble color for 'others' */
+	align-self: flex-start; /* Added for consistency */
+	margin-right: 350px; /* Added to push the bubble to the left */
 }
 
-input {
-	width: 330px;
+.messageInput {
+	width: 300px;
 	height: 25px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.sendButton, .listButton {
+	width: 60px;
+	height: 25px;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 5px;
+	font-size: 14px;
+	color: #fff;
+	background-color: #007bff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.sendButton:hover, .listButton:hover {
+	background-color: #0056b3;
+}
+
+.listButton {
+	background-color: #28a745;
+}
+
+.listButton:hover {
+	background-color: #218838;
 }
 </style>
 </head>
@@ -65,10 +108,11 @@ input {
 			<table class="inputTable">
 				<tr>
 					<th>메시지</th>
-					<th><input id="message" name="message"
+					<th><input id="message" name="message" class="messageInput"
 						placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-					<th><button onclick="location.href='/chat/room.do'">목록</button></th>
+					<th><button onclick="send()" id="sendBtn" class="sendButton">보내기</button></th>
+					<th><button onclick="location.href='/chat/room.do'"
+							class="listButton">목록</button></th>
 				</tr>
 			</table>
 		</div>
@@ -111,12 +155,12 @@ input {
 
 						if (d.userid == sessionid) {
 							$("#chating").append(
-									"<p class='me'>" + sessionid + " :" + d.msg
-											+ "</p>");
+									"<div class='bubble me'>" + d.userid
+											+ " : " + d.msg + "</div>");
 						} else {
 							$("#chating").append(
-									"<p class='others'>" + d.userid + " :"
-											+ d.msg + "</p>");
+									"<div class='bubble others'>" + d.userid
+											+ " : " + d.msg + "</div>");
 						}
 						$("#chating").scrollTop($("#chating")[0].scrollHeight);
 					}
@@ -179,12 +223,12 @@ input {
 					$.each(response, function(index, row) {
 						if (sessionId == row.userid) {
 							$("#chating").append(
-									"<p class='me'>" + row.userid + " :"
-											+ row.message + "</p>");
+									"<div class='bubble me'>" + row.userid
+											+ " : " + row.message + "</div>");
 						} else {
 							$("#chating").append(
-									"<p class='others'>" + row.userid + " :"
-											+ row.message + "</p>");
+									"<div class='bubble others'>" + row.userid
+											+ " : " + row.message + "</div>");
 						}
 					});
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
