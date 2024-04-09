@@ -85,94 +85,101 @@ input {
 		var ws;
 
 		function wsOpen() {
-			var roomnumber = $("#roomnumber").val();
+			var roomNumber = $("#roomnumber").val();
 			ws = new WebSocket("ws://" + location.host + "/chating/"
-					+ roomnumber);
+					+ roomNumber);
 			wsEvt();
 		}
 
 		function wsEvt() {
-			ws.onopen = function(data) {
-				console.log("aaaa");
+			ws.onopen = function(event) {
+				console.log('WebSocket 연결 성공');
 			}
 
-			ws.onmessage = function(data) {
-				var msg = data.data;
+			ws.onmessage = function(event) {
+				console.log(event);
+				var msg = event.data;
 				if (msg != null && msg.trim() != '') {
 					var d = JSON.parse(msg);
-					if (d.type == "message") {
-						var sessionId = $("#userid").val();
-						if (d.userid == sessionId) {
-							$("#chating").append(
-									"<p class='me'>" + d.userid + " :"
-											+ d.message + "</p>");
-						} else {
-							$("#chating").append(
-									"<p class='others'>" + d.userid + " :"
-											+ d.message + "</p>");
-						}
-						$("#chating").scrollTop($("#chating")[0].scrollHeight);
+
+					var sessionid = $("#userid").val();
+					if (d.userid == sessionid) {
+						$("#chating").append(
+								"<p class='me'>" + sessionid + " :" + d.msg
+										+ "</p>");
+					} else {
+						$("#chating").append(
+								"<p class='others'>" + d.userid + " :" + d.msg
+										+ "</p>");
 					}
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}
 			}
 
 			document.addEventListener("keypress", function(e) {
-				if (e.keyCode == 13) { // enter press
-					send();
+				if (e.keyCode == 13) { // Enter 키 눌렀을 때
+					send(); // send() 함수 호출
 				}
 			});
 		}
-		
+
 		function send() {
 			var option = {
 				type : "message",
-				roomnumber : $("#roomnumber").val(),
+				roomNumber : $("#roomnumber").val(),
 				userid : $("#userid").val(),
-				message : $("#message").val()
+				msg : $("#message").val()
 			}
+
+			// WebSocket으로 메시지 전송
 			ws.send(JSON.stringify(option));
-			$('#message').val("");
+
+			// AJAX를 사용하여 서버에 메시지 저장
 			$.ajax({
 				url : "/chat/savechat.do",
 				type : "GET",
 				data : {
-					roomnumber : option.roomnumber,
+					roomnumber : option.roomNumber,
 					userid : option.userid,
-					message : option.message
+					message : option.msg
 				},
 				success : function() {
-					loadchat();
+					$('#message').val(""); // 메시지 입력란 초기화
+					console.log("메시지 전송 및 저장 성공");
+				},
+				error : function(xhr, status, error) {
+					console.error("에러 발생:", error);
 				}
 			});
 		}
-		
+
 		function loadchat() {
-			var roomnumber = $("#roomnumber").val();
+			var roomNumber = $("#roomnumber").val();
 			var sessionId = $("#userid").val();
-			if ($("#chating").is(':empty')) {
-				$.ajax({
-					url : "/chat/loadchat.do",
-					type : "GET",
-					data : {
-						roomnumber : roomnumber
-					},
-					success : function(response) {
-						console.log(response);
-						$.each(response, function(index, row) {
-							if (sessionId == row.userid) {
-								$("#chating").append(
-										"<p class='me'>" + row.userid + " :"
-												+ row.message + "</p>");
-							} else {
-								$("#chating").append(
-										"<p class='others'>" + row.userid
-												+ " :" + row.message + "</p>");
-							}
-						});
-						$("#chating").scrollTop($("#chating")[0].scrollHeight);
-					}
-				});
-			}
+
+			$.ajax({
+				url : "/chat/loadchat.do",
+				type : "GET",
+				data : {
+					roomnumber : roomNumber
+				},
+				success : function(response) {
+					console.log(response);
+					$.each(response, function(index, row) {
+						if (sessionId == row.userid) {
+							$("#chating").append(
+									"<p class='me'>" + row.userid + " :"
+											+ row.message + "</p>");
+						} else {
+							$("#chating").append(
+									"<p class='others'>" + row.userid + " :"
+											+ row.message + "</p>");
+						}
+					});
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
+				}
+			});
+
 		}
 	</script>
 </body>
