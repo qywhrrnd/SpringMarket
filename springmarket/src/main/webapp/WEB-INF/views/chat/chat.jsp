@@ -51,7 +51,12 @@ input {
 </style>
 </head>
 <body>
-	<%@ include file="../main/menu.jsp"%>
+	<c:if test="${sessionScope.userid == 'admin'}">
+		<%@ include file="../admin/admin_menu.jsp"%>
+	</c:if>
+	<c:if test="${sessionScope.userid != 'admin'}">
+		<%@ include file="../main/menu.jsp"%>
+	</c:if>
 	<div class="container">
 		<h1>채팅방</h1>
 		<input type="hidden" id="userid" value="${sessionScope.userid}">

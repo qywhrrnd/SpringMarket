@@ -118,7 +118,12 @@ input[type="button"]:hover {
 </script>
 </head>
 <body>
-	<%@ include file="../main/menu.jsp"%>
+	<c:if test="${sessionScope.userid == 'admin'}">
+		<%@ include file="../admin/admin_menu.jsp"%>
+	</c:if>
+	<c:if test="${sessionScope.userid != 'admin'}">
+		<%@ include file="../main/menu.jsp"%>
+	</c:if>
 	<div class="container">
 		<h2 align="center">경매 올리기</h2>
 		<hr style="text-align: left; margin-left: 0">
