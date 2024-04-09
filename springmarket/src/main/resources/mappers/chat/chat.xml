@@ -19,6 +19,14 @@
 	</insert>
 
 
+	<select id="chatboxcheck" resultType="int">
+		select count(*) from
+		chatbox where (user1 = #{userid} and user2=#{otherid}) or
+		(user1 =
+		#{otherid} and user2=#{userid})
+	</select>
+
+
 	<insert id="savechat">
 		insert into chatting (idx, roomnumber, userid,
 		message) values((select

@@ -28,4 +28,12 @@ public class RoomDAOImpl implements RoomDAO {
 		
 	}
 
+	@Override
+	public int chatboxcheck(String userid, String otherid) {
+		Map <String, Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("otherid", otherid);
+		return session.selectOne("chat.chatboxcheck", map);
+	}
+
 }
