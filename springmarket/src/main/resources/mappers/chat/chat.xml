@@ -17,8 +17,8 @@
 		#{otherid}
 		)
 	</insert>
-
-
+	
+	
 	<select id="chatboxcheck" resultType="int">
 		select count(*) from
 		chatbox where (user1 = #{userid} and user2=#{otherid}) or

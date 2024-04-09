@@ -124,14 +124,22 @@ button {
 			<table id="roomList" class="roomList">
 				<tr>
 					<th class="num">번호</th>
-					<th class="room">방 이름</th>
+					<th class="room">상대방 아이디</th>
 					<th class="go">참여</th>
 				</tr>
 
 				<c:forEach var="row" items="${list}">
 					<tr>
 						<td class="num">${row.roomNumber}</td>
-						<td class="room">${row.user2 }</td>
+						<c:choose>
+							<c:when test="${sessionScope.userid == row.user1}">
+								<td class="room">${row.user2 }</td>
+							</c:when>
+							<c:when test="${sessionScope.userid == row.user2}">
+								<td class="room">${row.user1 }</td>
+							</c:when>
+						</c:choose>
+
 						<td class="go"><button type="button"
 								onclick="goRoom(parseInt('${row.roomNumber}'))">참여</button></td>
 
