@@ -106,8 +106,7 @@ input {
 
 					var sessionid = $("#userid").val();
 					if (typeof d.userid === "undefined") {
-					   
-						
+
 					} else {
 
 						if (d.userid == sessionid) {
@@ -139,26 +138,30 @@ input {
 				msg : $("#message").val()
 			}
 
-			// WebSocket으로 메시지 전송
-			ws.send(JSON.stringify(option));
+			if ($("#message").val() == "") {
+				alert("메세지를 입력하세요");
+			} else {
+				// WebSocket으로 메시지 전송
+				ws.send(JSON.stringify(option));
 
-			// AJAX를 사용하여 서버에 메시지 저장
-			$.ajax({
-				url : "/chat/savechat.do",
-				type : "GET",
-				data : {
-					roomnumber : option.roomNumber,
-					userid : option.userid,
-					message : option.msg
-				},
-				success : function() {
-					$('#message').val(""); // 메시지 입력란 초기화
-					console.log("메시지 전송 및 저장 성공");
-				},
-				error : function(xhr, status, error) {
-					console.error("에러 발생:", error);
-				}
-			});
+				// AJAX를 사용하여 서버에 메시지 저장
+				$.ajax({
+					url : "/chat/savechat.do",
+					type : "GET",
+					data : {
+						roomnumber : option.roomNumber,
+						userid : option.userid,
+						message : option.msg
+					},
+					success : function() {
+						$('#message').val(""); // 메시지 입력란 초기화
+						console.log("메시지 전송 및 저장 성공");
+					},
+					error : function(xhr, status, error) {
+						console.error("에러 발생:", error);
+					}
+				});
+			}
 		}
 
 		function loadchat() {
