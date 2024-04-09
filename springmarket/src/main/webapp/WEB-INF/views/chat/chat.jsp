@@ -51,12 +51,9 @@ input {
 </style>
 </head>
 <body>
-	<c:if test="${sessionScope.userid == 'admin'}">
-		<%@ include file="../admin/admin_menu.jsp"%>
-	</c:if>
-	<c:if test="${sessionScope.userid != 'admin'}">
-		<%@ include file="../main/menu.jsp"%>
-	</c:if>
+
+	<%@ include file="../main/menu.jsp"%>
+
 	<div class="container">
 		<h1>채팅방</h1>
 		<input type="hidden" id="userid" value="${sessionScope.userid}">
@@ -108,16 +105,22 @@ input {
 					var d = JSON.parse(msg);
 
 					var sessionid = $("#userid").val();
-					if (d.userid == sessionid) {
-						$("#chating").append(
-								"<p class='me'>" + sessionid + " :" + d.msg
-										+ "</p>");
+					if (typeof d.userid === "undefined") {
+					   
+						
 					} else {
-						$("#chating").append(
-								"<p class='others'>" + d.userid + " :" + d.msg
-										+ "</p>");
+
+						if (d.userid == sessionid) {
+							$("#chating").append(
+									"<p class='me'>" + sessionid + " :" + d.msg
+											+ "</p>");
+						} else {
+							$("#chating").append(
+									"<p class='others'>" + d.userid + " :"
+											+ d.msg + "</p>");
+						}
+						$("#chating").scrollTop($("#chating")[0].scrollHeight);
 					}
-					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}
 			}
 

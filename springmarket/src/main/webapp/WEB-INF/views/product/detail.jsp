@@ -293,8 +293,8 @@ function address() {
 
    $(document).ready(function(){
        $(".chat").click(function(){
-           var toid = "${dto.userid}";
-           location.href = "/market/chat_servlet/chat.do?toid=" + toid +"&userid="+"${sessionScope.userid}";   
+    	   var otherid = "${dto.userid}";
+			location.href = "/chat/createchatbox.do?userid="+"${sessionScope.userid}"+"&otherid="+ otherid;
        });
        const likeButton = document.getElementById("likeButton");
        /* let write_code = '${dto.write_code}'; */
