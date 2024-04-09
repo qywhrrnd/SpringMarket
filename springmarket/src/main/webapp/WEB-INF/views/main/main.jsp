@@ -118,7 +118,14 @@ body {
 </style>
 </head>
 <body>
+         <c:choose>
+      <c:when test="${sessionScope.userid == 'admin'}">
+         <%@ include file="../admin/admin_menu.jsp"%>
+      </c:when>
+      <c:otherwise>
          <%@ include file="../main/menu.jsp"%>
+      </c:otherwise>
+   </c:choose>
         ${alertScript}
 
    <div class="container">

@@ -7,9 +7,9 @@
 
 
 <meta charset="UTF-8">
-<script src="/market/include/js/bootstrap.js"></script>
-<script src="/market/include/js/bootstrap.bundle.js"></script>
-<link rel="stylesheet" href="/market/include/css/bootstrap.css">
+<script src="/resources/js/bootstrap.js"></script>
+<script src="/resources/js/bootstrap.bundle.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
 <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <title>관리자 페이지</title>
@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
    <div class="container-fluid">
       <a class="navbar-brand" href="/market/mk_servlet/pop.do"><img
-         src="../images/gaginame.png" id="image"></a>
+         src="/resources/images/gaginame.png" id="image"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
          data-bs-target="#navbarSupportedContent"
          aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -68,7 +68,7 @@
 <article align="center">
 ${sessionScope.nickname}님
 <a href="/market/login_servlet/logout.do">
-<img src="../images/power2.png" width="20px" height="20px" alt="로그아웃">
+<img src="/resources/images/power2.png" width="20px" height="20px" alt="로그아웃">
 </a>
 </article>
       </c:otherwise>
