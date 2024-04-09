@@ -108,16 +108,25 @@ public class ChatController {
 	public ModelAndView chatbox(@RequestParam(name = "userid") String userid,
 			@RequestParam(name = "otherid") String otherid) {
 		String url = "";
-		roomDao.craetechatbox(userid, otherid);
 
-		List<Room> list = roomDao.chatbox(userid);
-		url = "chat/box";
-		System.out.println(list);
-		return new ModelAndView(url, "list", list);
+		int check = roomDao.chatboxcheck(userid, otherid);
+		if (check == 1) {
+			List<Room> list = roomDao.chatbox(userid);
+			url = "chat/box";
+			System.out.println(list);
+			return new ModelAndView(url, "list", list);
+
+		} else {
+			roomDao.craetechatbox(userid, otherid);
+			List<Room> list = roomDao.chatbox(userid);
+			url = "chat/box";
+			System.out.println(list);
+			return new ModelAndView(url, "list", list);
+
+		}
 
 	}
 
-	
 	@ResponseBody
 	@RequestMapping("chat/savechat.do")
 	public String savechat(@RequestParam(name = "roomnumber") String roomnumber,

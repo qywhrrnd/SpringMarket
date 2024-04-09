@@ -6,4 +6,6 @@ public interface RoomDAO {
 	List<Room> chatbox(String userid);
 	
 	void craetechatbox(String userid, String otherid);
+	
+	int chatboxcheck(String userid, String otherid);
 }
