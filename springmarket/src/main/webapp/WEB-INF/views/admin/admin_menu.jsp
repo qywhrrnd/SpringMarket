@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
    <div class="container-fluid">
-      <a class="navbar-brand" href="/market/mk_servlet/pop.do"><img
+      <a class="navbar-brand" href="/main/pagemain.do"><img
          src="/resources/images/gaginame.png" id="image"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
          data-bs-target="#navbarSupportedContent"
@@ -27,7 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" aria-current="page"
-               href="../mk_servlet/list.do">중고거래</a></li>
+               href="/product/list">중고거래</a></li>
             <li class="nav-item"><a class="nav-link"
                href="../board_servlet/list.do">자유게시판</a></li>
 

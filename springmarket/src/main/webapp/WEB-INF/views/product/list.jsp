@@ -134,7 +134,14 @@ body {
    <c:if test="${keyword != null}">
       <h1 align="center">${keyword}의 검색결과</h1>
    </c:if> --%>
- <%@ include file="../main/menu.jsp"%>
+<c:choose>
+      <c:when test="${sessionScope.userid == 'admin'}">
+         <%@ include file="../admin/admin_menu.jsp"%>
+      </c:when>
+      <c:otherwise>
+         <%@ include file="../main/menu.jsp"%>
+      </c:otherwise>
+   </c:choose>
 
    <div class="container">
       <div class="row">
