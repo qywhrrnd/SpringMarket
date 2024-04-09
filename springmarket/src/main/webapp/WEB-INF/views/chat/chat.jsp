@@ -28,7 +28,7 @@
 }
 
 .chating {
-	background-color: #000;
+	background-color: #bacee0;
 	width: 500px;
 	height: 500px;
 	overflow: auto;
@@ -43,17 +43,17 @@
 }
 
 .me {
-	color: #F6F6F6;
+	color: #000000;
 	text-align: right;
-	background-color: #007bff; /* Your bubble color for 'me' */
+	background-color: #ffeb33; /* Your bubble color for 'me' */
 	align-self: flex-end;
 	margin-left: 350px; /* Added to push the bubble to the right */
 }
 
 .others {
-	color: #FFE400;
+	color: #000000;
 	text-align: left;
-	background-color: #28a745; /* Your bubble color for 'others' */
+	background-color: #ffffff; /* Your bubble color for 'others' */
 	align-self: flex-start; /* Added for consistency */
 	margin-right: 350px; /* Added to push the bubble to the left */
 }
@@ -155,12 +155,14 @@
 
 						if (d.userid == sessionid) {
 							$("#chating").append(
-									"<div class='bubble me'>" + d.userid
-											+ " : " + d.msg + "</div>");
+									"<div class='bubble me'><strong style='color:black;'>"
+											+ d.userid + "</strong><br>"
+											+ d.msg + "</div>");
 						} else {
 							$("#chating").append(
-									"<div class='bubble others'>" + d.userid
-											+ " : " + d.msg + "</div>");
+									"<div class='bubble others'><strong style='color:black;'>"
+											+ d.userid + "</strong><br>"
+											+ d.msg + "</div>");
 						}
 						$("#chating").scrollTop($("#chating")[0].scrollHeight);
 					}
@@ -223,12 +225,14 @@
 					$.each(response, function(index, row) {
 						if (sessionId == row.userid) {
 							$("#chating").append(
-									"<div class='bubble me'>" + row.userid
-											+ " : " + row.message + "</div>");
+									"<div class='bubble me'><strong style='color:black;'>"
+											+ row.userid + "</strong><br>"
+											+ row.message + "</div>");
 						} else {
 							$("#chating").append(
-									"<div class='bubble others'>" + row.userid
-											+ " : " + row.message + "</div>");
+									"<div class='bubble others'><strong style='color:black;'>"
+											+ row.userid + "</strong><br>"
+											+ row.message + "</div>");
 						}
 					});
 					$("#chating").scrollTop($("#chating")[0].scrollHeight);
