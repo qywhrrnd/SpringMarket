@@ -83,7 +83,8 @@ input[type="button"]:hover {
 		}
 		alert("신고되었습니다");
 		form1.attr("action", "/report/report");
-		form1.sumbit();
+		form1.submit();
+		window.close();
 	}
 </script>
 </head>
