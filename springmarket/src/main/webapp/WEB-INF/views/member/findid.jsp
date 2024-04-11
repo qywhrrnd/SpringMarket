@@ -9,30 +9,30 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	// 문서가 준비되었을 때 실행
-		function findid_result() {
-			let name = document.getElementById("name").value;
-			let birth = document.getElementById("birth").value;
-			let phone = document.getElementById("phone").value;
+	function findid_result() {
+		let name = document.getElementById("name").value;
+		let birth = document.getElementById("birth").value;
+		let phone = document.getElementById("phone").value;
 
-			$.ajax({
-				url : "/member/findId.do",
-				type : "POST",
-				data : {
-					"name" : name,
-					"birth" : birth,
-					"phone" : phone
-				},
-				dataType : "json", // 서버로부터 받을 데이터 형식을 JSON으로 지정
-				success : function(response) {
-				
-						alert(response.message);
-						location.href = response.url;
-				},
-				error : function(xhr, status, error) {
-					console.error("에러 발생:", status, error);
-				}
-			});
-		}
+		$.ajax({
+			url : "/member/findId.do",
+			type : "POST",
+			data : {
+				"name" : name,
+				"birth" : birth,
+				"phone" : phone
+			},
+			dataType : "json", // 서버로부터 받을 데이터 형식을 JSON으로 지정
+			success : function(response) {
+
+				alert(response.message);
+				location.href = response.url;
+			},
+			error : function(xhr, status, error) {
+				console.error("에러 발생:", status, error);
+			}
+		});
+	}
 </script>
 
 <style>
@@ -40,6 +40,7 @@
 </head>
 <body>
 	<%@ include file="../main/menu.jsp"%>
+	${alertScript}
 	<div class="container">
 		<!-- Heading -->
 		<h1>아이디 찾기</h1>

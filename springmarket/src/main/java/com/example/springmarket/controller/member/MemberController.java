@@ -1,6 +1,5 @@
 package com.example.springmarket.controller.member;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springmarket.model.email.EmailDTO;
-<<<<<<< HEAD
+
 import com.example.springmarket.model.email.EmailFindPwd;
-=======
+
 import com.example.springmarket.model.email.EmailService;
->>>>>>> branch 'master' of https://github.com/JaeGyunP/SpringMarket
+
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.member.MemberDTO;
 
@@ -88,8 +87,7 @@ public class MemberController {
 		dto.setEmail(email);
 		dto.setAddress(address);
 		memberDao.join(dto); // document 저장
-		
-		
+
 		String senderName = "가지나라"; // replace with actual sender name
 		String senderMail = "rhwls159@naver.com";
 
@@ -101,15 +99,13 @@ public class MemberController {
 		try {
 			service.mailSender(edto);
 			return "redirect:/member/pagelogin.do";
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/member/pagejoin.do";
-			
+
 		}
-		
-		
+
 	}
 
 	@GetMapping("member/pagefindId.do")
@@ -124,33 +120,37 @@ public class MemberController {
 
 	// 비밀번호 변경 메소드로 변경
 	@PostMapping("member/findPwd.do")
-	public String changePwd(@RequestParam(name = "userid") String userid) {
+	public ModelAndView changePwd(@RequestParam(name = "userid") String userid) {
 		// TODO: 비밀번호 변경 로직 수행
 		String pwd = memberDao.encrypt("a12345");
 		System.out.println(pwd);
 		memberDao.findPwd(userid, pwd);
 		String email = memberDao.email(userid);
-		if (userid != null) {
-			String senderName = "가지나라"; // replace with actual sender name
-			String senderMail = "rhwls159@naver.com";
 
-			EmailDTO edto = new EmailDTO();
-			edto.setSenderName(senderName);
-			edto.setSenderName(senderMail);
-			edto.setEmail(email);
-			EmailFindPwd findpwd = new EmailFindPwd();
-			try {
-				findpwd.mailSender2(edto);
-				return "redirect:/member/pagelogin.do";
+		String senderName = "가지나라"; // replace with actual sender name
+		String senderMail = "rhwls159@naver.com";
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return "redirect:/member/join";
-				
-			}
+		EmailDTO edto = new EmailDTO();
+		edto.setSenderName(senderName);
+		edto.setSenderName(senderMail);
+		edto.setEmail(email);
+		EmailFindPwd findpwd = new EmailFindPwd();
+		try {
+			findpwd.mailSender2(edto);
+			return new ModelAndView("member/login");
+
+		} catch (Exception e) {
+			String url = "";
+			url = "member/findid";
+			String message = "없는 아이디 입니다.";
+			// JavaScript 코드를 포함한 문자열 생성
+			String alertScript = "<script>alert('" + message + "');</script>";
+			// ModelAndView 객체 생성 시 HTML에 전달할 데이터를 설정
+			ModelAndView modelAndView = new ModelAndView(url);
+			modelAndView.addObject("alertScript", alertScript);
+			return modelAndView;
+
 		}
-
-		return "redirect:/member/pagelogin.do";
 	}
 
 	// RESTful API 엔드포인트로 변경
@@ -198,7 +198,7 @@ public class MemberController {
 		String message = "";
 		String check = memberDao.emailcheck(email);
 		if (check != null) {
-			 message = "중복된 이메일입니다.";
+			message = "중복된 이메일입니다.";
 		} else {
 			message = "사용 가능한 이메일 입니다.";
 		}
@@ -207,7 +207,6 @@ public class MemberController {
 		response.put("message", message);
 		return ResponseEntity.ok(response);
 	}
-
 
 	@GetMapping("member/mypage.do")
 	public ModelAndView mypage(@RequestParam(name = "userid") String userid) {
@@ -242,7 +241,6 @@ public class MemberController {
 		System.out.println(dto);
 		return new ModelAndView("redirect:/member/mypage_new.do/" + userid);
 	}
-
 
 	@GetMapping("member/detail_passwd.do")
 	public ModelAndView detail_passwd() {
@@ -299,8 +297,7 @@ public class MemberController {
 		dto.setUserid(userid);
 		dto.setReport_code(report_code);
 		memberDao.updateReport(dto);
-		
-				
+
 		return "redirect:/member/info.do";
 	}
 

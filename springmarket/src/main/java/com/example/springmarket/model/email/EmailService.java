@@ -31,7 +31,7 @@ public class EmailService {
         "<div>회원가입 절차가 완료되었습니다!</div>"+
         "<div>로그인 후 서비스를 이용해 주시기 바랍니다</div>"+
         "<div>가지나라는 언제나 당신 곁에 있습니다 gagi is near </div>"+
-        "<a href='http://localhost/market/login/login.jsp'>로그인</a></p>" +
+        "<a href='http://localhost/member/pagelogin.do'>로그인</a></p>" +
         "</div>"+
         "</body>" +
         "</html>";

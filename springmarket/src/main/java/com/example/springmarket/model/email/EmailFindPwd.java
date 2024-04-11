@@ -32,7 +32,7 @@ public class EmailFindPwd {
 	        "<div> 현재 비밀번호가 a123456789 로 변경되었습니다.</div>"+
 	        "<div> 내 정보에서 비밀번호를 다시 변경해주시길 바랍니다.</div>"+
 	        "<div>가지나라는 언제나 당신 곁에 있습니다 gagi is near </div>"+
-	        "<a href='http://localhost/market/login/login.jsp'>로그인</a></p>" +
+	        "<a href='http://localhost/member/pagelogin.do'>로그인</a></p>" +
 	        "</div>"+
 	        "</body>" +
 	        "</html>";
