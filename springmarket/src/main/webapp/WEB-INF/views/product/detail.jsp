@@ -124,7 +124,7 @@ th, td {
 function openReport() {
    
 	var userId = "${dto.userid}";
-	var linkParam = encodeURIComponent("<%=request.getContextPath()%>/product/detail/?write_code=" + "${dto.write_code}");
+	var linkParam = encodeURIComponent("<%=request.getContextPath()%>/product/detail/" + "${dto.write_code}");
 	var url = "/report/pagereport?userid=" + userId + "&link=" + linkParam;
 
    

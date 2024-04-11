@@ -49,7 +49,7 @@ th, td {
 						<tr>
 							<td><input type="checkbox" name="num" value="${row.idx}"></td>
 							<td><a
-								href="${pageContext.request.contextPath}${row.link.substring(7)}">${row.report_subject}</a></td>
+								href="${pageContext.request.contextPath}${row.link}">${row.report_subject}</a></td>
 							<td>${row.reporter}</td>
 							<td>${row.report_userid}</td>
 							<td>${row.report_contents}</td>
