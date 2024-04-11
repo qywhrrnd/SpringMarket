@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -146,24 +147,19 @@ public class MemberController {
 
 	@PostMapping("member/emailcheck.do")
 	public ResponseEntity<Map<String, String>> emailcheck(@RequestParam(name = "email") String email) {
-		// TODO: 비밀번호 변경 로직 수행
-
-		String count1 = "";
-		if (email == "") {
-			count1 = "false";
+		String message = "";
+		String check = memberDao.emailcheck(email);
+		if (check != null) {
+			 message = "중복된 이메일입니다.";
 		} else {
-
-			count1 = memberDao.emailcheck(email);
-			if (count1 == null) {
-				count1 = "true"; // count가 null이면 "true" 문자열로 설정
-			}
+			message = "사용 가능한 이메일 입니다.";
 		}
-		System.out.println(count1);
 		Map<String, String> response = new HashMap<>();
-		response.put("count1", count1);
-
+		System.out.println(message);
+		response.put("message", message);
 		return ResponseEntity.ok(response);
 	}
+
 
 	@GetMapping("member/mypage.do")
 	public ModelAndView mypage(@RequestParam(name = "userid") String userid) {
@@ -171,12 +167,21 @@ public class MemberController {
 		return new ModelAndView("member/mypage", "dto", dto);
 	}
 
+	@GetMapping("member/mypage_new.do/{userid}")
+	public ModelAndView mypage_updatedo(@PathVariable(name = "userid") String userid) {
+		MemberDTO dto = memberDao.mypage(userid);
+		return new ModelAndView("member/mypage", "dto", dto);
+	}
+
 	@PostMapping("member/mypage_update.do")
-	public ModelAndView mypage_update(HttpSession session, @RequestParam(name = "name") String name,
-			@RequestParam(name = "nickname") String nickname, @RequestParam(name = "birth") int birth,
-			@RequestParam(name = "phone") String phone, @RequestParam(name = "email") String email,
-			@RequestParam(name = "address1") String address1, @RequestParam(name = "address2") String address2) {
+	public ModelAndView mypage_update(HttpSession session,
+
+			@RequestParam(name = "name") String name, @RequestParam(name = "nickname") String nickname,
+			@RequestParam(name = "birth") int birth, @RequestParam(name = "phone") String phone,
+			@RequestParam(name = "email") String email, @RequestParam(name = "address1") String address1,
+			@RequestParam(name = "address2") String address2) {
 		String userid = (String) session.getAttribute("userid");
+		System.out.println(userid);
 		MemberDTO dto = new MemberDTO();
 		dto.setUserid(userid);
 		dto.setName(name);
@@ -186,8 +191,10 @@ public class MemberController {
 		dto.setEmail(email);
 		dto.setAddress(address1 + address2);
 		memberDao.updateMypage(dto);
-		return new ModelAndView("member/mypage", "dto", dto);
+		System.out.println(dto);
+		return new ModelAndView("redirect:/member/mypage_new.do/" + userid);
 	}
+
 
 	@GetMapping("member/detail_passwd.do")
 	public ModelAndView detail_passwd() {

@@ -127,7 +127,7 @@
 					</c:when>
 					<c:otherwise>
 						<article align="center">
-							${sessionScope.nickname}님 <a href="/member/logout.do"> <img
+							${dto.nickname}님 <a href="/member/logout.do"> <img
 								src="/resources/images/power2.png" width="20px" height="20px"
 								alt="로그아웃">
 							</a>
