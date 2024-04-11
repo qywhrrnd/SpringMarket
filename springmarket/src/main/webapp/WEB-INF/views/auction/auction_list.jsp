@@ -128,7 +128,7 @@ body {
 
 	<div class="container">
 		<div class="row">
-			<c:forEach var="row" items="${list}" varStatus="status">
+			<c:forEach var="row" items="${map.list}" varStatus="status">
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<article class="card-link">
 						<a class="card"
@@ -144,7 +144,7 @@ body {
 									<fmt:formatNumber value="${row.price}" pattern="#,###" />
 									원
 								</div>
-								<div class="card-content">${mdao.address(row.userid)}</div>
+								<div class="card-content">${map.mdao.address(row.userid)}</div>
 							</div>
 						</a>
 					</article>
@@ -154,16 +154,16 @@ body {
 		<br><br><br><br><br>
 		<div class="page_wrap">
 			<div class="page_nation">
-				<c:if test="${page.curPage > 1}">
+				<c:if test="${map.page.curPage > 1}">
 					<a class="arrow pprev" href="#" onclick="list('1')"></a>
 				</c:if>
-				<c:if test="${page.curBlock > 1}">
-					<a class="arrow prev" href="#" onclick="list('${page.prevPage}')"></a>
+				<c:if test="${map.page.curBlock > 1}">
+					<a class="arrow prev" href="#" onclick="list('${map.page.prevPage}')"></a>
 				</c:if>
-				<c:forEach var="num" begin="${page.blockStart}"
-					end="${page.blockEnd}">
+				<c:forEach var="num" begin="${map.page.blockStart}"
+					end="${map.page.blockEnd}">
 					<c:choose>
-						<c:when test="${num == page.curPage}">
+						<c:when test="${num == map.page.curPage}">
 							<a style="color: green" class="active">${num}</a>
 						</c:when>
 						<c:otherwise>
@@ -171,11 +171,11 @@ body {
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<c:if test="${page.curBlock < page.totBlock}">
-					<a class="arrow next" href="#" onclick="list('${page.nextPage}')"></a>
+				<c:if test="${map.page.curBlock < map.page.totBlock}">
+					<a class="arrow next" href="#" onclick="list('${map.page.nextPage}')"></a>
 				</c:if>
-				<c:if test="${page.curPage < page.totPage}">
-					<a class="arrow nnext" href="#" onclick="list('${page.totPage}')"></a>
+				<c:if test="${map.page.curPage < map.page.totPage}">
+					<a class="arrow nnext" href="#" onclick="list('${map.page.totPage}')"></a>
 				</c:if>
 			</div>
 		</div>

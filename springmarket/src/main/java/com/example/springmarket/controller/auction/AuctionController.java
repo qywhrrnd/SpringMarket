@@ -54,7 +54,7 @@ public class AuctionController {
 		map.put("page", page);
 		map.put("mdao", memberDao);
 
-		return new ModelAndView("auction/auction_list", map);
+		return new ModelAndView("auction/auction_list", "map", map);
 	}
 
 	@GetMapping("auction/pageauctioninsert.do")

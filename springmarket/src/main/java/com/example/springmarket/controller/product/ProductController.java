@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.springmarket.model.love.LoveDAO;
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.product.PageUtil;
 import com.example.springmarket.model.product.ProductDAO;
@@ -33,26 +34,26 @@ public class ProductController {
 
 	@Autowired
 	MemberDAO memberDao;
+	
+	@Autowired
+	LoveDAO loveDao;
+	
 
 	// 가지마켓 상품 리스트
 	@GetMapping("list")
-	public ModelAndView list(ModelAndView mav, @RequestParam(name = "cur_page", defaultValue = "1") int curPage,
-			@RequestParam(name = "count", defaultValue = "1") int count) {
-//         int count = productDao.count();
-		if (curPage < 1) {
-			curPage = 1;
-		}
+	public ModelAndView list(@RequestParam(name = "cur_page", defaultValue = "1") int curPage) {
+		int count = productDao.count();
 		PageUtil page = new PageUtil(count, curPage);
-
 		int start = page.getPageBegin();
 		int end = page.getPageEnd();
-
 		List<ProductDTO> list = productDao.list(start, end);
-		mav.setViewName("product/list");
-		mav.addObject("page", page);
-		mav.addObject("list", list);
 
-		return mav;
+		Map<String, Object> map = new HashMap<>();
+		map.put("ldao", loveDao);
+		map.put("list", list);
+		map.put("page", page);
+		map.put("memberDao", memberDao);
+		return new ModelAndView("product/list", "map", map);
 	}
 
 	// 상품추가하는는 화면으로 이동
@@ -103,6 +104,7 @@ public class ProductController {
 			HttpSession session) {
 		String userid = (String) session.getAttribute("userid");
 		int check = productDao.loveCheck(userid, write_code);
+		productDao.see(write_code);
 		session.setAttribute("check", check);
 		mav.setViewName("product/detail");
 		mav.addObject("dto", productDao.detail(write_code));
@@ -209,6 +211,22 @@ public class ProductController {
 		map.put("address", address);
 
 		return new ModelAndView("main/map", "map", map);
+
+	}
+
+	@RequestMapping("search")
+	public ModelAndView search(@RequestParam(name = "keyword") String keyword) {
+		int count = productDao.count(keyword);
+		int cur_page = 1;
+		PageUtil page = new PageUtil(count, cur_page);
+		int start = page.getPageBegin();
+		int end = page.getPageEnd();
+		List<ProductDTO> list = productDao.search(keyword, start, end);
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("keyword", keyword);
+		map.put("page", page);
+		return new ModelAndView("product/list", "map", map);
 
 	}
 

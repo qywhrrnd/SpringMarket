@@ -106,7 +106,7 @@
 				</c:choose>
 			</ul>
 			<form class="d-flex" role="search"
-				action="/market/mk_servlet/search.do">
+				action="/product/search">
 				<input class="form-control me-2" name="keyword" value="${keyword}"
 					placeholder="물품을 검색하세요."> <input type="submit"
 					class="btn btn-outline-success" style="background-color:"
