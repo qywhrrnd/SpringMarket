@@ -37,6 +37,9 @@ dependencies {
 	implementation  'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	// https://mvnrepository.com/artifact/javax.mail/mail
+	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+	
 }
 
 tasks.named('test') {

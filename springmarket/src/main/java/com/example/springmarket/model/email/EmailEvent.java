@@ -2,6 +2,14 @@ package com.example.springmarket.model.email;
 
 import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 public class EmailEvent {
 	public void mailSender3(EmailDTO dto) throws Exception {
