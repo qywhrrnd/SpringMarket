@@ -32,11 +32,11 @@ public class ReportController {
 		return new ModelAndView("report/report", "map", map);
 	}
 
-	@PostMapping("report")
+	@PostMapping("report.do")
 	public String insertReport(@RequestParam(name = "userid") String userid,
 			@RequestParam(name = "subject") String subject, @RequestParam(name = "contents") String contents,
 			@RequestParam(name = "link") String link, @RequestParam(name = "reporter") String reporter) {
-
+		String url = "";
 		System.out.println(userid);
 		System.out.println(subject);
 		System.out.println(contents);
@@ -49,7 +49,8 @@ public class ReportController {
 		dto.setLink(link);
 		dto.setReporter(reporter);
 		reportdao.insertReport(dto);
-		return "redirect:/report/report";
+		url = "report/reportclose";
+		return url;
 	}
 
 	@GetMapping("report_list")
@@ -61,7 +62,7 @@ public class ReportController {
 		return mav;
 	}
 
-	@GetMapping("report_delete")	
+	@GetMapping("report_delete")
 	public String report_delete(@RequestParam(name = "idx") int idx) {
 		reportdao.report_delete(idx);
 		return "redirect:/report/report_list";
