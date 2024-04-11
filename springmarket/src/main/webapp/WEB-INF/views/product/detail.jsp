@@ -153,8 +153,8 @@ function delete_product(write_code) {
 
 function address() {
    
-   var address = "${address}";
-    var url = "../mk_servlet/address.do?address=" + address;
+   var userid = "${dto.userid}";
+    var url = "/product/map?userid=" + userid;
    
     // 팝업 창 크기 설정
     var popupWidth = 600;

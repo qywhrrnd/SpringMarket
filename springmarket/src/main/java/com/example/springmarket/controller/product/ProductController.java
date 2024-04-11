@@ -1,7 +1,9 @@
 package com.example.springmarket.controller.product;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.product.PageUtil;
 import com.example.springmarket.model.product.ProductDAO;
 import com.example.springmarket.model.product.ProductDTO;
@@ -27,6 +30,9 @@ public class ProductController {
 
 	@Autowired
 	ProductDAO productDao;
+
+	@Autowired
+	MemberDAO memberDao;
 
 	// 가지마켓 상품 리스트
 	@GetMapping("list")
@@ -93,8 +99,9 @@ public class ProductController {
 
 	// 상품 클릭시 디테일
 	@GetMapping("detail/{write_code}")
-	public ModelAndView detail(@PathVariable(name = "write_code") int write_code, ModelAndView mav,HttpSession session) {
-		String userid =(String)session.getAttribute("userid");
+	public ModelAndView detail(@PathVariable(name = "write_code") int write_code, ModelAndView mav,
+			HttpSession session) {
+		String userid = (String) session.getAttribute("userid");
 		int check = productDao.loveCheck(userid, write_code);
 		session.setAttribute("check", check);
 		mav.setViewName("product/detail");
@@ -173,7 +180,7 @@ public class ProductController {
 	@PostMapping("update")
 	public String update(ProductDTO dto, HttpServletRequest request) {
 		String filename = "-";
-		
+
 		if (!dto.getFile().isEmpty()) {
 			filename = dto.getFile().getOriginalFilename();
 			try {
@@ -194,5 +201,15 @@ public class ProductController {
 	}
 
 	// 상품 검색
+
+	@RequestMapping("map")
+	public ModelAndView map(@RequestParam(name = "userid") String userid) {
+		String address = memberDao.address(userid);
+		Map<String, Object> map = new HashMap<>();
+		map.put("address", address);
+
+		return new ModelAndView("main/map", "map", map);
+
+	}
 
 }
