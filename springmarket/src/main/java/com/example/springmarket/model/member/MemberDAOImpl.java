@@ -70,7 +70,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Object> info() {
 		// TODO Auto-generated method stub
 		return session.selectList("member.info");
-	}
+	} 
 
 	@Override
 	public void updateReport(MemberDTO dto) {

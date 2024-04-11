@@ -1,5 +1,6 @@
 package com.example.springmarket.controller.member;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springmarket.model.email.EmailDTO;
+<<<<<<< HEAD
 import com.example.springmarket.model.email.EmailFindPwd;
+=======
+import com.example.springmarket.model.email.EmailService;
+>>>>>>> branch 'master' of https://github.com/JaeGyunP/SpringMarket
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.member.MemberDTO;
 
@@ -83,7 +88,28 @@ public class MemberController {
 		dto.setEmail(email);
 		dto.setAddress(address);
 		memberDao.join(dto); // document 저장
-		return "redirect:/member/pagelogin.do";
+		
+		
+		String senderName = "가지나라"; // replace with actual sender name
+		String senderMail = "rhwls159@naver.com";
+
+		EmailDTO edto = new EmailDTO();
+		edto.setSenderName(senderName);
+		edto.setSenderName(senderMail);
+		edto.setEmail(email);
+		EmailService service = new EmailService();
+		try {
+			service.mailSender(edto);
+			return "redirect:/member/pagelogin.do";
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/member/pagejoin.do";
+			
+		}
+		
+		
 	}
 
 	@GetMapping("member/pagefindId.do")
