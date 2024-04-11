@@ -64,7 +64,7 @@
                href="/report/report_list">신고</a></li>
 
             <li class="nav-item"><a class="nav-link"
-               href="../login_servlet/info.do">회원정보</a></li>
+               href="/member/info.do">회원정보</a></li>
                
             <li class="nav-item"><a class="nav-link"
                href="/quiz/adminquizlist">이벤트 목록</a></li>

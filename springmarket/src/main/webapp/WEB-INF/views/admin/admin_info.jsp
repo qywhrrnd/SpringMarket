@@ -8,14 +8,14 @@
 <title>회원 정보</title>
 <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
-   function delete_product(userid) {
+  /*  function delete_product(userid) {
       if (confirm("삭제하시겠습니까?")) {
          location.href = "/market/login_servlet/delete.do?userid=" + userid;
       }
-   }
+   } */
    function updateReport(userid, report_code) {
-      if (confirm("판매 상태를 변경하시겠습니까?")) {
-         location.href = "/market/login_servlet/updateReport.do?userid=" + userid + "&report_code=" + report_code;
+      if (confirm("회원 상태를 변경하시겠습니까?")) {
+         location.href = "/member/updateReport.do?userid=" + userid + "&report_code=" + report_code;
       }
    }
 </script>

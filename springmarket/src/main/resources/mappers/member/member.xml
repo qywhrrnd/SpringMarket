@@ -58,7 +58,7 @@
 		birth,phone,email, address, m.report_code, report_type
 		FROM member m,
 		kart k where m.report_code = k.report_code order by
-		name
+		report_code
 	</select>
 	<update id="changeReport">
 		update member set report_code=#{report_code} where

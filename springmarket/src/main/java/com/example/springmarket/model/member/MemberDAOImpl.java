@@ -69,12 +69,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<Object> info() {
 		// TODO Auto-generated method stub
-		return session.selectList("login.info");
+		return session.selectList("member.info");
 	}
 
 	@Override
 	public void updateReport(MemberDTO dto) {
-		session.update("login.changeReport", dto);
+		session.update("member.changeReport", dto);
 
 	}
 
