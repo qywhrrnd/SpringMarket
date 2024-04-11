@@ -46,6 +46,7 @@ public class EmailService {
       Session session = Session.getDefaultInstance(props, new Authenticator() {
          String un = username;
          String pw = password;
+         
 
          protected PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(un, pw);

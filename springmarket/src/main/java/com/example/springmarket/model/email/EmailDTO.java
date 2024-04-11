@@ -20,5 +20,6 @@ public class EmailDTO {
 	private String subject;
 	private String message;
 	
+	
 
 }
