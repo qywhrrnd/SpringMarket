@@ -8,7 +8,7 @@
 <script>
 
 function insert() {
-	  var url = "../admin/event_window.jsp";
+	  var url = "/quiz/pagequiz";
    
     // 팝업 창 크기 설정
     var popupWidth = 600;
@@ -75,7 +75,7 @@ input[type="button"] {
 	<%@ include file="../admin/admin_menu.jsp"%>
 	<div id="main_content" align="center">
 		<form method="post" name="form1">
-			<c:forEach var="row" items="${items}">
+			<c:forEach var="row" items="${list}">
 				<table>
 					<tr >
 						<td>

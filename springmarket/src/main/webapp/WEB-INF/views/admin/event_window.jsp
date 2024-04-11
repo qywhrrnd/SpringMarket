@@ -49,7 +49,7 @@ input[type="text"], textarea {
 
 input[type="button"] {
 	width: 48%;
-	background-color:orange;;
+	background-color: orange;;
 	color: black;
 	border: none;
 	padding: 10px 20px;
@@ -101,7 +101,7 @@ function btnInsert() {
          return;
      }
      alert("추가하였습니다.");
-     form1.attr("action", "/market/quiz_servlet/quiz_Insert.do");
+     form1.attr("action", "/quiz/insertquiz");
      form1.submit();
  }
 
@@ -116,8 +116,7 @@ function btnInsert() {
 			</tr>
 			<tr>
 				<td><input type="text" id="question" name="question"
-					placeholder="문제 입력"> <input type="hidden" id="quiz_idx"
-					name="quiz_idx"></td>
+					placeholder="문제 입력"></td>
 			</tr>
 			<tr>
 				<th>문제 목록 작성</th>
@@ -135,15 +134,13 @@ function btnInsert() {
 			</tr>
 
 			<tr>
-				<td>
-				<input type="button" value="등록" onclick="btnInsert()"></td>
+				<td><input type="button" value="등록" onclick="btnInsert()"></td>
 			</tr>
 			<tr>
-				<td>
-				<input type="button" value="취소" onclick="btnCancel()">
+				<td><input type="button" value="취소" onclick="btnCancel()">
 
-			</td>
-		</tr>
+				</td>
+			</tr>
 		</table>
 	</form>
 

@@ -67,11 +67,11 @@
                href="../login_servlet/info.do">회원정보</a></li>
                
             <li class="nav-item"><a class="nav-link"
-               href="/market/quiz_servlet/eventdetail.do">이벤트 목록</a></li>
+               href="/quiz/adminquizlist">이벤트 목록</a></li>
                
          </ul>
          <form class="d-flex" role="search"
-            action="/market/mk_servlet/search.do">
+            action="/product/search">
             <input class="form-control me-2" name="keyword" value="${keyword}"
                placeholder="물품을 검색하세요."> <input type="submit"
                class="btn btn-outline-success" value="검색" id="btnSearch">
@@ -83,7 +83,7 @@
    <c:choose>
       <c:when test="${sessionScope.userid == null }">
          <a href="/market/login/login.jsp" style="margin-right: 10px;">
-         <img src="../images/power.png" width="20px" height="20px" alt="로그인">
+         <img src="/resources/images/power.png" width="20px" height="20px" alt="로그인">
          </a>
 </c:when>
       <c:otherwise>
