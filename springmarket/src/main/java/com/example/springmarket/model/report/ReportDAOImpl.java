@@ -19,13 +19,13 @@ public class ReportDAOImpl implements ReportDAO{
 	}
 	@Override
 	public List<ReportDTO> report_list() {
-		return session.selectList("report.list_report");
+		return session.selectList("report.report_list");
 	}
 	
 	
 	@Override
 	public void report_delete(int idx) {
-		session.delete("report.delete_report", idx);
+		session.delete("report.report_delete", idx);
 	}
 
 }

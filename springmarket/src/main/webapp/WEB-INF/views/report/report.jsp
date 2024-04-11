@@ -70,6 +70,7 @@ input[type="button"]:hover {
 		let userid = $("#userid").val();
 		let link = $("#link").val();
 		let reporter = $("#reporter").val();
+		
 
 		if (subject == "") {
 			alert("제목을 입력하세요");
@@ -82,7 +83,7 @@ input[type="button"]:hover {
 			return;
 		}
 		alert("신고되었습니다");
-		form1.attr("action", "/report/report");
+		form1.action = "/report/report";
 		form1.submit();
 		window.close();
 	}

@@ -52,4 +52,19 @@ public class ReportController {
 		return "redirect:/report/report";
 	}
 
+	@GetMapping("report_list")
+	public ModelAndView report_list(ModelAndView mav) {
+		mav.setViewName("report/reportlist");
+		mav.addObject("list", reportdao.report_list());
+		System.out.println(reportdao.report_list());
+
+		return mav;
+	}
+
+	@GetMapping("report_delete")	
+	public String report_delete(@RequestParam(name = "idx") int idx) {
+		reportdao.report_delete(idx);
+		return "redirect:/report/report_list";
+	}
+
 }

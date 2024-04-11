@@ -84,13 +84,12 @@ th, td {
                alert("삭제할 신고내역을 선택해주세요");
                return;
             }
-            document.form1.action = "/market/report_servlet/delete_all.do";
+            document.form1.action = "/report/report_delete";
             document.form1.submit();
          });
       });
-
       function reportlist_del(idx) {
-         location.href = "/market/report_servlet/delete.do?idx=" + idx;
+         location.href = "/report/report_delete?idx=" + idx;
       }
    </script>
 </body>
