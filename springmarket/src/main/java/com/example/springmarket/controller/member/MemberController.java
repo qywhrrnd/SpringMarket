@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.springmarket.model.email.EmailDTO;
+import com.example.springmarket.model.email.EmailFindPwd;
 import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.member.MemberDTO;
 
@@ -101,6 +103,26 @@ public class MemberController {
 		String pwd = memberDao.encrypt("a12345");
 		System.out.println(pwd);
 		memberDao.findPwd(userid, pwd);
+		String email = memberDao.email(userid);
+		if (userid != null) {
+			String senderName = "가지나라"; // replace with actual sender name
+			String senderMail = "rhwls159@naver.com";
+
+			EmailDTO edto = new EmailDTO();
+			edto.setSenderName(senderName);
+			edto.setSenderName(senderMail);
+			edto.setEmail(email);
+			EmailFindPwd findpwd = new EmailFindPwd();
+			try {
+				findpwd.mailSender2(edto);
+				return "redirect:/member/pagelogin.do";
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "redirect:/member/join";
+				
+			}
+		}
 
 		return "redirect:/member/pagelogin.do";
 	}

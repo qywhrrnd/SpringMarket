@@ -87,7 +87,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String email(String userid) {
 		// TODO Auto-generated method stub
-		return session.selectOne("login.email", userid);
+		return session.selectOne("member.email", userid);
 	}
 
 	@Override
