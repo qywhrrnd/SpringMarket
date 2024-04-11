@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.springmarket.model.report.ReportDAO;
 import com.example.springmarket.model.report.ReportDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -65,6 +66,16 @@ public class ReportController {
 	@GetMapping("report_delete")
 	public String report_delete(@RequestParam(name = "idx") int idx) {
 		reportdao.report_delete(idx);
+		return "redirect:/report/report_list";
+	}
+
+	@PostMapping("report_deleteAll")
+	public String report_deleteAll(@RequestParam("num") String[] num) {
+		if (num != null) {
+			for (int i = 0; i < num.length; i++) {
+				reportdao.report_delete(Integer.parseInt(num[i]));
+			}
+		}
 		return "redirect:/report/report_list";
 	}
 
