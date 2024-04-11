@@ -34,10 +34,9 @@ public class ProductController {
 
 	@Autowired
 	MemberDAO memberDao;
-	
+
 	@Autowired
 	LoveDAO loveDao;
-	
 
 	// 가지마켓 상품 리스트
 	@GetMapping("list")
@@ -122,7 +121,6 @@ public class ProductController {
 			if (f.exists())
 				f.delete();
 		}
-		System.out.println(write_code);
 		productDao.delete(write_code);
 		return "redirect:/product/list";
 	}
@@ -132,7 +130,6 @@ public class ProductController {
 	public ModelAndView mylist(HttpSession session, ModelAndView mav) {
 		String userid = (String) session.getAttribute("userid");
 		mav.setViewName("/product/mylist");
-		System.out.println(productDao.mylist(userid));
 		mav.addObject("list", productDao.mylist(userid));
 		return mav;
 	}
@@ -148,7 +145,6 @@ public class ProductController {
 			if (f.exists())
 				f.delete();
 		}
-		System.out.println(write_code);
 		productDao.delete(write_code);
 		return "redirect:/product/mylist";
 	}
@@ -164,7 +160,6 @@ public class ProductController {
 
 		// 유저 아이디와 DTO를 이용하여 상태 업데이트 수행
 		productDao.updateStatus(dto);
-		;
 
 		// 리스트 페이지로 리다이렉트
 		return new ModelAndView("redirect:/product/mylist");
