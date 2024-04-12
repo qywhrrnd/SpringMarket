@@ -137,7 +137,15 @@ public class MemberController {
 		EmailFindPwd findpwd = new EmailFindPwd();
 		try {
 			findpwd.mailSender2(edto);
-			return new ModelAndView("member/login");
+			String url = "";
+			url = "member/login";
+			String message = "이메일이 전송되었습니다.";
+			// JavaScript 코드를 포함한 문자열 생성
+			String alertScript = "<script>alert('" + message + "');</script>";
+			// ModelAndView 객체 생성 시 HTML에 전달할 데이터를 설정
+			ModelAndView modelAndView = new ModelAndView(url);
+			modelAndView.addObject("alertScript", alertScript);
+			return modelAndView;
 
 		} catch (Exception e) {
 			String url = "";
@@ -149,7 +157,6 @@ public class MemberController {
 			ModelAndView modelAndView = new ModelAndView(url);
 			modelAndView.addObject("alertScript", alertScript);
 			return modelAndView;
-
 		}
 	}
 

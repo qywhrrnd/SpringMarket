@@ -22,11 +22,11 @@
 		<form method="post" name="form2">
 			<div class="first-input input__block first-input__block">
 				<input placeholder="아이디를 입력하세요." class="input" id="userid"
-					name="userid" />
+					name="userid">
 			</div>
 			<!-- 비밀번호 넣기 -->
 			<div>
-				<button type="button" class="signin__btn" onclick="findpwd_result()">비밀번호
+				<button type="submit" class="signin__btn" onclick="findpwd_result()">비밀번호
 					찾기</button>
 			</div>
 		</form>
