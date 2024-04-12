@@ -13,7 +13,7 @@
 <script>
    // 돌아가기 버튼 클릭시!
    function btnList() {
-      location.href = "/market/board_servlet/list.do";
+      location.href = "/board/list.do";
    }
 
    // DOMContentLoaded를 이용해서 현재 문서로드시 btnEdit 실행 유무
@@ -25,12 +25,13 @@
       if (nowUserId === postUserId) {
          btnEdit.prop("disabled", false).show();
          btnEdit.click(function() {
-            let num = $("#num").val();
-            location.href = "/market/board_servlet/edit.do?num=" + num;
+        	 let num = $("#num").val();
+            location.href = "/board/edit.do/" + num;
          });
       } else {
          btnEdit.prop("disabled", true).hide();
       }
+      
    });
 
    function btnWrite() { //댓글 작성

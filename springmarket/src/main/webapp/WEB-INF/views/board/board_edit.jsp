@@ -11,10 +11,10 @@
 $(function() {
    $("#btnDelete").click(function() {
       if(confirm("정말 삭제하시겠습니까?")) {
-         document.form1.action = "/market/board_servlet/delete.do";
+         document.form1.action = "/board/delete.do";
          document.form1.submit();
       }
-   });
+   }); 
    
    $("#btnUpdate").click(function() {
       let userid = '${sessionScope.userid}';   
@@ -31,17 +31,25 @@ $(function() {
          $("#content").focus();
          return;
       }
-      document.form1.action = "/market/board_servlet/update.do";
+      document.form1.action = "/board/update.do";
       document.form1.submit();
    });
    
-   $("#btnView").click(function() {
-      if(confirm("정말 돌아가시겠습니까?\n변경사항은 저장되지 않습니다.")) {
-         document.form1.action = "/market/board_servlet/view.do";
-         document.form1.submit();
-      }
-    });
+   $("#btnView").click(function(){
+	   let num = $("#num").val();
+	   if(confirm("저장안되는데 할거야?")) {
+		   document.form1.action = "/board/back.do/" + num;
+		   document.form1.submit();
+	   }
+   });
+   
 });
+
+function back() {
+	if(confirm("정말 돌아가시겠습니까?\n변경사항은 저장되지 않습니다.")) {
+  	  location.href = "/board/list.do";
+    }
+}
 
 
 </script>
@@ -103,7 +111,6 @@ $(function() {
 <table class="board-list" width="100%">
     <tr>
         <td>날짜: ${dto.reg_date}</td>
-        <td>조회수: ${dto.hit}</td>
     </tr>
     <tr>
         <td colspan="4"><hr></td>
@@ -119,14 +126,18 @@ $(function() {
     </tr>
     <tr>
         <td colspan="4" align="center">
-            <input type="hidden" name="num" value="${dto.num}">
-            <button class="btn btn-outline-gagi" id="btnUpdate">수정</button>
-            <button class="btn btn-outline-gagi" id="btnDelete">삭제</button>
-            <button class="btn btn-outline-gagi" id="btnView" data-num="${dto.num}">돌아가기</button>
+            <input type="hidden" name="num" id="num" value="${dto.num}">
         </td>
     </tr>
+    <tr><td colspan="4" align="center">
+            <button class="btn btn-outline-gagi" id="btnDelete" >삭제</button>
+            <button class="btn btn-outline-gagi" id="btnUpdate">수정</button>
+            <button class="btn btn-outline-gagi" id="btnView">돌아가기</button>
+	</td></tr>
 </table>
 </form>
+
+
 </article>
 </div>
 <br><br><br><br><br>

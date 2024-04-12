@@ -10,7 +10,7 @@
 
 <script>
 function returnBtn() {
-   location.href = "/market/board_servlet/list.do";
+   location.href = "/board/list.do";
 }
 </script>
 <style>
@@ -61,7 +61,7 @@ margin-bottom: 15px;
 <body>
     <div class="container">
         <h2>게시글 작성</h2>
-        <form name="form1" class="form-control" style="width: 100%;" method="post" action="/market/board_servlet/insert.do" style>
+        <form name="form1" class="form-control" style="width: 100%;" method="post" action="/board/insert.do">
             <div class="form-group">
                 <label for="subject">제목</label>
                 <input type="text" class="form-control" style="width: 100%;" id="subject" name="subject" required>

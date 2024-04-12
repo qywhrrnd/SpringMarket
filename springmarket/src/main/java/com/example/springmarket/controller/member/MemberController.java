@@ -180,26 +180,6 @@ public class MemberController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	@PostMapping("member/check.do")
-	public ResponseEntity<Map<String, String>> check(@RequestParam(name = "userid") String userid) {
-		// TODO: 비밀번호 변경 로직 수행
-		String count = "";
-		if (userid == "") {
-			count = "false";
-		} else {
-
-			count = memberDao.check(userid);
-			if (count == null) {
-				count = "true"; // count가 null이면 "true" 문자열로 설정
-			}
-		}
-		System.out.println(count);
-		Map<String, String> response = new HashMap<>();
-		response.put("count", count);
-
-		return ResponseEntity.ok(response);
-	}
-
 	@PostMapping("member/emailcheck.do")
 	public ResponseEntity<Map<String, String>> emailcheck(@RequestParam(name = "email") String email) {
 		String message = "";
@@ -214,6 +194,22 @@ public class MemberController {
 		response.put("message", message);
 		return ResponseEntity.ok(response);
 	}
+	
+	@PostMapping("member/nicknamecheck.do")
+	public ResponseEntity<Map<String, String>> nicknamecheck(@RequestParam(name = "nickname") String nickname) {
+		String message = "";
+		String check = memberDao.nicknamecheck(nickname);
+		if (check != null) {
+			message = "중복된 닉네임입니다.";
+		} else {
+			message = "사용 가능한 닉네임 입니다.";
+		}
+		Map<String, String> response = new HashMap<>();
+		System.out.println(message);
+		response.put("message", message);
+		return ResponseEntity.ok(response);
+	}
+
 
 	@GetMapping("member/mypage.do")
 	public ModelAndView mypage(@RequestParam(name = "userid") String userid) {

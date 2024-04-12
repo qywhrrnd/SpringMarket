@@ -132,27 +132,33 @@
                
       }  
    }
-   function check() {
-      let nickname = document.getElementById("nickname").value;
-      console.log("nickname:", nickname);
-      $.ajax({
-         url : "/market/login_servlet/nicknamecheck.do",
-         type : "GET",
-         data : {
-            nickname : nickname
-         },
-         success : function(txt) {
-            $("#result").html(txt);
-            console.log("result:", txt);
-            if (txt.includes("중복된 닉네임입니다.")) {
-               $("#updateButton").prop("disabled", true);
-            } else {
-               $("#updateButton").prop("disabled", false);
-            }
-         }
-      });
-   }
    
+   function nicknamecheck() {
+       let nickname = document.getElementById("nickname").value;
+       $.ajax({
+           url: "/member/nicknamecheck.do",
+           type: "POST",
+           data: {
+        	   nickname: nickname
+           },
+           success: function(response) {
+               $("#nicknameresult").html(response.message); // 응답에서 count1 값을 가져와서 HTML에 표시
+               console.log(response.message);
+               if (response.message === "중복된 닉네임입니다.") {
+            	   $("#nicknameresult").css("color","red");
+                   // 이메일이 중복될 때
+                   $("#shitButton").prop("disabled", true);
+               } else if (response.message === "사용 가능한 닉네임 입니다.") {
+            	   $("#nicknameresult").css("color","green");
+                   // 이메일이 중복되지 않을 때
+                   $("#shitButton").prop("disabled", false);
+               }
+           },
+           error: function(xhr, status, error) {
+               console.log("Error:", error);
+           }
+       });
+   }
    function emailcheck() {
        let email = document.getElementById("email").value;
        $.ajax({
@@ -165,9 +171,11 @@
                $("#emailresult").html(response.message); // 응답에서 count1 값을 가져와서 HTML에 표시
                console.log(response.message);
                if (response.message === "중복된 이메일입니다.") {
+            	   $("#emailresult").css("color","red");
                    // 이메일이 중복될 때
                    $("#shitButton").prop("disabled", true);
                } else if (response.message === "사용 가능한 이메일 입니다.") {
+            	   $("#emailresult").css("color","green");
                    // 이메일이 중복되지 않을 때
                    $("#shitButton").prop("disabled", false);
                }
@@ -204,7 +212,8 @@ input {
    margin: 2px;
 }
 
-#result, #emailresult {
+#emailresult, #nicknameresult {
+	font-size: small;
    color: red;
 }
 
@@ -217,7 +226,7 @@ input {
    flex: 1;
 }
 
-#updateButton, #loginButton {
+#updateButton{
    background-color: #4CAF50;
    color: white;
    border: none;
@@ -229,7 +238,23 @@ input {
    margin: 4px 2px;
    cursor: pointer;
    border-radius: 4px;
-   margin-top: 10px; /* 버튼을 아래로 내림 */
+   margin-top: 10px; /* 버튼을 아래로 내림 */   
+}
+
+#btnCancle{
+   background-color: red;
+   color: white;
+   border: none;
+   padding: 8px 16px; /* 버튼의 크기를 작게 조절 */
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 14px; /* 버튼의 글자 크기를 작게 조절 */
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 4px;
+   margin-top: 10px; /*
+
 }
 
 /* 푸터 스타일 */
@@ -260,13 +285,12 @@ input {
          </tr>
          <tr>
             <td align="center">닉네임&nbsp;</td>
-            <td><input name="nickname" id="nickname"
-               value="${dto.nickname}">
-
+            <td><input name="nickname" id="nickname" value="${dto.nickname}">
+               <input type="button" value="중복확인" onclick="nicknamecheck()" ></td>
          </tr>
-         <tr>
+          <tr>
             <td></td>
-            <td colspan="2"><div id="result"></div></td>
+            <td colspan="2"><div id="nicknameresult"></div></td>
          </tr>
          <tr>
             <td align="center">생년월일&nbsp;</td>
@@ -305,11 +329,11 @@ input {
          <tr>
             <td>&nbsp;</td>
             <td colspan="2">
-            <input type="button"  name="shitButton" id="shitButton" value="수정" onclick="update_mypage('${dto.userid}')" disabled>
+            <input type="button"  name="shitButton" id="shitButton" value="수정" onclick="update_mypage('${dto.userid}')">
             
                 <input type="button" id="updateButton" value="비밀번호변경" onclick="change_passwd('${dto.userid}')">
 
-            <input type="button" value="취소" onclick="cancel()">
+            <input type="button" id="btnCancle" value="취소" onclick="cancel()">
             </td>
          </tr>
 

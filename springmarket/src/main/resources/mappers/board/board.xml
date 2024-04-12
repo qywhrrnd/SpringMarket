@@ -65,11 +65,9 @@
 	<!-- 게시글 작성 -->
 	<insert id="insert">
 		insert into board
-		(num, userid, nickname, subject,
-		content)
+		(num, userid, nickname, subject,content)
 		values
-		(board_seq.nextval, #{userid},
-		#{nickname},#{subject},#{content})
+		(board_seq.nextval,#{userid},#{nickname},#{subject},#{content})
 	</insert>
 
 	<!-- 조회수 하나씩 증가 -->
@@ -78,9 +76,7 @@
 	</update>
 
 	<update id="update">
-		update board set userid=#{userid},
-		subject=#{subject},
-		content=#{content}, reg_date=sysdate
+		update board set userid=#{userid},subject=#{subject},content=#{content}, reg_date=sysdate
 		where num=#{num}
 	</update>
 

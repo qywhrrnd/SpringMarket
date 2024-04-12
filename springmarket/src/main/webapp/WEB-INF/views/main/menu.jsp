@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+
 <title>Market Main</title>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,7 +29,7 @@
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="/product/list">중고거래</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="../board_servlet/list.do">자유게시판</a></li>
+					href="/board/list.do">자유게시판</a></li>
 
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
@@ -127,7 +128,7 @@
 					</c:when>
 					<c:otherwise>
 						<article align="center">
-							${dto.nickname}님 <a href="/member/logout.do"> <img
+							${sessionScope.nickname}님 <a href="/member/logout.do"> <img
 								src="/resources/images/power2.png" width="20px" height="20px"
 								alt="로그아웃">
 							</a>

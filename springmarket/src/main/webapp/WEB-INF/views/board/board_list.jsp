@@ -13,24 +13,22 @@
 $(function() {   
    $("#btnWrite").click(function() {
       if("${sessionScope.userid}" != ""){
-      location.href="/market/board/board_write.jsp";
+      location.href="/board/write.do";
       }else{
          alert("로그인 후에 이용 가능합니다.");
-      location.href="/market/login/login.jsp";
+      location.href="/member/pagelogin.do";
       }
    });
 });
 function list(page){
-   location.href="/market/board_servlet/list.do?cur_page=" 
+   location.href="/board/list.do?cur_page=" 
          + page + "&search_option=${search_option}&keyword=${keyword}";
 }   
 
 $(function() {
    $(".article-row").click(function() {
-      let articleId = $(this).attr("data-id");
-      
-      location.href = "/market/board_servlet/view.do?num=" + articleId;
-      
+	   let row = $(this).attr("data-id");
+      location.href = "/board/view.do/" + row
    });
 });
 </script>
@@ -130,7 +128,7 @@ $(function() {
       
 <div id="main_content">
 <h2>게시판</h2>
-<form name="form1" method="post" action="/market/board_servlet/search.do">
+<form name="form1" method="post" action="/board/search.do">
 <div class="btn-group" style="text-align: center">
 <select name="search_option" aria-expanded="false">
 <c:choose>
@@ -161,7 +159,7 @@ $(function() {
 </c:choose>
 </select>
 </div>
-<input name="key_word" value="${key_word}">
+<input name="keyword" value="${map.keyword}">
 <input type="submit" value="검색" class="btn btn-outline-gagi" id="btn_Search"> 
 <button type="button" id="btnWrite" class="btn btn-outline-gagi" >게시글 작성</button>
 </form>
@@ -176,7 +174,7 @@ $(function() {
          <th class="size03">날짜</th>
          <th class="size03">조회수</th>
       </tr>
-      <c:forEach var="dto" items="${list}" varStatus="s">
+      <c:forEach var="dto" items="${map.list}" varStatus="s">
       <c:choose>
       <c:when test="${dto.nickname == '관리자'}">
          <tr align="center" class="article-row" data-id="${dto.num}" style="background-color: #F2F2F2; cursor: pointer;" >
@@ -192,7 +190,7 @@ $(function() {
          </c:when>
          <c:otherwise>
          <tr align="center" class="article-row" data-id="${dto.num}" style="cursor: pointer;">
-            <td>${(page.totalCount - dto.rn) + 1}</td>  
+            <td>${(map.page.totalCount - dto.rn) + 2}</td>  
             <td>${dto.nickname}</td>
             <td>${dto.subject}</td>
             <td>${dto.reg_date}</td>
@@ -209,7 +207,7 @@ $(function() {
    <nav aria-label="Page navigation example">
     <ul class="pagination pagination-sm justify-content-center">
         <li class="page-item">
-            <c:if test="${page.curPage > 1}">
+            <c:if test="${map.page.curPage > 1}">
                 <a class="page-link" href="#" onclick="list('1')" aria-label="First">
                     <span aria-hidden="true"></span>
                     <span class="sr-only">처음</span>
@@ -217,18 +215,18 @@ $(function() {
             </c:if>
         </li>
         <li class="page-item">
-            <c:if test="${page.curBlock > 1}">
-                <a class="page-link" href="#" onclick="list('${page.prevPage}')" aria-label="Previous">
+            <c:if test="${map.page.curBlock > 1}">
+                <a class="page-link" href="#" onclick="list('${map.page.prevPage}')" aria-label="Previous">
                     <span aria-hidden="true"></span>
                     <span class="sr-only">처음으로</span>
                 </a>
             </c:if>
         </li>
         
-        <c:forEach var="num" begin="${page.blockStart}" end="${page.blockEnd}">
-            <li class="page-item <c:if test='${num == page.curPage}'>active</c:if>'">
+        <c:forEach var="num" begin="${map.page.blockStart}" end="${map.page.blockEnd}">
+            <li class="page-item <c:if test='${num == map.page.curPage}'>active</c:if>'">
                 <c:choose>
-                    <c:when test="${num == page.curPage}">
+                    <c:when test="${num == map.page.curPage}">
                         <span class="page-link">${num}</span>
                     </c:when>
                     <c:otherwise>
@@ -239,16 +237,16 @@ $(function() {
         </c:forEach>
         
         <li class="page-item">
-            <c:if test="${page.curBlock < page.totBlock}">
-                <a class="page-link" href="#" onclick="list('${page.nextPage}')" aria-label="Next">
+            <c:if test="${map.page.curBlock < map.page.totBlock}">
+                <a class="page-link" href="#" onclick="list('${map.page.nextPage}')" aria-label="Next">
                     <span aria-hidden="true"></span>
                     <span class="sr-only">다음</span>
                 </a>
             </c:if>
         </li>
         <li class="page-item">
-            <c:if test="${page.curPage < page.totPage}">
-                <a class="page-link" href="#" onclick="list('${page.totPage}')" aria-label="Last">
+            <c:if test="${map.page.curPage < map.page.totPage}">
+                <a class="page-link" href="#" onclick="list('${map.page.totPage}')" aria-label="Last">
                     <span aria-hidden="true"></span>
                     <span class="sr-only">마지막</span>
                 </a>

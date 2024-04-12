@@ -63,7 +63,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String nicknamecheck(String nickname) {
 		// TODO Auto-generated method stub
-		return session.selectOne("login.nicknamecheck", nickname);
+		return session.selectOne("member.nicknamecheck", nickname);
 	}
 
 	@Override
