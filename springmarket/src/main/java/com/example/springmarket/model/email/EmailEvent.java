@@ -34,7 +34,7 @@ public class EmailEvent {
 	        "<div>정답을 모두 맞추셔서 감사의 의미로 소정의 선물을 드립니다</div>"+
 	        "<div>자세한 사용방법은 상품설명 참고 바랍니다</div>"+
 	        "<div>가지나라는 언제나 당신 곁에 있습니다 gagi is near </div>"+
-	        "<a href='http://localhost//member/pagelogin.do'>로그인</a></p>" +
+	        "<a href='http://localhost/member/pagelogin.do'>로그인</a></p>" +
 	        "</div>"+
 	        "</body>" +
 	        "</html>";
