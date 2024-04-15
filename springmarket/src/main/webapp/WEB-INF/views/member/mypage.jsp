@@ -162,7 +162,7 @@
    function emailcheck() {
        let email = document.getElementById("email").value;
        $.ajax({
-           url: "/member/emailcheck.do",
+           url: "/member/emailcheck_mypage.do",
            type: "POST",
            data: {
                email: email

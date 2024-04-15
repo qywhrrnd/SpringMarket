@@ -179,9 +179,50 @@ public class MemberController {
 		map.put("url", url);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
+	@PostMapping("member/check.do")
+	public ResponseEntity<Map<String, String>> check(@RequestParam(name = "userid") String userid) {
+		// TODO: 비밀번호 변경 로직 수행
+		String count = "";
+		if (userid == "") {
+			count = "false";
+		} else {
+
+			count = memberDao.check(userid);
+			if (count == null) {
+				count = "true"; // count가 null이면 "true" 문자열로 설정
+			}
+		}
+		System.out.println(count);
+		Map<String, String> response = new HashMap<>();
+		response.put("count", count);
+
+		return ResponseEntity.ok(response);
+	}
 
 	@PostMapping("member/emailcheck.do")
-	public ResponseEntity<Map<String, String>> emailcheck(@RequestParam(name = "email") String email) {
+	   public ResponseEntity<Map<String, String>> emailcheck(@RequestParam(name = "email") String email) {
+	      // TODO: 비밀번호 변경 로직 수행
+
+	      String count1 = "";
+	      if (email == "") {
+	         count1 = "false";
+	      } else {
+
+	         count1 = memberDao.emailcheck(email);
+	         if (count1 == null) {
+	            count1 = "true"; // count가 null이면 "true" 문자열로 설정
+	         }
+	      }
+	      System.out.println(count1);
+	      Map<String, String> response = new HashMap<>();
+	      response.put("count1", count1);
+
+	      return ResponseEntity.ok(response);
+	   }
+
+
+	@PostMapping("member/emailcheck_mypage.do")
+	public ResponseEntity<Map<String, String>> emailcheck_mypage(@RequestParam(name = "email") String email) {
 		String message = "";
 		String check = memberDao.emailcheck(email);
 		if (check != null) {
