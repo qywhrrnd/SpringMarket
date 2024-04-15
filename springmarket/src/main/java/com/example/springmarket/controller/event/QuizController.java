@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.springmarket.model.email.EmailDTO;
+import com.example.springmarket.model.email.EmailEvent;
+import com.example.springmarket.model.member.MemberDAO;
 import com.example.springmarket.model.quiz.AnswerDTO;
 import com.example.springmarket.model.quiz.QuizDAO;
 import com.example.springmarket.model.quiz.QuizDTO;
@@ -25,6 +28,9 @@ public class QuizController {
 
 	@Autowired
 	QuizDAO quizDao;
+
+	@Autowired
+	MemberDAO memberDao;
 
 	@GetMapping("quiz/quizlist.do")
 	public ModelAndView quiz_view(HttpServletRequest request) throws IOException {
@@ -111,6 +117,29 @@ public class QuizController {
 		String url = "";
 		url = "report/reportclose";
 		return url;
+
+	}
+
+	@RequestMapping("quiz/send.do")
+	public String send(@RequestParam(name = "userid") String userid) {
+
+		String email = memberDao.email(userid);
+		String senderName = "가지나라"; // replace with actual sender name
+		String senderMail = "rhwls159@naver.com";
+
+		EmailDTO edto = new EmailDTO();
+		edto.setSenderName(senderName);
+		edto.setSenderName(senderMail);
+		edto.setEmail(email);
+		EmailEvent service = new EmailEvent();
+		try {
+			service.mailSender3(edto);
+			return "main/main";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "main/main";
+		}
 
 	}
 }
