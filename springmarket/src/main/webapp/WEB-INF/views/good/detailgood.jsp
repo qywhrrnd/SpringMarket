@@ -175,21 +175,15 @@ th, td {
 			calculateTotalPrice();
 		}
 	}
-
-	function buy() {
-		// '구매하기' 버튼 동작
-	}
-
-	function cart() {
-		// '장바구니에 담기' 버튼 동작
-	}
 </script>
+
 </head>
 <body>
 	<%@ include file="../main/menu.jsp"%>
 	<!----------------------------------------------------------------------------------->
 	<h2>상품정보</h2>
 	<input type="hidden" id="price" value="${dto.price }">
+	<input type="hidden" id="userid" value="${sessionScope.userid }">
 	<table>
 		<tr>
 			<td align="right" width="642px"><img id="img"
@@ -215,7 +209,7 @@ th, td {
 						<td id="totalPrice">0원</td>
 					</tr>
 					<tr>
-						<td><input type="button" value="구매하기" onclick="buy()"></td>
+						<td><input type="button" value="구매하기" onclick="buypage()"></td>
 						<td><input type="button" value="장바구니에 담기" onclick="cart()"></td>
 					</tr>
 				</table>
@@ -234,4 +228,18 @@ th, td {
 
 	<%@ include file="../main/footer.jsp"%>
 </body>
+<script>
+	function buypage() {
+		var userid = document.getElementById("userid").value;
+	    var totalPrice = document.getElementById("totalPrice").innerText;
+		var goodidx = ${dto.goodidx};
+		location.href = "/good/buypage.do?userid=" + userid + "&totalPrice="
+				+ totalPrice + "&goodidx=" + goodidx;
+	}
+
+	function cart() {
+		// '장바구니에 담기' 버튼 동작
+	}
+</script>
+
 </html>

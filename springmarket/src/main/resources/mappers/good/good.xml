@@ -7,9 +7,9 @@
 		select * from good
 	</select>
 
-<select id ="detailgood" resultType="com.example.springmarket.model.good.GoodDTO">
-
-select * from good where goodidx = #{goodidx}
-</select>
+	<select id="detailgood"
+		resultType="com.example.springmarket.model.good.GoodDTO">
+		select * from good where goodidx = #{goodidx}
+	</select>
 
 </mapper>
