@@ -28,8 +28,7 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="/product/list">중고거래</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="/board/list.do">자유게시판</a></li>
+				<li class="nav-item"><a class="nav-link" href="/board/list.do">자유게시판</a></li>
 
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
@@ -87,6 +86,19 @@
 
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
+						<li class="nav-item"><a class="nav-link"
+							href="/good/goodlist.do">9즈샵</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item"><a class="nav-link" href="#"
+							onclick="showAlert()">9즈샵</a></li>
+					</c:otherwise>
+				</c:choose>
+
+
+
+				<c:choose>
+					<c:when test="${sessionScope.userid != null}">
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">내정보</a>
@@ -106,8 +118,7 @@
 					</c:otherwise>
 				</c:choose>
 			</ul>
-			<form class="d-flex" role="search"
-				action="/product/search">
+			<form class="d-flex" role="search" action="/product/search">
 				<input class="form-control me-2" name="keyword" value="${keyword}"
 					placeholder="물품을 검색하세요."> <input type="submit"
 					class="btn btn-outline-success" style="background-color:"
