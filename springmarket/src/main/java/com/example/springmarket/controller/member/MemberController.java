@@ -234,6 +234,7 @@ public class MemberController {
 		System.out.println(message);
 		response.put("message", message);
 		return ResponseEntity.ok(response);
+		
 	}
 	
 	@PostMapping("member/nicknamecheck.do")
@@ -281,6 +282,7 @@ public class MemberController {
 		dto.setPhone(phone);
 		dto.setEmail(email);
 		dto.setAddress(address1 + address2);
+		session.setAttribute("nickname", nickname);
 		memberDao.updateMypage(dto);
 		System.out.println(dto);
 		return new ModelAndView("redirect:/member/mypage_new.do/" + userid);

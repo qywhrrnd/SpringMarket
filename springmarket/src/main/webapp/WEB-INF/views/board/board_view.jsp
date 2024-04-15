@@ -76,7 +76,7 @@
        } else {
            // userid가 없는 경우 (즉, 로그인 되어 있지 않은 경우)
            alert("로그인 후에 이용 가능합니다.");
-           location.href = "/market/login/login.jsp"; // 로그인 페이지로 이동
+           location.href = "/member/pagelogin.do"; // 로그인 페이지로 이동
        }
    }
 
