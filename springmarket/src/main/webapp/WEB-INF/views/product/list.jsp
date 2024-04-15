@@ -126,7 +126,6 @@ body {
       <%@ include file="../admin/admin_menu.jsp"%>
    </c:if>
    <c:if test="${sessionScope.userid != 'admin'}">
-      <%@ include file="../main/menu.jsp"%>
    </c:if> --%>
 
 	<c:choose>
@@ -148,8 +147,10 @@ body {
 			<c:forEach var="row" items="${map.list}" varStatus="status">
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<article class="card-link">
+					
 						<a class="card" style="margin: 10px; text-decoration: none;"
 							href="/product/detail/${row.write_code}">
+							
 							<div class="box">
 								<img class="card-img" alt="${row.filename}"
 									src="/resources/images/${row.filename}" />

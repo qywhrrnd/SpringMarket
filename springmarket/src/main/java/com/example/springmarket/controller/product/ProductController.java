@@ -100,16 +100,29 @@ public class ProductController {
 	// 상품 클릭시 디테일
 	@GetMapping("detail/{write_code}")
 	public ModelAndView detail(@PathVariable(name = "write_code") int write_code, ModelAndView mav,
-			HttpSession session) {
-		String userid = (String) session.getAttribute("userid");
-		int check = productDao.loveCheck(userid, write_code);
-		productDao.see(write_code);
-		session.setAttribute("check", check);
-		mav.setViewName("product/detail");
-		mav.addObject("dto", productDao.detail(write_code));
-		return mav;
+	        HttpSession session) {
+	    String userid = (String) session.getAttribute("userid");
+	    if (userid != null) {
+	        int check = productDao.loveCheck(userid, write_code);
+	        productDao.see(write_code);
+	        session.setAttribute("check", check);
+	        mav.setViewName("product/detail");
+	        mav.addObject("dto", productDao.detail(write_code));
+	    } else {
+	        // 세션에 userid가 없을 경우 Nodetail 페이지로 리다이렉트
+	        mav.setViewName("redirect:/product/Nodetail/" + write_code);
+	    }
+	    return mav;
 	}
-
+	
+	@GetMapping("Nodetail/{write_code}")
+	public ModelAndView NoMemberDetail(@PathVariable(name = "write_code") int write_code, ModelAndView mav) {
+	    // 로그인하지 않은 사용자에게도 세부 정보를 표시
+	    mav.setViewName("product/detail");
+	    mav.addObject("dto", productDao.detail(write_code));
+	    return mav;
+	}
+	
 	// 상품 삭제
 	@GetMapping("delete")
 	public String delete(@RequestParam(name = "write_code") int write_code, HttpServletRequest request) {

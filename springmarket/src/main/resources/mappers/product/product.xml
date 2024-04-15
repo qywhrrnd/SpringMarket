@@ -43,8 +43,7 @@
 
    <select id="love_check" parameterType="map" resultType="int">
       select
-      count(*) from love where write_code = #{write_code} and userid =
-      #{userid}
+      count(*) from love where write_code = #{write_code} and userid = #{userid}
    </select>
 
    <update id="update_product">
@@ -64,8 +63,7 @@
 
 
    <update id="see">
-      update product set see = see + 1 where write_code =
-      #{write_code}
+      update product set see = see + 1 where write_code = #{write_code}
    </update>
 
 
