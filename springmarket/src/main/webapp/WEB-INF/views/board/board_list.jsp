@@ -190,7 +190,7 @@ $(function() {
          </c:when>
          <c:otherwise>
          <tr align="center" class="article-row" data-id="${dto.num}" style="cursor: pointer;">
-            <td>${(map.page.totalCount - dto.rn) + 2}</td>  
+            <td>${(map.page.totalCount - (dto.rn - 1))}</td>  
             <td>${dto.nickname}</td>
             <td>${dto.subject}</td>
             <td>${dto.reg_date}</td>

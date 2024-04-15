@@ -1,186 +1,192 @@
 package com.example.springmarket.model.board;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
 public class PageUtil {
-	public static final int PAGE_SCALE = 9;
-	//페이지당 게시물 수
-	
-	public static final int BLOCK_SCALE = 10;
-	//페이지 블록 단위(한 화면에 보여둘 페이지 수)
-	
-	private int curPage;   //현재 페이지
-	private int prevPage;  //이전 페이지
-	private int nextPage;  //다음 페이지
-	private int totPage;   //전체 페이지 개수
-	private int totBlock;  //전체 블록 개수
-	private int curBlock;  //현재 페이지 블록
-	private int prevBlock; //이전 페이지 블록
-	private int nextBlock; //다음 페이지 불록
-	private int pageBegin; //현재 페이지 시작번호
-	private int pageEnd;   //현재 페이지 끝번호
-	private int blockStart;//현재 블록의 시작번호
-	private int blockEnd;  //현재 블록의 끝번호
-	
-	
-	private int totalCount; //전체 게시글의 총 수 =? => select count(*) from board 
-	
-	
-	                 //  991       1
-	public PageUtil(int count,int curPage) {
-		curBlock = 1;    
-		this.curPage = curPage;
-		setTotPage(count); //전체 페이지 개수 설정
-		setPageRange();   
-		setTotBlock();     //전체 페이지 블록 개수 설정
-		setBlockRange();  
-		// curPage가 속한 페이지 블록의 시작번호,끝번호 계산
-		setTotalCount();
-		// 전체 게시글 개수
-	}
-	
-	private void setTotalCount() {
-		totalCount = 2;
-	}
+   public static final int PAGE_SCALE = 10;
+   //페이지당 게시물 수
+   
+   public static final int BLOCK_SCALE = 10;
+   //페이지 블록 단위(한 화면에 보여둘 페이지 수)
+   
+   private int curPage;   //현재 페이지
+   private int prevPage;  //이전 페이지
+   private int nextPage;  //다음 페이지
+   private int totPage;   //전체 페이지 개수
+   private int totBlock;  //전체 블록 개수
+   private int curBlock;  //현재 페이지 블록
+   private int prevBlock; //이전 페이지 블록
+   private int nextBlock; //다음 페이지 불록
+   private int pageBegin; //현재 페이지 시작번호
+   private int pageEnd;   //현재 페이지 끝번호
+   private int blockStart;//현재 블록의 시작번호
+   private int blockEnd;  //현재 블록의 끝번호
+   
+   
+   private int totalCount; //전체 게시글의 총 수 =? => select count(*) from board 
+   
+   
+                    //  991       1
+   public PageUtil(int count,int curPage) {
+      curBlock = 1;    
+      this.curPage = curPage;
+      setTotPage(count); //전체 페이지 개수 설정
+      setPageRange();   
+      setTotBlock();     //전체 페이지 블록 개수 설정
+      setBlockRange();  
+      totalCount = count;
+      // curPage가 속한 페이지 블록의 시작번호,끝번호 계산
+      //setTotalCount();
+      // 전체 게시글 개수
+   }
 
-	public void setTotBlock() {
-		// 전체 페이지 개수 / 페이지 블록 단위
-		totBlock =(int) Math.ceil(totPage*1.0/BLOCK_SCALE);
-		// 블록 => 밑에 페이지 숫자
-	}
-	
-	public void setBlockRange() {
-		// curPage가 몇번째 페이지 블록에 속하는지 계산
-		curBlock = (int) Math.ceil((curPage-1) /BLOCK_SCALE) + 1;
-		
-		//현재 페이지 블록의 시작, 끝번호 설정
-		blockStart = (curBlock -1) * BLOCK_SCALE + 1;
-		blockEnd = blockStart + BLOCK_SCALE - 1;
-		
-		//마지막 블록이 범위를 초과하지 않도록 처리
-		if (blockEnd > totPage) {
-			blockEnd = totPage;
-		}
-		
-		//[이전]을 눌렀을 때 이동할 페이지
-		prevPage = curBlock == 1 ? 1 : (curBlock - 1) * BLOCK_SCALE;
-		
-		//[다음]을 눌렀을 때 이동할 페이지
-		nextPage = curBlock > totBlock ? (curBlock * BLOCK_SCALE) : (curBlock * BLOCK_SCALE) + 1;
-		
-		//마지막 페이지가 범위를 초과하지 않도록 처리
-		if (nextPage >= totPage) {
-			nextPage = totPage;
-		}
-	}
-	
-	// curPage(현재 페이지)의 시작번호, 끝번호 계산
-	public void setPageRange() {
-		//시작번호: (현재페이지 -1) * 페이지당 게시물 수 + 1
-		pageBegin = (curPage - 1) * PAGE_SCALE + 1;
-		
-		//끝번호: 시작번호 + 페이지당 게시물 수 - 1
-		pageEnd = pageBegin + PAGE_SCALE - 1;
-	}
-	
-	public void setTotPage(int count) {
-		totPage = (int) Math.ceil(count * 1.0 / PAGE_SCALE);
-	}   // 991 / 10 => 99.1 => 올림 하면 100페이지
+   
+   
+   public void setTotalCount(int totalCount) {
+      this.totalCount = totalCount;
+                     
+   }
 
-	public int getCurPage() {
-		return curPage;
-	}
+   public void setTotBlock() {
+      // 전체 페이지 개수 / 페이지 블록 단위
+      totBlock =(int) Math.ceil(totPage*1.0/BLOCK_SCALE);
+      // 블록 => 밑에 페이지 숫자
+   }
+   
+   public void setBlockRange() {
+      // curPage가 몇번째 페이지 블록에 속하는지 계산
+      curBlock = (int) Math.ceil((curPage-1) /BLOCK_SCALE) + 1;
+      
+      //현재 페이지 블록의 시작, 끝번호 설정
+      blockStart = (curBlock -1) * BLOCK_SCALE + 1;
+      blockEnd = blockStart + BLOCK_SCALE - 1;
+      
+      //마지막 블록이 범위를 초과하지 않도록 처리
+      if (blockEnd > totPage) {
+         blockEnd = totPage;
+      }
+      
+      //[이전]을 눌렀을 때 이동할 페이지
+      prevPage = curBlock == 1 ? 1 : (curBlock - 1) * BLOCK_SCALE;
+      
+      //[다음]을 눌렀을 때 이동할 페이지
+      nextPage = curBlock > totBlock ? (curBlock * BLOCK_SCALE) : (curBlock * BLOCK_SCALE) + 1;
+      
+      //마지막 페이지가 범위를 초과하지 않도록 처리
+      if (nextPage >= totPage) {
+         nextPage = totPage;
+      }
+   }
+   
+   // curPage(현재 페이지)의 시작번호, 끝번호 계산
+   public void setPageRange() {
+      //시작번호: (현재페이지 -1) * 페이지당 게시물 수 + 1
+      pageBegin = (curPage - 1) * PAGE_SCALE + 1;
+      
+      //끝번호: 시작번호 + 페이지당 게시물 수 - 1
+      pageEnd = pageBegin + PAGE_SCALE - 1;
+   }
+   
+   public void setTotPage(int count) {
+      totPage = (int) Math.ceil(count * 1.0 / PAGE_SCALE);
+   }   // 991 / 10 => 99.1 => 올림 하면 100페이지
 
-	public void setCurPage(int curPage) {
-		this.curPage = curPage;
-	}
+   public int getCurPage() {
+      return curPage;
+   }
 
-	public int getPrevPage() {
-		return prevPage;
-	}
+   public void setCurPage(int curPage) {
+      this.curPage = curPage;
+   }
 
-	public void setPrevPage(int prevPage) {
-		this.prevPage = prevPage;
-	}
+   public int getPrevPage() {
+      return prevPage;
+   }
 
-	public int getNextPage() {
-		return nextPage;
-	}
+   public void setPrevPage(int prevPage) {
+      this.prevPage = prevPage;
+   }
 
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
+   public int getNextPage() {
+      return nextPage;
+   }
 
-	public int getTotBlock() {
-		return totBlock;
-	}
+   public void setNextPage(int nextPage) {
+      this.nextPage = nextPage;
+   }
 
-	public void setTotBlock(int totBlock) {
-		this.totBlock = totBlock;
-	}
+   public int getTotBlock() {
+      return totBlock;
+   }
 
-	public int getCurBlock() {
-		return curBlock;
-	}
+   public void setTotBlock(int totBlock) {
+      this.totBlock = totBlock;
+   }
 
-	public void setCurBlock(int curBlock) {
-		this.curBlock = curBlock;
-	}
+   public int getCurBlock() {
+      return curBlock;
+   }
 
-	public int getPrevBlock() {
-		return prevBlock;
-	}
+   public void setCurBlock(int curBlock) {
+      this.curBlock = curBlock;
+   }
 
-	public void setPrevBlock(int prevBlock) {
-		this.prevBlock = prevBlock;
-	}
+   public int getPrevBlock() {
+      return prevBlock;
+   }
 
-	public int getNextBlock() {
-		return nextBlock;
-	}
+   public void setPrevBlock(int prevBlock) {
+      this.prevBlock = prevBlock;
+   }
 
-	public void setNextBlock(int nextBlock) {
-		this.nextBlock = nextBlock;
-	}
+   public int getNextBlock() {
+      return nextBlock;
+   }
 
-	public int getPageBegin() {
-		return pageBegin;
-	}
+   public void setNextBlock(int nextBlock) {
+      this.nextBlock = nextBlock;
+   }
 
-	public void setPageBegin(int pageBegin) {
-		this.pageBegin = pageBegin;
-	}
+   public int getPageBegin() {
+      return pageBegin;
+   }
 
-	public int getPageEnd() {
-		return pageEnd;
-	}
+   public void setPageBegin(int pageBegin) {
+      this.pageBegin = pageBegin;
+   }
 
-	public void setPageEnd(int pageEnd) {
-		this.pageEnd = pageEnd;
-	}
+   public int getPageEnd() {
+      return pageEnd;
+   }
 
-	public int getBlockStart() {
-		return blockStart;
-	}
+   public void setPageEnd(int pageEnd) {
+      this.pageEnd = pageEnd;
+   }
 
-	public void setBlockStart(int blockStart) {
-		this.blockStart = blockStart;
-	}
+   public int getBlockStart() {
+      return blockStart;
+   }
 
-	public int getBlockEnd() {
-		return blockEnd;
-	}
+   public void setBlockStart(int blockStart) {
+      this.blockStart = blockStart;
+   }
 
-	public void setBlockEnd(int blockEnd) {
-		this.blockEnd = blockEnd;
-	}
+   public int getBlockEnd() {
+      return blockEnd;
+   }
 
-	public int getTotPage() {
-		return totPage;
-	}
-	
-	public int getTotalCount() {
-		return totalCount;
-	}
+   public void setBlockEnd(int blockEnd) {
+      this.blockEnd = blockEnd;
+   }
+
+   public int getTotPage() {
+      return totPage;
+   }
+   
+   public int getTotalCount() {
+      return totalCount;
+   }
 }
 
 // 이거 html그대로 가져다 쓰기

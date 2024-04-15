@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+
+<!-- 다음 댓글 번호 가져오기 -->
+    <select id="get_next" resultType="int">
+        select nvl(max(comment_num), 0) + 1 as next_id from board_comment
+    </select>
+
+<!-- 댓글 쓰기 -->
+    <insert id="write">
+        insert into board_comment (comment_content, comment_num, userid,  num, comment_date)
+        values (#{comment_content}, (select nvl(max(comment_num)+1,1) from board_comment), #{userid}, #{num}, CURRENT_TIMESTAMP)
+    </insert>
+
+<!-- 게시글 번호에 해당하는 댓글 리스트 -->
+    <select id="get_list" resultType="com.example.springmarket.model.comment.CommentDTO">
+        select * from board_comment where num=#{num} order by comment_date
+    </select>
+
+<!-- 댓글 삭제 -->
+    <delete id="delete">
+    	delete from board_comment where userid=#{userid} and comment_num=#{comment_num} and num=#{num}
+    </delete>
+    
+    
+    <update id="update">
+    	update board_comment set comment_content = #{comment_content} 
+		where userid=#{userid} and comment_num=#{comment_num}
+    </update>
+
+</mapper>

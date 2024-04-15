@@ -33,6 +33,17 @@
       }
       
    });
+   
+   function formatDate(dateString) {
+	    // dateString을 Date 객체로 변환
+	    let date = new Date(dateString);
+	    
+	    // 날짜를 yyyy-MM-dd HH:mm:ss 형식으로 포맷팅
+	    let formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
+	        + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+	    
+	    return formattedDate;
+	}
 
    function btnWrite() { //댓글 작성
        let num = $("#num").val();
@@ -46,14 +57,13 @@
 
        if (userid) { // userid가 있는 경우 (즉, 로그인 되어 있는 경우)
            $.ajax({
-               url: '/market/comment_servlet/write.do',
-               type: 'GET',
+               url: '/comment/write.do',
+               type: 'POST',
                data: {
                    "num": num,
                    "userid": userid,
                    "comment_content": comment_content,
                },
-               dataType: 'json',
                success: function(data) {
                    // 성공적으로 댓글을 작성하면 댓글 목록을 다시 불러와서 업데이트
                    show_List();
@@ -77,7 +87,7 @@
       let comment_date = '${comment.comment_date}';
 
       $.ajax({
-               url : '/market/comment_servlet/list.do', // 댓글 목록 서블릿
+               url : '/comment/list.do', // 댓글 목록 서블릿
                type : 'GET',
                data : {
                   "num" : num,
@@ -107,8 +117,9 @@
                               row += '<li class="list-group-item">';
                               row += '<span style="font-size: 15px">아이디:' + comment.userid + '</span> '
                                     + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                              row += '<span style="font-size: 12px">'
-                                    + comment.comment_date
+                                    row += '<span style="font-size: 12px">'
+                                        + formatDate(comment.comment_date)
+                                        + '</span>';
                               // 사용자와 댓글 작성자가 동일하면 수정/삭제 버튼 추가
                               if (comment.userid == '${sessionScope.userid}') {
                                  row += '<div style="font-size: 12px; float: right;">';
@@ -143,6 +154,7 @@
    });
 
    function update_comment(comment_num) {
+	   let userid = '${sessionScope.userid}';
       // Retrieve the comment content that needs to be updated
       let updated_content = prompt("수정할 내용을 입력하세요:", "");
 
@@ -153,13 +165,13 @@
       if (updated_content !== null) {
          // Perform an AJAX request to update the comment
          $.ajax({
-            url : '/market/comment_servlet/update.do',
-            type : 'GET',
+            url : '/comment/update.do',
+            type : 'POST',
             data : {
+               "userid": userid,
                "comment_num" : comment_num,
                "comment_content" : updated_content
             },
-            dataType : 'json',
             success : function(data) {
                // Reload the comment list after updating
                show_List();
@@ -174,18 +186,17 @@
    }
 
    function delete_comment(comment_num) {
-      let num = $("#num").val();
+	   let num = $("#num").val();
       let userid = '${sessionScope.userid}';
       if (confirm("정말로 삭제하시겠습니까?")) {
          $.ajax({
-            url : '/market/comment_servlet/delete.do',
+            url : '/comment/delete.do',
             type : 'GET',
             data : {
                "userid" : userid,
                "comment_num" : comment_num,
                "num" : num
             },
-            dataType : 'json',
             success : function(data) {
                // 댓글 삭제 후 댓글 목록 다시 로드
                show_List();

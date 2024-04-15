@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.springmarket.model.auction.PageUtil;
+import com.example.springmarket.model.board.PageUtil;
 import com.example.springmarket.model.board.BoardDAO;
 import com.example.springmarket.model.board.BoardDTO;
 
