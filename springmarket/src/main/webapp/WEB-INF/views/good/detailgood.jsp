@@ -119,18 +119,70 @@ th, td {
 .report:hover {
 	background-image: url('/resources/images/report_red.png');
 }
+
+.quantity-container {
+	display: flex;
+	align-items: center;
+}
+
+.quantity-input {
+	width: 50px;
+	text-align: center;
+	margin: 0 10px;
+}
+
+.quantity-button {
+	background-color: #3498db;
+	color: #ffffff;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.quantity-button:hover {
+	background-color: #2980b9;
+}
 </style>
 <script>
+	// 페이지 로드 시 초기 가격 계산
+	window.onload = calculateTotalPrice;
+
 	function calculateTotalPrice() {
 		var price = parseInt(document.getElementById("price").value);
-		var quantity = document.getElementsByName("amount")[0].value;
+		var quantity = parseInt(document.getElementById("quantity").value); // 새로 추가된 input 요소로부터 수량을 가져옴
 		var totalPrice = price * quantity;
 		document.getElementById("totalPrice").innerText = totalPrice
 				.toLocaleString()
 				+ '원';
 	}
-	// 페이지 로드 시 초기 가격 계산
-	window.onload = calculateTotalPrice;
+
+	function increaseQuantity() {
+		var quantityInput = document.getElementById("quantity");
+		var quantity = parseInt(quantityInput.value);
+		quantity += 1;
+		quantityInput.value = quantity;
+		calculateTotalPrice();
+	}
+
+	function decreaseQuantity() {
+		var quantityInput = document.getElementById("quantity");
+		var quantity = parseInt(quantityInput.value);
+		if (quantity > 1) {
+			quantity -= 1;
+			quantityInput.value = quantity;
+			calculateTotalPrice();
+		}
+	}
+
+	function buy() {
+		// '구매하기' 버튼 동작
+	}
+
+	function cart() {
+		// '장바구니에 담기' 버튼 동작
+	}
 </script>
 </head>
 <body>
@@ -154,11 +206,12 @@ th, td {
 						</th>
 					</tr>
 					<tr>
-						<td><select name="amount" onchange="calculateTotalPrice()">
-								<c:forEach begin="1" end="10" var="i">
-									<option value="${i}">${i}</option>
-								</c:forEach>
-						</select> &nbsp; 개</td>
+						<td class="quantity-container">
+							<button class="quantity-button" onclick="decreaseQuantity()"><</button>
+							<input type="text" id="quantity" class="quantity-input" value="1"
+							readonly>
+							<button class="quantity-button" onclick="increaseQuantity()">></button>
+						</td>
 						<td id="totalPrice">0원</td>
 					</tr>
 					<tr>
