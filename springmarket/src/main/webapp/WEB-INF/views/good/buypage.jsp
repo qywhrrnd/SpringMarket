@@ -121,6 +121,38 @@ input {
 	background-color: white;
 }
 </style>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script>
+function buy() {
+	IMP.init('imp10032786'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+	IMP.request_pay({
+		pg : "kakaopay",
+		pay_method : "card",
+		merchant_uid : 'merchant_' + new Date().getTime(),
+		name : "가지마켓",
+		amount : 400,
+		buyer_name :'${sessionScope.userid}'
+	}, function(rsp) { // callback
+		if (rsp.success) {
+			var msg = '결제가 완료되었습니다.';
+			alert(msg);
+		 	savePayment(); // savePayment 함수 호출 --%>
+		
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}
+	});
+	}
+	
+ 	function savePayment(amount) {
+	    location.href = "/good/buy.do";
+	}
+
+</script>
 
 </head>
 <body>
