@@ -23,7 +23,7 @@ public class GoodController {
 
 	@Autowired
 	MemberDAO memberDao;
-
+	
 	@GetMapping("good/goodlist.do")
 	public ModelAndView goodlist() {
 		List<GoodDTO> list = goodDao.listgood();
