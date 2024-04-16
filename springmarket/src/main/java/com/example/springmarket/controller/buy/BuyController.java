@@ -35,4 +35,11 @@ public class BuyController {
 		return new ModelAndView("good/buy", "list", list);
 
 	}
+
+	@RequestMapping("buy/buylist.do")
+	public ModelAndView buylist(@RequestParam(name = "userid") String userid) {
+		List<BuyDTO> list = buyDao.buylist(userid);
+		return new ModelAndView("good/buy", "list", list);
+	}
+
 }
