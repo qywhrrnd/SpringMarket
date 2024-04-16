@@ -123,7 +123,7 @@ select {
 											pattern="#,###" /></td>
 
 									<td align="center"><fmt:formatNumber value="${row.price}"
-											pattern="#,###" /></td>
+											pattern="#,###" />원</td>
 								</tr>
 							</c:if>
 						</c:forEach>
