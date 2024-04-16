@@ -8,20 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
-<script>
-	function delete_product(write_code) {
-		if (confirm("삭제하시겠습니까?")) {
-			location.href = "/product/mylist_delete?write_code=" + write_code;
-		}
-	}
-	function updateStatus(write_code, status_code) {
-		if (confirm("판매 상태를 변경하시겠습니까?")) {
-			location.href = "/product/updateStatus?write_code=" + write_code
-					+ "&status_code=" + status_code;
-
-		}
-	}
-</script>
 <style>
 body {
 	font-family: 'Nanum Gothic', sans-serif; /* 원하는 한글 글꼴로 변경 */
@@ -103,9 +89,9 @@ select {
 			<div align="center">
 				<form method="post" name="form1">
 					<h2 align="center">구매내역</h2>
-					<a href="tel:010-0000-0000"
+					<a href="tel:010-3379-4049"
 						style="font: italic bold 1.5em/1em Georgia, serif; color: gray; font-size: small;">환불신청은
-						010-0000-0000로 연락해주세요!</a>
+						010-3379-4049로 연락해주세요!</a>
 
 					<!-- <input type="button" value="전체" onclick="">&nbsp; <input
             type="button" value="판매중" onclick="">&nbsp; <input
@@ -116,7 +102,8 @@ select {
 
 						<tr align="center">
 							<th style="width: 200px">사진</th>
-							<th style="width: 300px">제목(상품명)</th>
+							<th style="width: 200px">제목(상품명)</th>
+							<th style="width: 400px">베송지</th>
 							<th style="width: 200px">주문개수</th>
 							<th style="width: 200px">가격</th>
 						</tr>
@@ -128,10 +115,11 @@ select {
 										src="/resources/images/${row.filename}" width="100px"
 										height="100px"></td>
 
-									<td align="center"><a
-										href="/product/detail/${row.write_code}"> ${row.subject}</a></td>
+									<td align="center"><a href=""> ${row.goodname}</a></td>
 
-									<td align="center"><fmt:formatNumber value="${row.price}"
+									<td align="center"><a> ${row.address}</a></td>
+
+									<td align="center"><fmt:formatNumber value="${row.amount}"
 											pattern="#,###" /></td>
 
 									<td align="center"><fmt:formatNumber value="${row.price}"
