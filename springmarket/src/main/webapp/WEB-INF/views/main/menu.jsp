@@ -108,7 +108,7 @@
 								<li><a class="dropdown-item"
 									onclick="location.href='/product/mylist?userid=${sessionScope.userid}'">판매내역</a></li>
 									<li><a class="dropdown-item"
-									onclick="location.href='/buy/buylist?userid=${sessionScope.userid}'">구매내역</a></li>
+									onclick="location.href='/buy/buylist.do?userid=${sessionScope.userid}'">구매내역</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item"
 									onclick="location.href='/member/mypage.do?userid=${sessionScope.userid}'">마이페이지</a></li>
