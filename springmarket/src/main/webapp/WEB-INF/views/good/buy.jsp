@@ -103,10 +103,10 @@ select {
 			<div align="center">
 				<form method="post" name="form1">
 					<h2 align="center">구매내역</h2>
-					<span
-						style="font: italic bold 1.5em/1em Georgia, serif; color: gray;
-						font-size:small;">
-						환불신청은 010-0000-0000으로 연락해주세요!</span>
+					<a href="tel:010-0000-0000"
+						style="font: italic bold 1.5em/1em Georgia, serif; color: gray; font-size: small;">환불신청은
+						010-0000-0000로 연락해주세요!</a>
+
 					<!-- <input type="button" value="전체" onclick="">&nbsp; <input
             type="button" value="판매중" onclick="">&nbsp; <input
             type="button" value="판매완료" onclick=""><br> -->
