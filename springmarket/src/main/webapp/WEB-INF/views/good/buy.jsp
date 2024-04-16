@@ -115,7 +115,9 @@ select {
 										src="/resources/images/${row.filename}" width="100px"
 										height="100px"></td>
 
-									<td align="center"><a href=""> ${row.goodname}</a></td>
+									<td align="center"><a
+										href="/good/detailgood.do?goodidx=${row.goodidx}">
+											${row.goodname}</a></td>
 
 									<td align="center"><a> ${row.address}</a></td>
 

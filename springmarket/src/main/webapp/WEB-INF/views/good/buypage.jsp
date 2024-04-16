@@ -243,6 +243,7 @@ function buy() {
 		<input type="hidden" name="userid" value="${sessionScope.userid }">
 		<input type="hidden" name="totalPrice" value="${map.totalPrice}">
 		<input type="hidden" name="filename" value="${map.gdto.filename}">
+		<input type="hidden" name="goodidx" value="${map.gdto.goodidx}">
 	</form>
 	<br>
 	<br>

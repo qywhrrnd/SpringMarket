@@ -18,4 +18,5 @@ public class BuyDTO {
 	private int amount;
 	private String address;
 	private String filename;
+	private int goodidx;
 }
