@@ -43,7 +43,8 @@ public class GoodController {
 
 	@RequestMapping("good/buypage.do")
 	public ModelAndView pagebuy(@RequestParam(name = "userid") String userid,
-			@RequestParam(name = "totalPrice") String totalPrice, @RequestParam(name = "goodidx") int goodidx) {
+			@RequestParam(name = "totalPrice") int totalPrice, @RequestParam(name = "goodidx") int goodidx,
+			@RequestParam(name = "amount") int amount) {
 		String url = "";
 		url = "good/buypage";
 		MemberDTO mdto = memberDao.mypage(userid);
@@ -52,7 +53,10 @@ public class GoodController {
 		map.put("mdto", mdto);
 		map.put("gdto", gdto);
 		map.put("totalPrice", totalPrice);
+		map.put("amount", amount);
 		return new ModelAndView(url, "map", map);
 	}
+
+	
 
 }

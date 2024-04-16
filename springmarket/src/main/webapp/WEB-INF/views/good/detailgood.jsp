@@ -231,10 +231,12 @@ th, td {
 <script>
 	function buypage() {
 		var userid = document.getElementById("userid").value;
-	    var totalPrice = document.getElementById("totalPrice").innerText;
+		var price = parseInt(document.getElementById("price").value);
+		var amount = parseInt(document.getElementById("quantity").value); // 새로 추가된 input 요소로부터 수량을 가져옴
+		var totalPrice = price * amount;
 		var goodidx = ${dto.goodidx};
 		location.href = "/good/buypage.do?userid=" + userid + "&totalPrice="
-				+ totalPrice + "&goodidx=" + goodidx;
+				+ totalPrice + "&goodidx=" + goodidx + "&amount=" + amount;
 	}
 
 	function cart() {

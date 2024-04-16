@@ -56,6 +56,13 @@ table {
 	width: 50%;
 }
 
+table:nth-of-type(2) input[type="text"], table:nth-of-type(3) input[type="text"]
+	{
+	border: none; /* 테두리 없음 */
+	outline: none; /* 포커스시 테두리 없음 */
+	text-align: right;
+}
+
 td {
 	padding: 10px;
 	border: 1px solid #ddd;
@@ -121,7 +128,8 @@ input {
 	background-color: white;
 }
 </style>
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"
+	type="text/javascript"></script>
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
@@ -132,7 +140,7 @@ function buy() {
 		pay_method : "card",
 		merchant_uid : 'merchant_' + new Date().getTime(),
 		name : "가지마켓",
-		amount : 400,
+		amount : ${map.totalPrice},
 		buyer_name :'${sessionScope.userid}'
 	}, function(rsp) { // callback
 		if (rsp.success) {
@@ -149,7 +157,8 @@ function buy() {
 	}
 	
  	function savePayment(amount) {
-	    location.href = "/good/buy.do";
+		document.form1.action = "/buy/buy.do";
+		document.form1.submit();
 	}
 
 </script>
@@ -162,6 +171,7 @@ function buy() {
 
 	<form name="form1" method="post">
 		<h2 align="center">배송지</h2>
+
 		<table>
 			<tr>
 				<td align="center">이름&nbsp;</td>
@@ -203,18 +213,21 @@ function buy() {
 			</tr>
 			<tr>
 				<td align="center">상품명&nbsp;</td>
-				<td id="goodname">${map.gdto.goodname}</td>
+				<td><input type="text" name="goodname" id="goodname"
+					value="${map.gdto.goodname}" readonly></td>
 
 			</tr>
 
 			<tr>
 				<td align="center">개당 가격&nbsp;</td>
-				<td id="amount">${map.gdto.price}원</td>
+				<td><input type="text" name="price" id="price"
+					value="${map.gdto.price}" readonly>원</td>
 			</tr>
 
 			<tr>
-				<td align="center">총금액&nbsp;</td>
-				<td id="totalprice">${map.totalPrice}</td>
+				<td align="center">갯수&nbsp;</td>
+				<td><input type="text" name="amount" id="amount"
+					value="${map.amount}" readonly>개</td>
 			</tr>
 
 
@@ -223,11 +236,13 @@ function buy() {
 
 		<table>
 			<tr align="right">
-				<td align="right">총 주문금액 : ${map.totalPrice}</td>
+				<td align="right">총 주문금액 : ${map.totalPrice}원</td>
 				<td><input type="button" value="결제하기" onclick="buy()"></td>
 			</tr>
 		</table>
-
+		<input type="hidden" name="userid" value="${sessionScope.userid }">
+		<input type="hidden" name="totalPrice" value="${map.totalPrice}">
+		<input type="hidden" name="filename" value="${map.gdto.filename}">
 	</form>
 	<br>
 	<br>
