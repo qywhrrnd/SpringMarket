@@ -96,7 +96,7 @@ select {
    <%@ include file="../main/menu.jsp"%>
    <c:choose>
       <c:when test="${list.size() == 0}">
-   판매하는 상품이 없습니다.
+   구매한 상품이 없습니다.
    </c:when>
       <c:when test="${list.size() > 0}">
 
