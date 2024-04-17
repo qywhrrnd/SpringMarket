@@ -9,7 +9,7 @@ public interface MemberDAO {
 
 	void join(MemberDTO dto);
 
-	int loginCheck(MemberDTO dto);
+	int loginCheck(String userid, String passwd);
 
 	String check(String userid);
 

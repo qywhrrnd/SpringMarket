@@ -45,19 +45,25 @@ public class MemberController {
 			@RequestParam(name = "passwd") String passwd, HttpSession session) {
 		String pass = memberDao.encrypt(passwd);
 		String nickname = memberDao.login(userid, pass);
-		System.out.println(nickname);
 		String message = "";
 		String url = "";
 		if (nickname == null) { // 로그인 실패
-			message = "로그인 정보가 정확하지 않습니다.";
+			message = "error";
 			url = "member/login";
-		} else { // 로그인 성공
+		}else {
+			int report_code = memberDao.loginCheck(userid,pass);
+			System.out.println(report_code);
+			if(report_code == 1){
+			message = "report";
+			url = "member/login";
+		}else {
 			message = nickname + "님 환영합니다.";
 			url = "main/main";
 			// 세션변수 등록
 			session.setAttribute("userid", userid);
 			session.setAttribute("nickname", nickname);
 		}
+	}
 		Map<String, Object> map = new HashMap<>();
 		map.put("message", message);
 		return new ModelAndView(url, "map", map);

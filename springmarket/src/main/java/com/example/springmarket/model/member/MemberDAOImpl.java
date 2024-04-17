@@ -31,9 +31,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int loginCheck(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return session.selectOne("member.loginCheck", dto);
+	public int loginCheck(String userid, String passwd) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("passwd", passwd);
+		return session.selectOne("member.loginCheck", map);
 	}
 
 	@Override

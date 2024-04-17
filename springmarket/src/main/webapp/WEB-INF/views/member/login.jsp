@@ -18,18 +18,18 @@
 	}
 </script>
 
-<c:if test="${param.message == 'report' }">
+<c:if test="${map.message == 'report' }">
 	<script>
 		alert("신고로 인해 로그인 불가 아이디입니다.");
 	</script>
 </c:if>
 <!-- 아이디와 비밀번호 불일치시 뜨는 메시지 -->
-<c:if test="${param.message == 'error' }">
+<c:if test="${map.message == 'error' }">
 	<script>
 		alert("아이디 또는 비밀번호가 일치하지 않습니다.");
 	</script>
 </c:if>
-<c:if test="${param.message == 'logout' }">
+<c:if test="${map.message == 'logout' }">
 	<script>
 		alert("로그아웃 되었습니다.");
 	</script>
