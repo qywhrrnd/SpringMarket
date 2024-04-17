@@ -227,6 +227,11 @@ th, td {
 	</table>
 
 	<%@ include file="../main/footer.jsp"%>
+	
+	
+	
+	
+	
 </body>
 <script>
 	function buypage() {
