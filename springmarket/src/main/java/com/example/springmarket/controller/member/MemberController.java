@@ -257,7 +257,8 @@ public class MemberController {
 		response.put("message", message);
 		return ResponseEntity.ok(response);
 	}
-
+	
+	
 
 	@GetMapping("member/mypage.do")
 	public ModelAndView mypage(@RequestParam(name = "userid") String userid) {

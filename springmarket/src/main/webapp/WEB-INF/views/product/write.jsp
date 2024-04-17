@@ -115,6 +115,37 @@
       form1.attr("action", "/product/insert");
       form1.submit();
     }
+    
+    $(function(){
+        //처음 이미지 가져오기
+        let photo_path = $('.profile-photo').attr('src');
+        let my_photo; //회원이 업로드할 이미지 담을 변수
+        $('#file').change(function(){
+            my_photo = this.files[0];
+            console.log(this.files[0].size);
+            if(!my_photo){
+                $('.profile-photo').attr('src', photo_path);
+                return
+            }
+          
+            //이미지 미리보기 처리
+            let reader = new FileReader();
+            reader.readAsDataURL(my_photo);
+
+            reader.onload = function(){
+                $('.profile-photo').attr('src', reader.result);
+            };
+        });
+        });
+    
+    function upload() {//이미지 업로드 하면 미리보기 부분 보이게/안보이게
+        let fileInput = document.getElementById("file");
+        if (fileInput !=null) {
+            $(".profile-photo").css("visibility", "visible");
+        } else {
+            $(".profile-photo").css("visibility", "hidden");
+        }
+    }
   </script>
 </head>
 <body>
@@ -141,7 +172,12 @@
             <th>상품이미지</th>
          </tr>
          <tr>
-            <td><input type="file" name="file"></td>
+            <td>
+            <!-- <input type="file" name="file"> -->
+            <input type = "file" name="file" id = "file" accept = "image/gif, image/png, image/jpeg" multiple="multiple" onchange="upload()">
+            <img src = "/resources/images" class = "profile-photo" width = "150" height = "150" style= "visibility: hidden;">
+            </td>
+            
          </tr>
          <tr>
             <th>상품설명</th>
