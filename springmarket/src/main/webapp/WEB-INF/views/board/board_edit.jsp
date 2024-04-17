@@ -10,12 +10,14 @@
 <script>
 $(function() {
    $("#btnDelete").click(function() {
-      if(confirm("정말 삭제하시겠습니까?")) {
+      if(confirm("정말 삭제하시겠습니까?")==true) {
          document.form1.action = "/board/delete.do";
          document.form1.submit();
+      }else{
+    	  return false;
+          
       }
-   }); 
-   
+});
    $("#btnUpdate").click(function() {
       let userid = '${sessionScope.userid}';   
       let subject = $("#subject").val();   
@@ -130,8 +132,8 @@ function back() {
         </td>
     </tr>
     <tr><td colspan="4" align="center">
-            <button class="btn btn-outline-gagi" id="btnDelete" >삭제</button>
             <button class="btn btn-outline-gagi" id="btnUpdate">수정</button>
+            <button class="btn btn-outline-gagi" id="btnDelete" >삭제</button>
             <button class="btn btn-outline-gagi" id="btnView">돌아가기</button>
 	</td></tr>
 </table>

@@ -42,14 +42,30 @@ th, td {
 	text-align: center;
 }
 
-.button-container {
-	position: fixed;
-	top: 50%;
-	right: 10px;
-	transform: translateY(-50%);
+/* .button-container {
+	outline:none;
+	background-color: transparent;
+	border: 0px;
+}  */
+
+.delete_btn {
+	outline:none;
+	background-color: transparent;
+	border: 0px;
+	color:gray;
+	font-size: 13px;
+	text-decoration: underline;
+} 
+
+.delete_btn:hover{
+	background-color: #e74c3c;
+	color: #ffffff;
+	text-decoration: none;
 }
 
-.button-container input {
+
+ 
+/* .button-container input {
 	background-color: #e74c3c;
 	color: #ffffff;
 	border: none;
@@ -61,7 +77,7 @@ th, td {
 
 .button-container input:hover {
 	background-color: #c0392b;
-}
+} */
 
 .like-button {
 	background-color: transparent;
@@ -183,13 +199,7 @@ function address() {
 	<%@ include file="../main/menu.jsp"%>
 	<!----------------------------------------------------------------------------------->
 	<h2>상품정보</h2>
-	<c:if
-		test="${sessionScope.userid == 'admin' || sessionScope.userid == dto.userid}">
-		<div class="button-container">
-			<input type="button" onclick="delete_product('${dto.write_code}')"
-				value="삭제">
-		</div>
-	</c:if>
+
 	<table>
 		<tr>
 			<td align="right" width="642px"><img id="img"
@@ -228,12 +238,21 @@ function address() {
 							</tr>
 
 							<tr>
-								<td style="color: #2f4f4f; padding-left: 10px;">판매자&nbsp;
-									${dto.userid}</td>
+								<td colspan="2" style="color: #2f4f4f; padding-left: 10px;">판매자&nbsp;
+									${dto.userid}
+									
+							<c:if
+								test="${sessionScope.userid == 'admin' || sessionScope.userid == dto.userid}">
+								
+									<input type="button" class="delete_btn" 
+										onclick="delete_product('${dto.write_code}')" value="삭제">
+								
+							</c:if>
+							</td>
 							</tr>
-							<tr>
-								<td width="50px"><input type="button" class="map"
-									onclick="address()" value="희망거래장소"></td>
+							<tr >
+								<td	 width="40px"><input type="button" class="map"
+									onclick="address()" value="희망거래장소" ></td>
 							</tr>
 							<tr>
 								<td><input type="hidden" name="userid"

@@ -27,13 +27,74 @@ function list(page){
 
 $(function() {
    $(".article-row").click(function() {
-	   let row = $(this).attr("data-id");
+      let row = $(this).attr("data-id");
       location.href = "/board/view.do/" + row
    });
 });
 </script>
 <style>
+.page_wrap {
+   text-align: center;
+   font-size: 10px;
+   margin-bottom: 50px;
+}
 
+.page_nation {
+   display: inline-block;
+}
+
+.page_nation .none {
+   display: none;
+}
+
+.page_nation a {
+   display: block;
+   margin: 0 3px;
+   float: left;
+   border: 1px solid #e6e6e6;
+   width: 28px;
+   height: 28px;
+   line-height: 28px;
+   text-align: center;
+   background-color: #fff;
+   font-size: 13px;
+   color: #999999;
+   text-decoration: none;
+}
+
+.page_nation .arrow {
+   border: 1px solid #ccc;
+}
+
+.page_nation .pprev {
+   background: #f8f8f8 url('/resources/images/page_pprev.png') no-repeat
+      center center;
+   margin-left: 0;
+}
+
+.page_nation .prev {
+   background: #f8f8f8 url('/resources/images/page_prev.png') no-repeat
+      center center;
+   margin-right: 7px;
+}
+
+.page_nation .next {
+   background: #f8f8f8 url('/resources/images/page_next.png') no-repeat
+      center center;
+   margin-left: 7px;
+}
+
+.page_nation .nnext {
+   background: #f8f8f8 url('/resources/images/page_nnext.png') no-repeat
+      center center;
+   margin-right: 0;
+}
+
+.page_nation a.active {
+   background-color: #42454c;
+   color: #fff;
+   border: 1px solid #42454c;
+}
 
 .table-fixed {
     table-layout: fixed;
@@ -204,56 +265,33 @@ $(function() {
       </c:forEach>
    </table>
 </article>
-   <nav aria-label="Page navigation example">
-    <ul class="pagination pagination-sm justify-content-center">
-        <li class="page-item">
+   <div class="page_wrap">
+         <div class="page_nation">
             <c:if test="${map.page.curPage > 1}">
-                <a class="page-link" href="#" onclick="list('1')" aria-label="First">
-                    <span aria-hidden="true"></span>
-                    <span class="sr-only">처음</span>
-                </a>
+               <a class="arrow pprev" href="#" onclick="list('1')"></a>
             </c:if>
-        </li>
-        <li class="page-item">
             <c:if test="${map.page.curBlock > 1}">
-                <a class="page-link" href="#" onclick="list('${map.page.prevPage}')" aria-label="Previous">
-                    <span aria-hidden="true"></span>
-                    <span class="sr-only">처음으로</span>
-                </a>
+               <a class="arrow prev" href="#" onclick="list('${map.page.prevPage}')"></a>
             </c:if>
-        </li>
-        
-        <c:forEach var="num" begin="${map.page.blockStart}" end="${map.page.blockEnd}">
-            <li class="page-item <c:if test='${num == map.page.curPage}'>active</c:if>'">
-                <c:choose>
-                    <c:when test="${num == map.page.curPage}">
-                        <span class="page-link">${num}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a class="page-link" href="#" onclick="list('${num}')">${num}</a>
-                    </c:otherwise>
-                </c:choose>
-            </li>
-        </c:forEach>
-        
-        <li class="page-item">
+            <c:forEach var="num" begin="${map.page.blockStart}"
+               end="${map.page.blockEnd}">
+               <c:choose>
+                  <c:when test="${num == map.page.curPage}">
+                     <a style="color: green" class="active">${num}</a>
+                  </c:when>
+                  <c:otherwise>
+                     <a href="#" onclick="list('${num}')">${num}</a>
+                  </c:otherwise>
+               </c:choose>
+            </c:forEach>
             <c:if test="${map.page.curBlock < map.page.totBlock}">
-                <a class="page-link" href="#" onclick="list('${map.page.nextPage}')" aria-label="Next">
-                    <span aria-hidden="true"></span>
-                    <span class="sr-only">다음</span>
-                </a>
+               <a class="arrow next" href="#" onclick="list('${map.page.nextPage}')"></a>
             </c:if>
-        </li>
-        <li class="page-item">
             <c:if test="${map.page.curPage < map.page.totPage}">
-                <a class="page-link" href="#" onclick="list('${map.page.totPage}')" aria-label="Last">
-                    <span aria-hidden="true"></span>
-                    <span class="sr-only">마지막</span>
-                </a>
+               <a class="arrow nnext" href="#" onclick="list('${map.page.totPage}')"></a>
             </c:if>
-        </li>
-    </ul>
-</nav>
+         </div>
+      </div>
 
 </div>
 <br><br><br><br><br><br><br><br>

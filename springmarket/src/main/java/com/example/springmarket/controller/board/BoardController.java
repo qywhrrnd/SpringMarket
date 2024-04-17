@@ -66,6 +66,12 @@ public class BoardController {
 		return mav;
 	}
 	
+	@GetMapping("board/cancle.do")
+	public String cancel(@RequestParam(name = "num") int num) {
+	    return "redirect:/board/view.do?num=" + num;
+	}
+
+	
 	@PostMapping("board/back.do/{num}")
 	public ModelAndView back(@PathVariable(name="num")int num,
 			ModelAndView mav) {
