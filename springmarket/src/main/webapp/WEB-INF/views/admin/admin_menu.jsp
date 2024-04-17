@@ -30,24 +30,8 @@
 					href="/product/list">중고거래</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="/board/list.do">자유게시판</a></li>
-
-				<c:choose>
-					<c:when test="${sessionScope.userid != null}">
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false">경매</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/auction/list.do">경매
-										게시판</a></li>
-								<li><a class="dropdown-item"
-									href="/auction/pageauctioninsert.do">경매 올리기</a></li>
-							</ul></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" href="#"
-							onclick="showAlert()">경매</a></li>
-					</c:otherwise>
-				</c:choose>
+				<li class="nav-item"><a class="nav-link"
+					href="/auction/list.do">경매게시판</a></li>
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
 						<li class="nav-item"><a class="nav-link" href="/chat/room.do">채팅</a></li>
