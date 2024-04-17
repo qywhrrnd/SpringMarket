@@ -9,7 +9,15 @@
 <meta charset="UTF-8">
 <title>주문 내역</title>
 <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
-
+<script>
+	$(document).ready(function() {
+		var totalPrice = 0; // 변수 초기화
+		<c:forEach var="row" items="${list}">
+		totalPrice += parseInt("${row.price}"); // 각 주문의 가격을 더함
+		</c:forEach>
+		$("#totalprice").val(totalPrice);
+	});
+</script>
 </head>
 <body>
 	<%@ include file="../admin/admin_menu.jsp"%>
@@ -53,8 +61,11 @@
 								<td align="center"><fmt:formatNumber value="${row.price}"
 										pattern="#,###" />원</td>
 							</tr>
-
 						</c:forEach>
+						<tr>
+							<td colspan="6" align="right">총 매출액 : <input style="border: none; text-align : right;" type="number" id="totalprice"
+								name="totalprice" readonly>원</td>
+						</tr>
 					</table>
 				</form>
 			</div>
