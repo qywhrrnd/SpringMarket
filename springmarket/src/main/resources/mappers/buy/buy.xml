@@ -9,6 +9,11 @@
 
 	<select id="buylist"
 		resultType="com.example.springmarket.model.buy.BuyDTO">
+		select * from buy where userid=#{userid}
+	</select>
+
+	<select id="adminbuylist"
+		resultType="com.example.springmarket.model.buy.BuyDTO">
 		select * from buy
 	</select>
 

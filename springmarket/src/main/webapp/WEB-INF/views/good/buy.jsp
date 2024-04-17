@@ -88,7 +88,7 @@ select {
 
 			<div align="center">
 				<form method="post" name="form1">
-					<h2 align="center">구매내역</h2>
+					<h2 align="center">구매 내역</h2>
 					<a href="tel:010-3379-4049"
 						style="font: italic bold 1.5em/1em Georgia, serif; color: gray; font-size: small;">환불신청은
 						010-3379-4049로 연락해주세요!</a>

@@ -42,5 +42,13 @@ public class BuyController {
 		List<BuyDTO> list = buyDao.buylist(userid);
 		return new ModelAndView("good/buy", "list", list);
 	}
+	
+	@RequestMapping("buy/adminbuylist.do")
+	public ModelAndView adminbuylist() {
+		List<BuyDTO> list = buyDao.adminbuylist();
+		System.out.println(list);
+		return new ModelAndView("admin/admin_buylist", "list", list);
+	}
+	
 
 }

@@ -11,7 +11,7 @@ public class BuyDAOImpl implements BuyDAO {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
 	public void buy(BuyDTO dto) {
 		session.insert("buy.buy", dto);
@@ -22,6 +22,12 @@ public class BuyDAOImpl implements BuyDAO {
 	public List<BuyDTO> buylist(String userid) {
 		// TODO Auto-generated method stub
 		return session.selectList("buy.buylist", userid);
+	}
+
+	@Override
+	public List<BuyDTO> adminbuylist() {
+		// TODO Auto-generated method stub
+		return session.selectList("buy.adminbuylist");
 	}
 
 }
