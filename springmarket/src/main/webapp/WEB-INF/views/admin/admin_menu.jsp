@@ -29,7 +29,7 @@
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="/product/list">중고거래</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="../board_servlet/list.do">자유게시판</a></li>
+					href="/board/list.do">자유게시판</a></li>
 
 				<c:choose>
 					<c:when test="${sessionScope.userid != null}">
