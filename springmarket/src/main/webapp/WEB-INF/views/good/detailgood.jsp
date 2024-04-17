@@ -210,7 +210,7 @@ th, td {
 					</tr>
 					<tr>
 						<td><input type="button" value="구매하기" onclick="buypage()"></td>
-						<td><input type="button" value="장바구니에 담기" onclick="cart()"></td>
+
 					</tr>
 				</table>
 			</td>
@@ -234,13 +234,13 @@ th, td {
 		var price = parseInt(document.getElementById("price").value);
 		var amount = parseInt(document.getElementById("quantity").value); // 새로 추가된 input 요소로부터 수량을 가져옴
 		var totalPrice = price * amount;
-		var goodidx = ${dto.goodidx};
+		var goodidx = $
+		{
+			dto.goodidx
+		}
+		;
 		location.href = "/good/buypage.do?userid=" + userid + "&totalPrice="
 				+ totalPrice + "&goodidx=" + goodidx + "&amount=" + amount;
-	}
-
-	function cart() {
-		// '장바구니에 담기' 버튼 동작
 	}
 </script>
 
