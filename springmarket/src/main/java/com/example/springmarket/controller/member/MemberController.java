@@ -274,7 +274,6 @@ public class MemberController {
 
 	@PostMapping("member/mypage_update.do")
 	public ModelAndView mypage_update(HttpSession session,
-
 			@RequestParam(name = "name") String name, @RequestParam(name = "nickname") String nickname,
 			@RequestParam(name = "birth") int birth, @RequestParam(name = "phone") String phone,
 			@RequestParam(name = "email") String email, @RequestParam(name = "address1") String address1,
