@@ -160,13 +160,13 @@
             <th>제목</th>
          </tr>
          <tr>
-            <td><input type="text" name="subject" placeholder="상품명(제목)"></td>
+            <td><input type="text" id="subject" name="subject" placeholder="상품명(제목)"></td>
          </tr>
          <tr>
             <th>상품가격</th>
          </tr>
          <tr>
-            <td><input type="number" name="price" placeholder="상품가격"></td>
+            <td><input type="number" id="price" name="price" placeholder="상품가격"></td>
          </tr>
          <tr>
             <th>상품이미지</th>
