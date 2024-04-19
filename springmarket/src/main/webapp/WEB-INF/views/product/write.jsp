@@ -6,89 +6,94 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내물건 팔기</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<script src="/resources/ckeditor/ckeditor.js"></script>
+  
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: #f7f7f7;
+	margin: 0;
+	padding: 0;
+}
 
-    #container {
-      width: 60%;
-      margin: 30px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+#container {
+	width: 60%;
+	margin: 30px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
 
-    form {
-      margin-top: 20px;
-    }
+form {
+	margin-top: 20px;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 15px;
+}
 
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
+th, td {
+	padding: 12px;
+	border-bottom: 1px solid #ddd;
+}
 
-    th {
-      text-align: left;
-    }
+th {
+	text-align: left;
+}
 
-    input[type="text"], input[type="number"], textarea {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      resize: none;
-      margin-top: 6px;
-    }
+input[type="text"], input[type="number"], textarea {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: none;
+	margin-top: 6px;
+}
 
-    input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-    }
+input[type="file"] {
+	width: 100%;
+	padding: 10px;
+	margin-top: 6px;
+}
 
-    input[type="button"] {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
+input[type="button"] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 24px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 10px;
+}
 
-    input[type="button"]:hover {
-      background-color: #45a049;
-    }
+input[type="button"]:hover {
+	background-color: #45a049;
+}
 
-    .center {
-      text-align: center;
-    }
+.center {
+	text-align: center;
+}
 
-    /* 가운데 정렬 */
-    .product-description {
-      text-align: center;
-    }
-  </style>
+/* 가운데 정렬 */
+.product-description {
+	text-align: center;
+}
+</style>
   <script src="http://code.jquery.com/jquery-3.6.1.js"></script>
   <script>
     function product_write() {
@@ -96,6 +101,7 @@
       let subject = $("#subject").val();
       let contents = $("#contents").val();
       let price = $("#price").val();
+      let file = $("#file").val();
 
       if (subject == "") {
         alert("제목을 입력하세요");
@@ -107,11 +113,12 @@
         $("#price").focus();
         return;
       }
-      if (contents == "") {
-        alert("설명을 입력하세요");
-        $("#contents").focus();
+      if (file == "") {
+        alert("사진을 추가하세요");
+        $("#file").focus();
         return;
       }
+      
       form1.attr("action", "/product/insert");
       form1.submit();
     }
@@ -174,7 +181,7 @@
          <tr>
             <td>
             <!-- <input type="file" name="file"> -->
-            <input type = "file" name="file" id = "file" accept = "image/gif, image/png, image/jpeg" multiple="multiple" onchange="upload()">
+            <input type = "file" name="file" id = "file" accept = "image/gif, image/png, image/jpeg, image/jpg" multiple="multiple" onchange="upload()">
             <img src = "/resources/images" class = "profile-photo" width = "150" height = "150" style= "visibility: hidden;">
             </td>
             
@@ -183,8 +190,15 @@
             <th>상품설명</th>
          </tr>
          <tr>
-            <td><textarea rows="5" cols="80" id="contents" name="contents" style="resize: none; height: 300px"
-            placeholder="-상품명(브랜드)&#13;&#10;&#13;&#10;-구매시기&#13;&#10;&#13;&#10;-사용기간&#13;&#10;&#13;&#10;-하자여부&#13;&#10;&#13;&#10;*실제 촬영한 사진과 함께 상세 정보를 입력해주세요."></textarea></td>
+            <td><textarea rows="5" cols="60" id="contents" name="contents"></textarea>
+						<script>
+							CKEDITOR
+									.replace(
+											"contents",
+											{
+												filebrowserUploadUrl : "/product/imageUpload.do"
+											});
+						</script></td>
          </tr>
          <tr>
             <td colspan="2" align="center">

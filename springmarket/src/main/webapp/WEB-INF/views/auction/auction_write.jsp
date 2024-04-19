@@ -100,7 +100,8 @@ input[type="button"]:hover {
 		let subject = $("#subject").val();
 		let contents = $("#contents").val();
 		let price = $("#price").val();
-
+		let file = $("#file").val();
+		
 		if (subject == "") {
 			alert("제목을 입력하세요");
 			$("#subject").focus();
@@ -109,6 +110,11 @@ input[type="button"]:hover {
 		if (price == "") {
 			alert("금액을 입력하세요");
 			$("#price").focus();
+			return;
+		}
+		if (file == "") {
+			alert("사진을 추가하세요");
+			$("#file").focus();
 			return;
 		}
 		
@@ -180,7 +186,7 @@ input[type="button"]:hover {
 				<tr>
 					<td>
 						<!-- <input type="file" name="file"> --> <input type="file"
-						name="file" id="file" accept="image/gif, image/png, image/jpeg"
+						name="file" id="file" accept="image/gif, image/png, image/jpeg, image/jpg"
 						multiple="multiple" onchange="upload()"> <img
 						src="/resources/images" class="profile-photo" width="150"
 						height="150" style="visibility: hidden;">

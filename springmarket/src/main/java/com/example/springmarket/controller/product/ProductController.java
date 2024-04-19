@@ -1,6 +1,9 @@
 package com.example.springmarket.controller.product;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,7 @@ import com.example.springmarket.model.product.ProductDTO;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -75,38 +79,57 @@ public class ProductController {
 	// 상품 추가
 	@PostMapping("insert")
 	public String insert(ProductDTO dto, HttpServletRequest request, HttpSession session) {
+	    String filename = "-";
+	    MultipartFile file = dto.getFile(); // 파일 객체 가져오기
+	    String userid = (String) session.getAttribute("userid");
 
-		String filename = "-";
-		MultipartFile file = dto.getFile(); // 파일 객체 가져오기
-		String userid = (String) session.getAttribute("userid");
+	    // 파일이 비어있지 않고, 파일의 원본 이름이 null이 아닌 경우에만 처리
+	    if (file != null && !file.isEmpty() && file.getOriginalFilename() != null) {
+	        filename = file.getOriginalFilename(); // 파일명 설정
 
-		// 파일이 비어있지 않고, 파일의 원본 이름이 null이 아닌 경우에만 처리
-		if (file != null && !file.isEmpty() && file.getOriginalFilename() != null) {
-			filename = file.getOriginalFilename(); // 파일명 설정
+	        try {
+	            ServletContext application = request.getSession().getServletContext();
+	            String path = application.getRealPath("/resources/images/");
+	            File directory = new File(path);
 
-			try {
-				ServletContext application = request.getSession().getServletContext();
-				String path = application.getRealPath("/resources/images/");
-				File directory = new File(path);
+	            if (!directory.exists()) {
+	                directory.mkdirs(); // 디렉토리가 없으면 생성
+	            }
 
-				if (!directory.exists()) {
-					directory.mkdirs(); // 디렉토리가 없으면 생성
-				}
+	            // 파일 저장
+	            file.transferTo(new File(directory, filename));
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            // 파일 저장 중 오류 발생 시, 적절한 예외 처리 로직 추가 가능
+	        }
+	    }
 
-				// 파일 저장
-				file.transferTo(new File(directory, filename));
-			} catch (Exception e) {
-				e.printStackTrace();
-				// 파일 저장 중 오류 발생 시, 적절한 예외 처리 로직 추가 가능
-			}
-		}
+	    dto.setFilename(filename); // 파일명 설정
+	    dto.setUserid(userid);
 
-		dto.setFilename(filename); // 파일명 설정
-		dto.setUserid(userid);
-
-		productDao.insert(dto); // 데이터베이스에 저장
-		return "redirect:/product/list";
+	    productDao.insert(dto); // 데이터베이스에 저장
+	    return "redirect:/product/list";
 	}
+	
+	@PostMapping("product/imageUpload.do")
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(name = "upload") MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		OutputStream out = null;
+		PrintWriter printWriter = null;
+		String fileName = upload.getOriginalFilename();
+		byte[] bytes = upload.getBytes();
+		ServletContext application = request.getSession().getServletContext();
+		String uploadPath = application.getRealPath("/resources/images/");
+		out = new FileOutputStream(new File(uploadPath + fileName));
+		out.write(bytes);
+		printWriter = response.getWriter();
+		String fileUrl = request.getContextPath() + "/resources/images/" + fileName;
+		printWriter.println("{\"filename\"  :  \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
+		printWriter.flush();
+	}
+
 
 	// 상품 클릭시 디테일
 	@GetMapping("detail/{write_code}")
