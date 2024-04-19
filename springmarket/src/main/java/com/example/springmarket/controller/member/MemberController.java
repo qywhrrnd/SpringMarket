@@ -50,23 +50,29 @@ public class MemberController {
 		if (nickname == null) { // 로그인 실패
 			message = "error";
 			url = "member/login";
+			Map<String, Object> map = new HashMap<>();
+			map.put("message", message);
+			return new ModelAndView(url, "map", map);
 		}else {
 			int report_code = memberDao.loginCheck(userid,pass);
 			System.out.println(report_code);
 			if(report_code == 1){
 			message = "report";
 			url = "member/login";
+			Map<String, Object> map = new HashMap<>();
+			map.put("message", message);
+			return new ModelAndView(url, "map", map);
 		}else {
 			message = nickname + "님 환영합니다.";
-			url = "main/main";
+			
 			// 세션변수 등록
 			session.setAttribute("userid", userid);
 			session.setAttribute("nickname", nickname);
+			
+			return new ModelAndView("redirect:/");
 		}
 	}
-		Map<String, Object> map = new HashMap<>();
-		map.put("message", message);
-		return new ModelAndView(url, "map", map);
+		
 	}
 
 	@GetMapping("member/logout.do")

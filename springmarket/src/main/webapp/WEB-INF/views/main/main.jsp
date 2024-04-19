@@ -143,14 +143,14 @@ body {
          </div>
       </div>
       <div class="row">
-         <c:forEach var="row" items="${list}" varStatus="status">
+         <c:forEach var="row" items="${map.list}" varStatus="status">
             <div class="col-lg-4 col-md-6 col-sm-12">
                <article class="card-link">
                   <a class="card" style="margin: 10px; text-decoration: none;"
-                     href="/market/mk_servlet/detail.do?write_code=${row.write_code}">
+                     href="/product/detail/${row.write_code}">
                      <div class="box">
                         <img class="card-img" alt="${row.filename}"
-                           src="/market/images/${row.filename}">
+                           src="/resources/images/${row.filename}">
                      </div>
                      <div class="card-body">
                         <h2 class="card-title" style="text-align: center; font-size: 20px; font-weight: bold;">${row.subject}</h2>

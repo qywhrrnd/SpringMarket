@@ -54,6 +54,17 @@ public class ProductController {
 		map.put("memberDao", memberDao);
 		return new ModelAndView("product/list", "map", map);
 	}
+	
+	@GetMapping("poplist")
+	public ModelAndView poplist() {
+		List<ProductDTO> list = productDao.poplist();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("ldao", loveDao);
+		map.put("list", list);
+		map.put("memberDao", memberDao);
+		return new ModelAndView("main/main", "map", map);
+	}
 
 	// 상품추가하는는 화면으로 이동
 	@GetMapping("write")
