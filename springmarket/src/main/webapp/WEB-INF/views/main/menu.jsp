@@ -120,13 +120,24 @@
 					</c:otherwise>
 				</c:choose>
 			</ul>
-			<form class="d-flex" role="search" action="/product/search">
-				<input class="form-control me-2" name="keyword" value="${keyword}"
-					placeholder="물품을 검색하세요."> <input type="submit"
-					class="btn btn-outline-success" style="background-color:"
-					value="검색" id="btnSearch">
+			<form class="d-flex" role="search" action="/product/search" id="searchForm">
+            <input class="form-control me-2" name="keyword" value="${keyword}"
+               placeholder="물품을 검색하세요."> <input type="submit"
+               class="btn btn-outline-success" style="background-color:"
+               value="검색" id="btnSearch">
 
-			</form>
+         </form>
+         <script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        var keyword = document.getElementsByName('keyword')[0].value;
+        
+        // 특정 조건을 확인하여 검색어가 비어있는 경우에는 폼 제출을 취소합니다.
+        if (keyword.trim() === '') {
+            event.preventDefault(); // 폼 제출을 취소합니다.
+            alert('검색어를 입력해주세요.'); // 사용자에게 알림을 표시합니다.
+        }
+    });
+</script>
 			&nbsp;&nbsp;&nbsp;
 			<div style="text-align: center;">
 				<c:choose>

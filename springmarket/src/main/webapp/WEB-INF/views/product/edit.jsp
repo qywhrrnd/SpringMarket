@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<script src="/resources/ckeditor/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>판매게시물 수정</title>
 
@@ -21,14 +28,59 @@
 			document.form1.price.focus();
 			return;
 		}
-		if (contents == "") {
-			alert("설명을 입력하세요");
-			document.form1.contents.focus();
-			return;
-		}
+		
 		document.form1.action = "/product/update";
 		document.form1.submit();
 	}
+	
+	$(function(){
+        //처음 이미지 가져오기
+        let photo_path = $('.profile-photo').attr('src');
+        let my_photo; //회원이 업로드할 이미지 담을 변수
+        $('#file').change(function(){
+            my_photo = this.files[0];
+            console.log(this.files[0].size);
+            if(!my_photo){
+                $('.profile-photo').attr('src', photo_path);
+                return
+            }
+          
+            //이미지 미리보기 처리
+            let reader = new FileReader();
+            reader.readAsDataURL(my_photo);
+
+            reader.onload = function(){
+                $('.profile-photo').attr('src', reader.result);
+            };
+        });
+        });
+
+    
+	function upload() {
+	    let fileInput = document.getElementById("file");
+	    if (fileInput.files.length === 0) {
+	        // 파일이 선택되지 않았을 때의 처리
+	        $('.profile-photo').css('visibility', 'visible');
+	        $('.profile-photo2').css('visibility', 'hidden');
+	        return;
+	    }
+
+	    // 파일이 선택되었을 때의 처리
+	    let file = fileInput.files[0];
+	    if (!file.type.match('image.*')) {
+	        alert('이미지 파일을 선택해주세요.');
+	        return;
+	    }
+
+	    // 이미지 미리보기 처리
+	    let reader = new FileReader();
+	    reader.onload = function(e) {
+	        $('.profile-photo2').attr('src', e.target.result);
+	        $('.profile-photo2').css('visibility', 'visible');
+	    };
+	    reader.readAsDataURL(file);
+	}
+
 </script>
 </head>
 <body>
@@ -52,15 +104,27 @@
 				<th>상품설명</th>
 			</tr>
 			<tr>
-				<td><textarea rows="7" cols="60" name="contents" style="resize: none;">${dto.contents}</textarea></td>
+				<td><textarea rows="7" cols="60" id="contents" name="contents" style="resize: none;">${dto.contents}</textarea>
+						<script>
+							CKEDITOR
+									.replace(
+											"contents",
+											{
+												filebrowserUploadUrl : "/product/imageUpload.do"
+											});
+						</script></td>
 			</tr>
 
 			<tr>
 				<th>상품 이미지</th>
 			</tr>
 			<tr>
-				<td><img src="/resources/images/${dto.filename}" width="300px"
-					height="300px"> <br> <input type="file" name="file">
+				<td>
+				<input type = "file" name="file" id="file" accept="image/gif, image/png, image/jpeg, image/jpg " multiple="multiple" onchange="upload()">
+				<img src="/resources/images/${dto.filename}" class="profile-photo" width="150px" height="150px" style= "visibility: visible;">
+				 ➔
+				<img src="/resources/images" class="profile-photo2" width="150px" height="150px" style= "visibility: hidden;"> <br> 
+					
 				</td>
 			</tr>
 			<tr>

@@ -32,15 +32,6 @@ $(function() {
    });
 });
 
-function nokeyword() {
-	let keyword = $("#keyword").val();
-	let a = "키워드를 입력하세요"
-	if( keyword == "" || keyword == null) {
-		$("#keyword_result").html(a);
-		$("#keyword").focus();
-		
-	}
-}
 
 </script>
 <style>
@@ -200,7 +191,7 @@ function nokeyword() {
       
 <div id="main_content">
 <h2>게시판</h2>
-<form name="form1" method="post" action="/board/search.do">
+<form name="form1" id="selectForm" method="post" action="/board/search.do">
 <div class="btn-group" style="text-align: center">
 <select name="search_option" aria-expanded="false">
 <c:choose>
