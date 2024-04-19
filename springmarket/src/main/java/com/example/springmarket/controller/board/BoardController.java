@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,12 +56,14 @@ public class BoardController {
 		map.put("list", list);
 		map.put("page", page);
 		
+		
 		return new ModelAndView("board/board_list", "map", map);
 	}
 	
 	@GetMapping("board/view.do/{num}")
 	public ModelAndView view(@PathVariable(name="num")int num,
-			ModelAndView mav) {
+			ModelAndView mav, HttpSession session) {
+		boardDao.plus_hit(num, session);
 		mav.setViewName("board/board_view");
 		mav.addObject("dto", boardDao.view(num));
 		return mav;
@@ -114,5 +117,4 @@ public class BoardController {
 		
 		return "redirect:/board/view.do/" + dto.getNum();
 	}
-	
 }

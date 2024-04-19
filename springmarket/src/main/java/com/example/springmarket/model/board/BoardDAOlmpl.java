@@ -120,5 +120,4 @@ public class BoardDAOlmpl implements BoardDAO {
 	public BoardDTO view(int num) {
 		return session.selectOne("board.view", num);
 	}
-
 }

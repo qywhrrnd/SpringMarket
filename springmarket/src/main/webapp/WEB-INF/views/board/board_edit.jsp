@@ -33,15 +33,21 @@ $(function() {
          $("#content").focus();
          return;
       }
+      if(confirm("수정하시겠습니까?")) {    	  
       document.form1.action = "/board/update.do";
       document.form1.submit();
+      }else{
+    	  return false;
+      }
    });
    
    $("#btnView").click(function(){
 	   let num = $("#num").val();
-	   if(confirm("저장안되는데 할거야?")) {
+	   if(confirm("변경사항은 저장되지 않습니다. \n원래 페이지로 돌아가시겠습니까?")) {
 		   document.form1.action = "/board/back.do/" + num;
 		   document.form1.submit();
+	   }else{
+	    	  return false;
 	   }
    });
    

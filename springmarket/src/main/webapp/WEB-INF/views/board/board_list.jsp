@@ -31,6 +31,17 @@ $(function() {
       location.href = "/board/view.do/" + row
    });
 });
+
+function nokeyword() {
+	let keyword = $("#keyword").val();
+	let a = "키워드를 입력하세요"
+	if( keyword == "" || keyword == null) {
+		$("#keyword_result").html(a);
+		$("#keyword").focus();
+		
+	}
+}
+
 </script>
 <style>
 .page_wrap {
@@ -220,12 +231,10 @@ $(function() {
 </c:choose>
 </select>
 </div>
-<input name="keyword" value="${map.keyword}">
-<input type="submit" value="검색" class="btn btn-outline-gagi" id="btn_Search"> 
+<input id="keyword" name="keyword" value="${map.keyword}">
+<input type="submit" value="검색" class="btn btn-outline-gagi" id="btn_Search" onclick="nokeyword()" > 
 <button type="button" id="btnWrite" class="btn btn-outline-gagi" >게시글 작성</button>
 </form>
-
-
 <article>   
    <table class="board-list table-fixed">
       <tr align="center" style="background-color: write; ">
