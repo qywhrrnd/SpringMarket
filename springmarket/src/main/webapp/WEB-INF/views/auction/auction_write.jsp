@@ -133,13 +133,13 @@ input[type="button"]:hover {
 					<th>제목</th>
 				</tr>
 				<tr>
-					<td><input type="text" name="subject" placeholder="상품명(제목)"></td>
+					<td><input type="text" name="subject" id="subject" placeholder="상품명(제목)"></td>
 				</tr>
 				<tr>
 					<th>상품가격</th>
 				</tr>
 				<tr>
-					<td><input type="number" name="price" placeholder="상품가격"></td>
+					<td><input type="number" name="price" id="price" placeholder="상품가격"></td>
 				</tr>
 				<tr>
 					<th>상품이미지</th>
@@ -163,8 +163,7 @@ input[type="button"]:hover {
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><input type="button" value="등록"
-						onclick="auction_write()"> <input type="button" value="취소"
-						onclick="location.href='/market/at_servlet/list.do'"></td>
+						onclick="auction_write()"> </td>
 				</tr>
 			</table>
 		</form>
