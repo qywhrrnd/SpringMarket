@@ -18,6 +18,10 @@
 - 비밀번호 암호화를 진행할 때 **AES**를 이용해 복호화까지 하는 방식으로 하였지만, 암호는 복호화가 되면 안된다는 것을 깨닫고 **SHA-256**을 이용해 단방향 암호화를 진행했습니다. 또한 **SALT**값을 이용해 한층 더 단단하게 구성했습니다.
 
 
+ERD
+![스크린샷 2024-06-12 220134](https://github.com/qywhrrnd/SpringMarket/assets/66350742/fecc332e-8888-481d-9253-e2efcc50e9f6)
+
+
 메인화면
 ![메인](https://github.com/JaeGyunP/SpringMarket/assets/153086211/7a11bb59-89e2-42d9-804b-4e56218ea207)
 로그인 화면
